@@ -325,7 +325,7 @@
 
 	<section id="google_map" class="flex flex-col h-fit w-screen mt-5">
 		<div
-			class="flex flex-row flex-wrap w-full place-content-start items-start z-2 mb-2"
+			class="flex flex-row flex-wrap w-full place-content-start items-start z-2 mb-3"
 			use:inview
 			on:inview_change={(event) => {
 				const { inView } = event.detail;
