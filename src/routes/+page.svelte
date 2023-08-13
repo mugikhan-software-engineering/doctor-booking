@@ -1,6 +1,6 @@
 <script lang="ts">
 	import profile from '$lib/assets/png/dr-ahsan-ahmad.png';
-	import stethoscope from '$lib/assets/stethoscope.jpg';
+	import stethoscope from '$lib/assets/banner1-a.jpg';
 	import mapPin from '$lib/assets/svg/map-pin.svg';
 	import call from '$lib/assets/svg/call.svg';
 	import whatsappIcon from '$lib/assets/svg/whatsapp-icon.svg';
@@ -11,11 +11,13 @@
 	import { filter, Noir, NoirLight } from '@skeletonlabs/skeleton';
 
 	import { inview } from 'svelte-inview';
-	import { fly } from 'svelte/transition';
+	import { fly, fade } from 'svelte/transition';
+	import type { PageData, PageServerData } from './$types.js';
 
 	let isInViewAboutTitle: boolean;
 	let isInViewContactTitle: boolean = true;
 	let isInViewMapTitle: boolean = false;
+	let isInViewMap: boolean = false;
 	let isHoneypotChecked: boolean = false;
 	let isVisibleContactForm: boolean = false;
 
@@ -27,6 +29,7 @@
 		'https://www.google.com/maps/place/Lenmed+Ahmed+Kathrada+Private+Hospital/@-26.3277018,27.8615079,17z/data=!3m1!4b1!4m6!3m5!1s0x1e95a89c8b3e01b7:0x3c568d1f019aa946!8m2!3d-26.3277018!4d27.8640828!16s%2Fg%2F1tdv9pdd?entry=ttu';
 
 	export let form;
+	export let data: PageServerData;
 </script>
 
 <Noir />
@@ -55,7 +58,7 @@
 </section>
 
 <div class="h-fit w-screen">
-	<section id="about" class="mt-10 z-1">
+	<section id="about" class="mt-10 z-1 flex-col md:flex-row">
 		<div
 			class="flex flex-row flex-wrap w-full place-content-start items-start"
 			use:inview
@@ -74,10 +77,10 @@
 		</div>
 
 		<div class="flex flex-col md:flex-row w-full place-content-center items-start px-6 my-4">
-			<div class="flex flex-2 justify-center items-center blur-[2px]">
-				<img class="w-full rounded-md" src={stethoscope} alt="Stethoscope" use:filter={'#Noir'} />
+			<div class="flex flex-1 md:basis-1/3 justify-center items-center">
+				<img class="w-full rounded-md h-[350px]" src={stethoscope} alt="Stethoscope" />
 			</div>
-			<div class="flex flex-2 justify-center items-start md:px-5 md:mt-0 mt-2">
+			<div class="flex flex-1 md:basis-2/3 justify-center items-start md:px-5 md:mt-0 mt-2">
 				<p class="text-lg">
 					As a Urologist, Dr. Ahmad is able to assist patients with other conditions of the urinary
 					tract system, as well as male reproductive organs. These include, but are not limited to,
@@ -247,14 +250,14 @@
 								</button>
 							</div>
 
-							{#if form?.error}
+							<!-- {#if form?.error}
 								<aside class="alert variant-filled-error">
 									<div class="alert-message">
 										<h3 class="h3">Error!</h3>
 										<p>{form.description}</p>
 									</div>
 								</aside>
-							{/if}
+							{/if} -->
 						</form>
 					</div>
 				{/if}
@@ -330,6 +333,7 @@
 			on:inview_change={(event) => {
 				const { inView } = event.detail;
 				isInViewMapTitle = inView;
+				isInViewMap = inView;
 			}}
 		>
 			<svelte:component
@@ -340,15 +344,23 @@
 				isVisible={isInViewMapTitle}
 			/>
 		</div>
-		<iframe
-			title="Maps"
-			src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3575.9628699412565!2d27.861507876162566!3d-26.327701777000765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e95a89c8b3e01b7%3A0x3c568d1f019aa946!2sLenmed%20Ahmed%20Kathrada%20Private%20Hospital!5e0!3m2!1sen!2sza!4v1691874840718!5m2!1sen!2sza"
-			width="100%"
-			height="600"
-			style="border:0;"
-			allowfullscreen={true}
-			loading="lazy"
-			referrerpolicy="no-referrer-when-downgrade"
-		/>
+		{#if isInViewMap}
+			<iframe
+				title="GoogleMap"
+				src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14303.745902669874!2d27.8623423!3d-26.3285564!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e95a89cea357707%3A0x72e6d95d420b7803!2sDr%20Ahsan%20Ahmad%20-%20Urologist!5e0!3m2!1sen!2sza!4v1691963701615!5m2!1sen!2sza"
+				width="100%"
+				height="600"
+				style="border:0;"
+				allowfullscreen={true}
+				loading="lazy"
+				referrerpolicy="no-referrer-when-downgrade"
+				transition:fade={{ duration: 650 }}
+			/>
+		{/if}
 	</section>
+	{#each data.reviews as review}
+		<li>
+			<p>{JSON.stringify(review)}</p>
+		</li>
+	{/each}
 </div>
