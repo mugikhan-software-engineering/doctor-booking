@@ -6,13 +6,14 @@
 	import whatsappIcon from '$lib/assets/svg/whatsapp-icon.svg';
 
 	import floatingTitle from '$lib/components/float_in_title.svelte';
+	import reviewCard from '$lib/components/review_card.svelte';
 	import { enhance } from '$app/forms';
 
 	import { filter, Noir, NoirLight } from '@skeletonlabs/skeleton';
 
 	import { inview } from 'svelte-inview';
 	import { fly, fade } from 'svelte/transition';
-	import type { PageData, PageServerData } from './$types.js';
+	import type { ActionData, PageData, PageServerData } from './$types.js';
 
 	let isInViewAboutTitle: boolean;
 	let isInViewContactTitle: boolean = true;
@@ -21,14 +22,32 @@
 	let isHoneypotChecked: boolean = false;
 	let isVisibleContactForm: boolean = false;
 
+	let elemCarousel: HTMLDivElement;
+
 	const onChangehoneypotCheck = (event: any) => {
 		isHoneypotChecked = event.target.checked;
+	};
+
+	const carouselLeft = (): void => {
+		const x =
+			elemCarousel.scrollLeft === 0
+				? elemCarousel.clientWidth * elemCarousel.childElementCount // loop
+				: elemCarousel.scrollLeft - elemCarousel.clientWidth; // step left
+		elemCarousel.scroll(x, 0);
+	};
+
+	const carouselRight = (): void => {
+		const x =
+			elemCarousel.scrollLeft === elemCarousel.scrollWidth - elemCarousel.clientWidth
+				? 0 // loop
+				: elemCarousel.scrollLeft + elemCarousel.clientWidth; // step right
+		elemCarousel.scroll(x, 0);
 	};
 
 	const mapsLink =
 		'https://www.google.com/maps/place/Lenmed+Ahmed+Kathrada+Private+Hospital/@-26.3277018,27.8615079,17z/data=!3m1!4b1!4m6!3m5!1s0x1e95a89c8b3e01b7:0x3c568d1f019aa946!8m2!3d-26.3277018!4d27.8640828!16s%2Fg%2F1tdv9pdd?entry=ttu';
 
-	export let form;
+	export let form: any;
 	export let data: PageServerData;
 </script>
 
@@ -250,14 +269,14 @@
 								</button>
 							</div>
 
-							<!-- {#if form?.error}
+							{#if form?.error}
 								<aside class="alert variant-filled-error">
 									<div class="alert-message">
 										<h3 class="h3">Error!</h3>
 										<p>{form.description}</p>
 									</div>
 								</aside>
-							{/if} -->
+							{/if}
 						</form>
 					</div>
 				{/if}
@@ -344,23 +363,51 @@
 				isVisible={isInViewMapTitle}
 			/>
 		</div>
-		{#if isInViewMap}
-			<iframe
-				title="GoogleMap"
-				src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14303.745902669874!2d27.8623423!3d-26.3285564!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e95a89cea357707%3A0x72e6d95d420b7803!2sDr%20Ahsan%20Ahmad%20-%20Urologist!5e0!3m2!1sen!2sza!4v1691963701615!5m2!1sen!2sza"
-				width="100%"
-				height="600"
-				style="border:0;"
-				allowfullscreen={true}
-				loading="lazy"
-				referrerpolicy="no-referrer-when-downgrade"
-				transition:fade={{ duration: 650 }}
-			/>
-		{/if}
+		<iframe
+			title="GoogleMap"
+			src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14303.745902669874!2d27.8623423!3d-26.3285564!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e95a89cea357707%3A0x72e6d95d420b7803!2sDr%20Ahsan%20Ahmad%20-%20Urologist!5e0!3m2!1sen!2sza!4v1691963701615!5m2!1sen!2sza"
+			width="100%"
+			height="600"
+			style="border:0;"
+			allowfullscreen={true}
+			loading="lazy"
+			referrerpolicy="no-referrer-when-downgrade"
+		/>
 	</section>
-	{#each data.reviews as review}
-		<li>
-			<p>{JSON.stringify(review)}</p>
-		</li>
-	{/each}
+
+	<div class="md:p-4 grid grid-cols-[auto_1fr_auto] md:gap-4 items-center md:my-4 mt-5 mb-20">
+		<!-- Button: Left -->
+		<button type="button" class="btn-icon variant-ghost" on:click={carouselLeft}>
+			<svg width="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path
+					d="M15 6L9 12L15 18"
+					stroke="#000000"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				/>
+			</svg>
+		</button>
+		<!-- Full Images -->
+		<div
+			bind:this={elemCarousel}
+			class="snap-x scroll-px-4 snap-mandatory scroll-smooth flex md:gap-10 overflow-x-auto md:px-5 md:py-10"
+		>
+			{#each data.reviews as review}
+				<svelte:component this={reviewCard} yOffset={-50} {review} />
+			{/each}
+		</div>
+		<!-- Button: Right -->
+		<button type="button" class="btn-icon variant-ghost" on:click={carouselRight}>
+			<svg width="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path
+					d="M9 6L15 12L9 18"
+					stroke="#000000"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				/>
+			</svg>
+		</button>
+	</div>
 </div>
