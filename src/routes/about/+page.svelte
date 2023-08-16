@@ -2,14 +2,17 @@
 	import type { PageData } from './$types';
 	import { inview } from 'svelte-inview';
 	import { fly, fade } from 'svelte/transition';
+	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
 
 	import floatingTitle from '$lib/components/float_in_title.svelte';
 	import profile from '$lib/assets/png/dr-about.png';
 
-	import { specialiaties } from '$lib/components/specialities';
+	import { specialiaties } from '$lib/constants/specialities';
+	import { otherServices } from '$lib/constants/other_services';
 
 	let isInViewMeetTitle: boolean;
 	let isInViewSpecialitiesTitle: boolean;
+	let isInViewOtherServicesTitle: boolean;
 
 	export let data: PageData;
 </script>
@@ -101,23 +104,66 @@
 			/>
 		</div>
 
-		<div class="flex flex-col md:flex-row w-full place-content-center items-start px-6 my-4">
-			<div class="flex flex-1 md:basis-2/3 justify-center items-start md:mt-0 mt-2">
-				<div class="w-full text-token card p-4 space-y-4">
-					<dl class="list-dl">
-						{#each specialiaties as speciality, i}
-							<div>
-								<span class="badge-icon p-4 variant-soft-secondary">{i + 1}</span>
-								<span class="flex-auto">
-									<dt class="font-bold">{speciality.description}</dt>
-								</span>
-							</div>
-						{/each}
-					</dl>
-				</div>
-			</div>
+		<Accordion autocollapse>
+			<!-- <div class="w-full text-token card p-4 space-y-4 m-6 flex flex-col"> -->
+			{#each specialiaties as speciality, i}
+				<AccordionItem>
+					<svelte:fragment slot="lead"
+						><span class="badge-icon p-4 variant-soft-secondary mr-5">{i + 1}</span
+						></svelte:fragment
+					>
+					<svelte:fragment slot="summary"
+						><p class="font-bold text-base md:text-2xl">
+							{speciality.description}
+						</p></svelte:fragment
+					>
+					<svelte:fragment slot="content"
+						><p class="text-base md:text-lg opacity-50">
+							Description about speciality
+						</p></svelte:fragment
+					>
+				</AccordionItem>
+			{/each}
+			<!-- </div> -->
+		</Accordion>
+	</section>
 
-			<div class="flex flex-1 md:basis-1/3 justify-center items-start md:mt-0 mt-2" />
+	<section id="other_services" class="mt-10 z-1 flex-col md:flex-row">
+		<div
+			class="flex flex-row flex-wrap w-full place-content-start items-start"
+			use:inview
+			on:inview_change={(event) => {
+				const { inView } = event.detail;
+				isInViewOtherServicesTitle = inView;
+			}}
+		>
+			<svelte:component
+				this={floatingTitle}
+				title=""
+				subtitle="Other services we provide."
+				yOffset={-50}
+				isVisible={isInViewOtherServicesTitle}
+			/>
+		</div>
+
+		<div class="flex flex-col md:flex-row w-full px-6 my-4">
+			<div
+				class="w-full text-token card variant-filled-primary p-2 md:p-4 flex flex-col md:flex-row justify-between items-start"
+			>
+				{#each otherServices as service, i}
+					<div class="flex flex-row text-white m-4">
+						<img
+							src={service.icon}
+							alt="service"
+							class="h-[48px] w-[48px] md:h-[48px] md:w-[48px] mr-5 md:mr-8"
+						/>
+						<div class="flex flex-col">
+							<p class="font-bold text-2xl underline">{service.title}</p>
+							<p class="text-base mt-2">{service.description}</p>
+						</div>
+					</div>
+				{/each}
+			</div>
 		</div>
 	</section>
 </div>

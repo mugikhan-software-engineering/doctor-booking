@@ -2,7 +2,7 @@
 	import { fly } from 'svelte/transition';
 	import { Avatar, Ratings } from '@skeletonlabs/skeleton';
 
-	import { icons } from './icons';
+	import { icons } from '../constants/icons';
 
 	export let isVisible: boolean = true;
 	export let yOffset: number;
