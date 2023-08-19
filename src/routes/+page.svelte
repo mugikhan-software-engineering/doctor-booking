@@ -149,10 +149,7 @@
 			}}
 		>
 			<div class="flex flex-col md:flex-row w-full">
-				<div
-					class="static flex flex-1 grow flex-col bg-transparent my-2 md:px-4 z-2"
-					transition:fly={{ duration: 600, x: -500, opacity: 0 }}
-				>
+				<div class="static flex flex-1 grow flex-col bg-transparent my-2 md:px-4 z-2">
 					<form novalidate class="group" method="POST" action="?/sendEmail" use:enhance>
 						<div class="flex flex-col md:flex-row">
 							<label class="label m-5 flex-1">

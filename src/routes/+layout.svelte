@@ -76,6 +76,7 @@
 					<a href="#home" on:click|preventDefault={scrollIntoView}>Home</a>
 					<a href="#about" on:click|preventDefault={scrollIntoView}>About</a>
 					<a href="#contact" on:click|preventDefault={scrollIntoView}>Contact</a>
+					<a href="/treatments">Treatments</a>
 				</div>
 				<div class="md:hidden">
 					<button

@@ -12,13 +12,13 @@ export const otherServices = [
 	{
 		title: 'Surgical procedures',
 		description:
-			'All kinds of surgical procedures related to kidneys, ureter, bladder, prostate, testes and penis',
+			'All kinds of surgical procedures related to kidneys, ureter, bladder, prostate, testes and penis.',
 		icon: surgery
 	},
 	{
 		title: 'In-Patient Facilities',
 		description:
-			'Patients are admitted to investigate and treat all the complicated diseases of prostate, bladder, kidneys and testes',
+			'Patients are admitted to investigate and treat all the complicated diseases of prostate, bladder, kidneys and testes.',
 		icon: patientBed
 	}
 ] as const;
