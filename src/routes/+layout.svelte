@@ -73,9 +73,8 @@
 			>
 			<svelte:fragment slot="trail">
 				<div class="hidden md:flex gap-5">
-					<a href="#home" on:click|preventDefault={scrollIntoView}>Home</a>
-					<a href="#about" on:click|preventDefault={scrollIntoView}>About</a>
-					<a href="#contact" on:click|preventDefault={scrollIntoView}>Contact</a>
+					<a href="/">Home</a>
+					<a href="/about">About</a>
 					<a href="/treatments">Treatments</a>
 				</div>
 				<div class="md:hidden">

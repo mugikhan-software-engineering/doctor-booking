@@ -3,7 +3,7 @@
 	import stethoscope from '$lib/assets/banner1-a.jpg';
 	import mapPin from '$lib/assets/svg/map-pin.svg';
 	import call from '$lib/assets/svg/call.svg';
-	import whatsappIcon from '$lib/assets/svg/whatsapp-icon.svg';
+	import { ChevronsDownIcon } from 'svelte-feather-icons';
 
 	import floatingTitle from '$lib/components/float_in_title.svelte';
 	import reviewCard from '$lib/components/review_card.svelte';
@@ -23,6 +23,17 @@
 	let isVisibleContactForm: boolean = false;
 
 	let elemCarousel: HTMLDivElement;
+
+	const scrollIntoView = ({ currentTarget }: any) => {
+		const scrollToElement = document.querySelector(currentTarget.getAttribute('href'));
+
+		if (!scrollToElement) return;
+
+		scrollToElement.scrollIntoView({
+			behavior: 'smooth',
+			block: 'nearest'
+		});
+	};
 
 	const onChangehoneypotCheck = (event: any) => {
 		isHoneypotChecked = event.target.checked;
@@ -54,24 +65,62 @@
 <Noir />
 <NoirLight />
 
-<section
-	class="pb-32 relative w-screen h-screen flex flex-col md:flex-row justify-center items-center"
->
+<section class="pb-32 relative w-screen h-screen flex flex-col justify-between items-center">
 	<div
 		class="absolute w-screen h-screen top-0 left-0 bg-cover bg-center bg-no-repeat bg-fixed bg-blend-color opacity-60 blur-[1px]"
 		style="background-image:url(src/lib/assets/paralax.jpg)"
 	/>
-	<div class="sticky flex bg-transparent p-5 md:p-2 lg:flex-row flex-col items-center z-0 gap-y-8">
-		<div class="flex flex-col flex-1 justify-center items-center lg:h-full xs:mt-5 sm: mt-5">
+	<div
+		class="sticky flex bg-transparent p-5 md:p-2 lg:flex-row flex-col items-center justify-between z-0 gap-y-8 w-full"
+	>
+		<div
+			class="flex flex-col md:flex-row items-start justify-start md:justify-start md:items-start xs:mt-5 sm:mt-5 md:mt-0 basis-3/5"
+		>
 			<h4
-				class="md:text-[60px] text-[20px] leading-none xs:text-center md:px-6 md:mx-0 lg:mt-2 uppercase w-full"
+				class="lg:text-[50px] md:text-[40px] text-[30px] leading-none text-start md:mx-0 uppercase w-full"
 			>
 				A Specialist Urologist, with a focus on all kinds of prostate, kidney, bladder and
 				testicular cancers.
 			</h4>
 		</div>
-		<div class="flex flex-2 justify-center items-center lg:h-full">
-			<img class="w-full mr-2" src={profile} alt="Dr. Ahsan Ahmad" />
+		<div class="flex">
+			<img class="w-full md:w-[550px] md:h-[550px] mr-2" src={profile} alt="Dr. Ahsan Ahmad" />
+		</div>
+	</div>
+	<div
+		class="flex flex-row place-self-center justify-center items-center h-fit w-fit z-2 sticky mb-10 md:mb-0 variant-glass-secondary p-3 rounded-md"
+	>
+		<div class="flex flex-row items-center mr-4 md:mr-8">
+			<a
+				class="text-sm md:text-lg text-slate-200"
+				href="#about"
+				on:click|preventDefault={scrollIntoView}>About</a
+			>
+			<ChevronsDownIcon size="24" class="text-slate-200" />
+		</div>
+		<div class="flex flex-row items-center mr-4 md:mr-8">
+			<a
+				class="text-sm md:text-lg text-slate-200"
+				href="#contact"
+				on:click|preventDefault={scrollIntoView}>Contact</a
+			>
+			<ChevronsDownIcon size="24" class="text-slate-200" />
+		</div>
+		<div class="flex flex-row items-center mr-4 md:mr-8">
+			<a
+				class="text-sm md:text-lg text-slate-200"
+				href="#google_map"
+				on:click|preventDefault={scrollIntoView}>Location</a
+			>
+			<ChevronsDownIcon size="24" class="text-slate-200" />
+		</div>
+		<div class="flex flex-row items-center">
+			<a
+				class="text-sm md:text-lg text-slate-200"
+				href="#reviews"
+				on:click|preventDefault={scrollIntoView}>Reviews</a
+			>
+			<ChevronsDownIcon size="24" class="text-slate-200" />
 		</div>
 	</div>
 </section>
@@ -100,7 +149,7 @@
 				<img class="w-full rounded-md h-[350px]" src={stethoscope} alt="Stethoscope" />
 			</div>
 			<div class="flex flex-1 md:basis-2/3 justify-center items-start md:px-5 md:mt-0 mt-2">
-				<p class="text-lg">
+				<p class="text-lg text-token">
 					As a Urologist, Dr. Ahmad is able to assist patients with other conditions of the urinary
 					tract system, as well as male reproductive organs. These include, but are not limited to,
 					the kidneys, ureters, adrenal glands, bladder, urethra, testes and prostate.
@@ -401,4 +450,6 @@
 			</svg>
 		</button>
 	</div>
+
+	<div id="reviews" class="invisible mt:10 md:mt-20">Scroll to</div>
 </div>

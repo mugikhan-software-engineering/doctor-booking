@@ -25,17 +25,17 @@
 		style="background-image:url(src/lib/assets/about-us-header.jpg)"
 	/>
 	<div
-		class="sticky flex bg-transparent p-5 md:p-2 lg:flex-row flex-col items-center lg:justify-between z-0 gap-y-8"
+		class="sticky flex bg-transparent p-5 md:p-2 lg:flex-row flex-col items-center lg:justify-center z-0 gap-y-8 w-full"
 	>
-		<div class="flex flex-col flex-1 justify-center items-center lg:h-full xs:mt-5 sm: mt-5">
-			<h4
-				class="md:text-[60px] text-[20px] leading-none xs:text-center md:px-6 md:mx-0 lg:mt-2 uppercase w-full"
-			>
-				Meet Dr. Ahsan Ahmad
+		<div
+			class="flex flex-col md:flex-row items-center justify-center md:justify-end md:items-end lg:h-full xs:mt-5 sm:mt-5"
+		>
+			<h4 class="md:text-[50px] text-[40px] leading-none text-center md:mx-0 uppercase w-full">
+				Meet<br />Dr. Ahsan Ahmad
 			</h4>
 		</div>
-		<div class="flex flex-2 justify-center items-center lg:h-full">
-			<img class="w-full mr-2" src={profile} alt="Dr. Ahsan Ahmad" />
+		<div class="flex justify-center items-center">
+			<img class="w-full md:w-[500px] md:h-[650px] mr-2" src={profile} alt="Dr. Ahsan Ahmad" />
 		</div>
 	</div>
 </section>
@@ -88,7 +88,7 @@
 
 	<section id="specialities" class="mt-10 z-1 flex-col md:flex-row">
 		<div
-			class="flex flex-row flex-wrap w-full place-content-start items-start"
+			class="flex flex-row flex-wrap w-full place-content-start items-start mb-2"
 			use:inview
 			on:inview_change={(event) => {
 				const { inView } = event.detail;
@@ -104,28 +104,30 @@
 			/>
 		</div>
 
-		<Accordion autocollapse>
-			<!-- <div class="w-full text-token card p-4 space-y-4 m-6 flex flex-col"> -->
-			{#each specialiaties as speciality, i}
-				<AccordionItem>
-					<svelte:fragment slot="lead"
-						><span class="badge-icon p-4 variant-soft-secondary mr-5">{i + 1}</span
-						></svelte:fragment
-					>
-					<svelte:fragment slot="summary"
-						><p class="font-bold text-base md:text-2xl">
-							{speciality.description}
-						</p></svelte:fragment
-					>
-					<svelte:fragment slot="content"
-						><p class="text-base md:text-lg opacity-50">
-							Description about speciality
-						</p></svelte:fragment
-					>
-				</AccordionItem>
-			{/each}
-			<!-- </div> -->
-		</Accordion>
+		<div class="flex w-full">
+			<Accordion padding="py-2 px-2">
+				<div class="text-token space-y-2 md:space-y-4 m-1 md:m-6 flex flex-col">
+					{#each specialiaties as speciality, i}
+						<AccordionItem>
+							<svelte:fragment slot="lead"
+								><span class="badge-icon p-4 variant-soft-secondary mr-0 md:mr-5">{i + 1}</span
+								></svelte:fragment
+							>
+							<svelte:fragment slot="summary"
+								><p class="font-bold text-base md:text-2xl md:m-2">
+									{speciality.title}
+								</p></svelte:fragment
+							>
+							<svelte:fragment slot="content"
+								><p class="text-base md:text-lg opacity-80">
+									{speciality.description}
+								</p></svelte:fragment
+							>
+						</AccordionItem>
+					{/each}
+				</div>
+			</Accordion>
+		</div>
 	</section>
 
 	<section id="other_services" class="mt-10 z-1 flex-col md:flex-row">
