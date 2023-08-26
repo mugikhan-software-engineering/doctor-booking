@@ -1,7 +1,5 @@
 <script lang="ts">
-	import type { PageData } from './$types';
 	import { inview } from 'svelte-inview';
-	import { fly, fade } from 'svelte/transition';
 	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
 
 	import floatingTitle from '$lib/components/float_in_title.svelte';

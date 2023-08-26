@@ -418,41 +418,43 @@
 		/>
 	</section>
 
-	<div class="md:p-4 grid grid-cols-[auto_1fr_auto] md:gap-4 items-center md:my-4 mt-5 mb-20">
-		<!-- Button: Left -->
-		<button type="button" class="btn-icon variant-ghost" on:click={carouselLeft}>
-			<svg width="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path
-					d="M15 6L9 12L15 18"
-					stroke="#000000"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-				/>
-			</svg>
-		</button>
-		<!-- Full Images -->
-		<div
-			bind:this={elemCarousel}
-			class="snap-x scroll-px-4 snap-mandatory scroll-smooth flex md:gap-10 overflow-x-auto md:px-5 md:py-10"
-		>
-			{#each data.reviews as review}
-				<svelte:component this={reviewCard} {review} />
-			{/each}
+	{#if data.reviews}
+		<div class="md:p-4 grid grid-cols-[auto_1fr_auto] md:gap-4 items-center md:my-4 mt-5 mb-20">
+			<!-- Button: Left -->
+			<button type="button" class="btn-icon variant-ghost" on:click={carouselLeft}>
+				<svg width="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path
+						d="M15 6L9 12L15 18"
+						stroke="#000000"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					/>
+				</svg>
+			</button>
+			<!-- Full Images -->
+			<div
+				bind:this={elemCarousel}
+				class="snap-x scroll-px-4 snap-mandatory scroll-smooth flex md:gap-10 overflow-x-auto md:px-5 md:py-10"
+			>
+				{#each data.reviews as review}
+					<svelte:component this={reviewCard} {review} />
+				{/each}
+			</div>
+			<!-- Button: Right -->
+			<button type="button" class="btn-icon variant-ghost" on:click={carouselRight}>
+				<svg width="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path
+						d="M9 6L15 12L9 18"
+						stroke="#000000"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					/>
+				</svg>
+			</button>
 		</div>
-		<!-- Button: Right -->
-		<button type="button" class="btn-icon variant-ghost" on:click={carouselRight}>
-			<svg width="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path
-					d="M9 6L15 12L9 18"
-					stroke="#000000"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-				/>
-			</svg>
-		</button>
-	</div>
+	{/if}
 
 	<div id="reviews" class="invisible mt:10 md:mt-20">Scroll to</div>
 </div>
