@@ -28,6 +28,12 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::075245960512:role/GitHub
           aws-region: af-south-1
+
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v2.0
+        with:
+          envkey_PLACES_API_KEY: ${{ secrets.PLACES_API_KEY }}
+          file_name: .env
       - name: Deploy app
         run: |
           npm i
