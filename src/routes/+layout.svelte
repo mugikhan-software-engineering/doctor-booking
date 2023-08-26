@@ -40,16 +40,6 @@
 		}
 	}
 
-	const scrollIntoView = ({ currentTarget }: any) => {
-		const scrollToElement = document.querySelector(currentTarget.getAttribute('href'));
-
-		if (!scrollToElement) return;
-
-		scrollToElement.scrollIntoView({
-			behavior: 'smooth'
-		});
-	};
-
 	const popupClick: PopupSettings = {
 		// Represents the type of event that opens/closed the popup
 		event: 'click',
@@ -109,22 +99,19 @@
 							<li>
 								<a
 									class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-									href="#home"
-									on:click|preventDefault={scrollIntoView}>Home</a
+									href="/">Home</a
 								>
 							</li>
 							<li>
 								<a
 									class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-									href="#about"
-									on:click|preventDefault={scrollIntoView}>About</a
+									href="/about">About</a
 								>
 							</li>
 							<li>
 								<a
 									class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-									href="#contact"
-									on:click|preventDefault={scrollIntoView}>Contact</a
+									href="/treatments">Treatments</a
 								>
 							</li>
 						</ul>
