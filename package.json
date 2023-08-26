@@ -35,10 +35,10 @@
     "tslib": "^2.4.1",
     "typescript": "^5.0.0",
     "vite": "^4.4.2",
-    "sst": "^2.24.15",
+    "sst": "2.24.16",
     "aws-cdk-lib": "2.91.0",
     "constructs": "10.2.69",
-    "svelte-kit-sst": "^2.24.15"
+    "svelte-kit-sst": "2.24.16"
   },
   "type": "module",
   "dependencies": {
