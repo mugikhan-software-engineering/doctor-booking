@@ -1,7 +1,5 @@
 <script lang="ts">
-	import type { PageData } from './$types';
 	import { inview } from 'svelte-inview';
-	import { fly, fade } from 'svelte/transition';
 
 	import floatingTitle from '$lib/components/float_in_title.svelte';
 
@@ -147,4 +145,6 @@
 			</ul>
 		</div>
 	</div>
+
+	<div class="invisible mt:10 md:mt-20">margin bottom</div>
 </section>
