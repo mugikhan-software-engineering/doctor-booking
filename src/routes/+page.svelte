@@ -15,8 +15,8 @@
 	import { filter, Noir, NoirLight } from '@skeletonlabs/skeleton';
 
 	import { inview } from 'svelte-inview';
-	import { fly, fade } from 'svelte/transition';
-	import type { ActionData, PageData, PageServerData } from './$types.js';
+	import { fly } from 'svelte/transition';
+	import type { PageServerData } from './$types';
 
 	let isInViewAboutTitle: boolean;
 	let isInViewContactTitle: boolean = true;
