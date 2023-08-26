@@ -11,6 +11,7 @@
 	import { bladders } from '$lib/constants/bladder';
 
 	let isInViewKidneyTitle: boolean;
+	let isInViewBladderTitle: boolean;
 </script>
 
 <section
@@ -99,7 +100,7 @@
 			use:inview
 			on:inview_change={(event) => {
 				const { inView } = event.detail;
-				isInViewKidneyTitle = inView;
+				isInViewBladderTitle = inView;
 			}}
 		>
 			<svelte:component
@@ -107,7 +108,7 @@
 				title=""
 				subtitle="BLADDERS."
 				yOffset={-50}
-				isVisible={isInViewKidneyTitle}
+				isVisible={isInViewBladderTitle}
 			/>
 		</div>
 	</div>
@@ -145,6 +146,4 @@
 			</ul>
 		</div>
 	</div>
-
-	<div class="invisible mt:10 md:mt-20">margin bottom</div>
 </section>
