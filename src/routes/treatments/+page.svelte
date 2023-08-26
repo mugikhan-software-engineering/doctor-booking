@@ -5,6 +5,10 @@
 
 	import floatingTitle from '$lib/components/float_in_title.svelte';
 
+	import kidneyHome from '$lib/assets/kidney-home.jpg';
+	import kidneyHeader from '$lib/assets/kidney-header.jpg';
+	import bladderHeader from '$lib/assets/bladder-header.jpg';
+
 	import { kidneys } from '$lib/constants/kidneys';
 	import { bladders } from '$lib/constants/bladder';
 
@@ -16,7 +20,7 @@
 >
 	<div
 		class="absolute w-screen h-screen top-0 left-0 bg-cover bg-center bg-no-repeat bg-fixed bg-blend-color opacity-60 blur-[1px]"
-		style="background-image:url(src/lib/assets/kidney-home.jpg)"
+		style="background-image:url({kidneyHome})"
 	/>
 	<div
 		class="sticky flex bg-transparent p-5 md:p-2 lg:flex-row flex-col items-center lg:justify-between z-0 gap-y-8"
@@ -55,7 +59,7 @@
 
 	<div
 		class="sticky w-screen h-fit bg-cover bg-center bg-no-repeat bg-fixed bg-blend-color z-0"
-		style="background-image:url(src/lib/assets/kidney-header.jpg)"
+		style="background-image:url({kidneyHeader})"
 		use:inview
 	>
 		<div class="flex flex-row p-6">
@@ -112,7 +116,7 @@
 
 	<div
 		class="sticky w-screen h-fit bg-cover bg-center bg-no-repeat bg-fixed z-0"
-		style="background-image:url(src/lib/assets/bladder-header.jpg)"
+		style="background-image:url({bladderHeader})"
 		use:inview
 	>
 		<div class="flex flex-row p-6">

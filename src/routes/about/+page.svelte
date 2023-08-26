@@ -6,6 +6,7 @@
 
 	import floatingTitle from '$lib/components/float_in_title.svelte';
 	import profile from '$lib/assets/png/dr-about.png';
+	import aboutUsHeader from '$lib/assets/about-us-header.jpg';
 
 	import { specialiaties } from '$lib/constants/specialities';
 	import { otherServices } from '$lib/constants/other_services';
@@ -20,7 +21,7 @@
 >
 	<div
 		class="absolute w-screen h-screen top-0 left-0 bg-cover bg-center bg-no-repeat bg-fixed bg-blend-color opacity-60 blur-[1px]"
-		style="background-image:url(src/lib/assets/about-us-header.jpg)"
+		style="background-image:url({aboutUsHeader})"
 	/>
 	<div
 		class="sticky flex bg-transparent p-5 md:p-2 lg:flex-row flex-col items-center lg:justify-center z-0 gap-y-8 w-full"
