@@ -3,6 +3,9 @@
 	import stethoscope from '$lib/assets/banner1-a.jpg';
 	import mapPin from '$lib/assets/svg/map-pin.svg';
 	import call from '$lib/assets/svg/call.svg';
+	import paralax from '$lib/assets/paralax.jpg';
+	import appointmentBanner from '$lib/assets/appointment-banner.jpg';
+
 	import { ChevronsDownIcon } from 'svelte-feather-icons';
 
 	import floatingTitle from '$lib/components/float_in_title.svelte';
@@ -68,7 +71,7 @@
 <section class="pb-32 relative w-screen h-screen flex flex-col justify-between items-center">
 	<div
 		class="absolute w-screen h-screen top-0 left-0 bg-cover bg-center bg-no-repeat bg-fixed bg-blend-color opacity-60 blur-[1px]"
-		style="background-image:url(src/lib/assets/paralax.jpg)"
+		style="background-image:url({paralax})"
 	/>
 	<div
 		class="sticky flex bg-transparent p-5 md:p-2 lg:flex-row flex-col items-center justify-between z-0 gap-y-8 w-full"
@@ -190,7 +193,7 @@
 
 		<div
 			class="sticky w-screen h-fit bg-cover bg-center bg-no-repeat bg-fixed bg-blend-color z-0"
-			style="background-image:url(src/lib/assets/appointment-banner.jpg)"
+			style="background-image:url({appointmentBanner})"
 			use:inview
 			on:inview_change={(event) => {
 				const { inView } = event.detail;
