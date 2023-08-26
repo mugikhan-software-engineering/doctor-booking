@@ -5,7 +5,6 @@
 	import { icons } from '../constants/icons';
 
 	export let isVisible: boolean = true;
-	export let yOffset: number;
 	export let review: any;
 </script>
 

@@ -434,7 +434,7 @@
 			class="snap-x scroll-px-4 snap-mandatory scroll-smooth flex md:gap-10 overflow-x-auto md:px-5 md:py-10"
 		>
 			{#each data.reviews as review}
-				<svelte:component this={reviewCard} yOffset={-50} {review} />
+				<svelte:component this={reviewCard} {review} />
 			{/each}
 		</div>
 		<!-- Button: Right -->
