@@ -13,8 +13,6 @@
 	let isInViewMeetTitle: boolean;
 	let isInViewSpecialitiesTitle: boolean;
 	let isInViewOtherServicesTitle: boolean;
-
-	export let data: PageData;
 </script>
 
 <section

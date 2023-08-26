@@ -9,8 +9,6 @@
 	import { bladders } from '$lib/constants/bladder';
 
 	let isInViewKidneyTitle: boolean;
-
-	export let data: PageData;
 </script>
 
 <section
