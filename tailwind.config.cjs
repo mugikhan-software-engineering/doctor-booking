@@ -11,7 +11,11 @@ const config = {
 		)
 	],
 	theme: {
-		extend: {},
+		extend: {
+			screens:{
+				'xs': { max: '639px' }
+			}
+		},
 	},
 	plugins: [
 		require('@tailwindcss/forms'),

@@ -12,7 +12,8 @@
 	import reviewCard from '$lib/components/review_card.svelte';
 	import { enhance } from '$app/forms';
 
-	import { filter, Noir, NoirLight } from '@skeletonlabs/skeleton';
+	import { Noir, NoirLight, Drawer, drawerStore } from '@skeletonlabs/skeleton';
+	import type { DrawerSettings } from '@skeletonlabs/skeleton';
 
 	import { inview } from 'svelte-inview';
 	import { fly } from 'svelte/transition';
@@ -91,9 +92,9 @@
 		</div>
 	</div>
 	<div
-		class="flex flex-row place-self-center justify-center items-center h-fit w-fit z-2 sticky mb-10 md:mb-0 variant-glass-secondary p-3 rounded-md"
+		class="flex flex-row place-self-center justify-center items-center h-fit w-fit z-2 sticky mb-10 md:mb-0 variant-glass-secondary p-2 md:p-3 rounded-md xs:space-x-1 space-x-4 md:space-x-8"
 	>
-		<div class="flex flex-row items-center mr-4 md:mr-8">
+		<div class="flex flex-row items-center">
 			<a
 				class="text-sm md:text-lg text-slate-200"
 				href="#about"
@@ -101,7 +102,7 @@
 			>
 			<ChevronsDownIcon size="24" class="text-slate-200" />
 		</div>
-		<div class="flex flex-row items-center mr-4 md:mr-8">
+		<div class="flex flex-row items-center">
 			<a
 				class="text-sm md:text-lg text-slate-200"
 				href="#contact"
@@ -109,7 +110,7 @@
 			>
 			<ChevronsDownIcon size="24" class="text-slate-200" />
 		</div>
-		<div class="flex flex-row items-center mr-4 md:mr-8">
+		<div class="flex flex-row items-center">
 			<a
 				class="text-sm md:text-lg text-slate-200"
 				href="#google_map"
