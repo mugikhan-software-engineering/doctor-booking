@@ -60,25 +60,23 @@
 </script>
 
 <Drawer>
-	<div class="flex flex-col">
-		<div class="flex flex-row justify-between items-center p-4">
-			<h4 id="drawer-navigation-label" class="h4 text-base font-semibold text-black uppercase">
-				Menu
-			</h4>
-			<button
-				type="button"
-				data-drawer-hide="drawer-navigation"
-				aria-controls="drawer-navigation"
-				on:click={closeDrawer}
-				class="text-black bg-transparent hover:bg-black-200 hover:text-black-900 rounded-lg text-sm w-8 h-8 top-2.5 right-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white"
-			>
-				<XIcon size="24" />
-				<span class="sr-only">Close menu</span>
-			</button>
-		</div>
+	<div class="flex flex-row justify-between items-center p-4">
+		<h4 id="drawer-navigation-label" class="h4 text-base font-semibold text-black uppercase">
+			Menu
+		</h4>
+		<button
+			type="button"
+			data-drawer-hide="drawer-navigation"
+			aria-controls="drawer-navigation"
+			on:click={closeDrawer}
+			class="text-black bg-transparent hover:bg-black-200 hover:text-black-900 rounded-lg text-sm w-8 h-8 top-2.5 right-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white"
+		>
+			<XIcon size="24" />
+			<span class="sr-only">Close menu</span>
+		</button>
 	</div>
 
-	<div class="py-4 overflow-y-auto self-center">
+	<div class="flex flex-col justify-end grow py-4 overflow-y-auto self-end">
 		<ul class="font-medium flex flex-col space-y-4 pl-2">
 			<li>
 				<a
@@ -194,7 +192,7 @@
 			? 'bottom-[52px]'
 			: 'bottom-[12px]'} right-[12px] xs:bottom-[52px] sm:bottom-[27px] md:bottom-[27px] z-100"
 	>
-		<a aria-label="Chat on WhatsApp" href="https://wa.me/+27870879294">
+		<a aria-label="Chat on WhatsApp" href="https://wa.me/+27605680361">
 			<img alt="Chat on WhatsApp" src={whatsapp} />
 		</a>
 	</div>

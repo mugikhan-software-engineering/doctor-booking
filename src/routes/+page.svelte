@@ -3,10 +3,11 @@
 	import stethoscope from '$lib/assets/banner1-a.jpg';
 	import mapPin from '$lib/assets/svg/map-pin.svg';
 	import call from '$lib/assets/svg/call.svg';
+	import whatsapp from '$lib/assets/svg/whatsapp-icon.svg';
 	import paralax from '$lib/assets/paralax.jpg';
 	import appointmentBanner from '$lib/assets/appointment-banner.jpg';
 
-	import { ChevronsDownIcon } from 'svelte-feather-icons';
+	import { ChevronsDownIcon, PhoneCallIcon, MapIcon } from 'svelte-feather-icons';
 
 	import floatingTitle from '$lib/components/float_in_title.svelte';
 	import reviewCard from '$lib/components/review_card.svelte';
@@ -60,7 +61,7 @@
 	};
 
 	const mapsLink =
-		'https://www.google.com/maps/place/Lenmed+Ahmed+Kathrada+Private+Hospital/@-26.3277018,27.8615079,17z/data=!3m1!4b1!4m6!3m5!1s0x1e95a89c8b3e01b7:0x3c568d1f019aa946!8m2!3d-26.3277018!4d27.8640828!16s%2Fg%2F1tdv9pdd?entry=ttu';
+		'https://www.google.com/maps/place/Dr+Ahsan+Ahmad+-+Urologist/@-26.3285516,27.8597674,17z/data=!3m1!4b1!4m6!3m5!1s0x1e95a89cea357707:0x72e6d95d420b7803!8m2!3d-26.3285564!4d27.8623423!16s%2Fg%2F11b5yzxp5m?entry=ttu';
 
 	export let form: any;
 	export let data: PageServerData;
@@ -83,8 +84,8 @@
 			<h4
 				class="lg:text-[50px] md:text-[40px] text-[30px] leading-none text-start md:mx-0 uppercase w-full"
 			>
-				A Specialist Urologist, with a focus on all kinds of prostate, kidney, bladder and
-				testicular cancers.
+				A specialist Urologist, with a focus on all kinds of prostate, kidney, bladder, testicular
+				and penile illnesses
 			</h4>
 		</div>
 		<div class="flex">
@@ -142,7 +143,7 @@
 			<svelte:component
 				this={floatingTitle}
 				title="ABOUT"
-				subtitle="Dr. Ahsan Ahmad."
+				subtitle="Dr. Ahsan Ahmad"
 				yOffset={-50}
 				isVisible={isInViewAboutTitle}
 			/>
@@ -185,7 +186,7 @@
 				<svelte:component
 					this={floatingTitle}
 					title="GET IN TOUCH"
-					subtitle="Contact."
+					subtitle="Contact"
 					yOffset={-50}
 					isVisible={isInViewContactTitle}
 				/>
@@ -202,10 +203,12 @@
 			}}
 		>
 			<div class="flex flex-col md:flex-row w-full">
-				<div class="static flex flex-1 grow flex-col bg-transparent my-2 md:px-4 z-2">
+				<div
+					class="static flex flex-1 grow flex-col justify-center bg-transparent my-2 md:px-4 z-2"
+				>
 					<form novalidate class="group" method="POST" action="?/sendEmail" use:enhance>
-						<div class="flex flex-col md:flex-row">
-							<label class="label m-5 flex-1">
+						<div class="flex flex-col md:flex-row mb-3">
+							<label class="label px-5 flex-1 mb-3 md:mb-0">
 								<span class="text-white">Name</span>
 								<input
 									name="name"
@@ -223,7 +226,7 @@
 									Please enter your name
 								</span>
 							</label>
-							<label class="label m-5 flex-1">
+							<label class="label px-5 flex-1">
 								<span class="text-white">Email</span>
 								<input
 									name="email"
@@ -243,7 +246,7 @@
 							</label>
 						</div>
 
-						<label class="label m-5">
+						<label class="label px-5 mb-3">
 							<span class="text-white">Select your issue</span>
 							<select
 								name="issue"
@@ -264,7 +267,7 @@
 								<option value="Other">Other</option>
 							</select>
 						</label>
-						<label class="label m-5">
+						<label class="label px-5 my-3">
 							<span class="text-white">Message</span>
 							<textarea
 								class="textarea peer bg-white border border-2 border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
@@ -288,7 +291,7 @@
 							<p>Click here to confirm</p>
 						</label>
 
-						<div class="w-full flex flex-row items-center justify-center mb-5">
+						<div class="w-full flex flex-row items-center justify-center">
 							<button
 								type="submit"
 								class="btn py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-300 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
@@ -331,53 +334,61 @@
 						transition:fly={{ duration: 600, x: 500, opacity: 0 }}
 					>
 						<p class="text-sm md:text-base text-white mb-4">
-							If you'd rather make an appointment over the phone, you can do so by calling our
-							direct numbers. Our office assistant will help you confirm an appointment.
+							Prefer to book by phone? Call us directly, and our assistant will arrange your
+							appointment.
 						</p>
 
 						<div class="flex flex-row items-start justify-start mb-3">
-							<img src={mapPin} width="30px" height="30px" alt="map-pin" />
-							<a class="text-sm md:text-base text-white px-2" href={mapsLink} target="_blank">
-								Room D4, D-block, 2nd floor, Ahmed Kathrada Private Hospital, K43 Highway/Marlin
-								Avenue, Extention 8, Lenasia 1820, Johannesburg, Gauteng, South Africa
+							<div class="flex"><MapIcon size="24" class="text-white" /></div>
+							<a
+								class="text-sm md:text-base text-white px-2 hover:underline underline-offset-2"
+								href={mapsLink}
+								target="_blank"
+							>
+								Room D4, D-block, 2nd floor, Ahmed Kathrada Private Hospital, 71 Marlin Avenue,
+								Lenasia, Johannesburg, Gauteng, South Africa
 							</a>
 						</div>
 
 						<div class="flex flex-row items-center justify-start mb-3">
-							<img src={call} width="30px" height="30px" alt="call" />
-							<a class="text-sm md:text-base text-white px-2" href="tel:0118524348">
+							<div class="flex"><PhoneCallIcon size="24" class="text-white" /></div>
+							<a
+								class="text-sm md:text-base text-white px-2 hover:underline underline-offset-2"
+								href="tel:0118524348"
+							>
 								(+27) 11 852 4348
 							</a>
 						</div>
 
 						<div class="flex flex-row items-center justify-start mb-3">
-							<img src={call} width="30px" height="30px" alt="call-alt" />
-							<a class="text-sm md:text-base text-white px-2" href="tel:0118546029">
+							<div class="flex"><PhoneCallIcon size="24" class="text-white" /></div>
+							<a
+								class="text-sm md:text-base text-white px-2 hover:underline underline-offset-2"
+								href="tel:0118546029"
+							>
 								(+27) 11 854 6029
 							</a>
 						</div>
 
 						<div class="flex flex-row items-center justify-start mb-3">
-							<img src={call} width="30px" height="30px" alt="call-whatsapp" />
+							<img src={whatsapp} width="26px" height="26px" alt="call-whatsapp" />
 							<a
 								aria-label="Chat on WhatsApp"
-								href="https://wa.me/+27870879294"
-								class="text-sm md:text-base text-white px-2"
+								href="https://wa.me/+27605680361"
+								class="text-sm md:text-base text-white px-2 hover:underline underline-offset-2"
 								target="_blank"
 							>
-								(+27) 87 087 9294
+								(+27) 60 568 0361
 							</a>
 						</div>
-						<p class="text-sm md:text-base text-white px-2">
-							You can call during these working hours:
-						</p>
+						<p class="text-sm md:text-base text-white px-2">Our working hours:</p>
 
 						<ul class="list-none">
 							<li class="text-sm md:text-base text-white px-2">
-								Monday - Friday:<span class="ml-2">08:00-16:00</span>
+								Monday - Friday:<span class="ml-2">8:00 AM - 4:00 PM</span>
 							</li>
 							<li class="text-sm md:text-base text-white px-2">
-								Saturday:<span class="ml-2">08:00-13:00</span>
+								Saturday:<span class="ml-2">8:00 AM - 1:00 PM</span>
 							</li>
 							<li class="text-sm md:text-base text-white px-2">
 								Sunday:<span class="ml-2">Closed</span>
@@ -402,7 +413,7 @@
 			<svelte:component
 				this={floatingTitle}
 				title="WHERE CAN YOU FIND US"
-				subtitle="Location."
+				subtitle="Location"
 				yOffset={-50}
 				isVisible={isInViewMapTitle}
 			/>
