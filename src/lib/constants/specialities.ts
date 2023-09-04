@@ -49,11 +49,16 @@ export const specialiaties = [
 	{
 		title: 'Blood in urine (Haematuria)',
 		description:
-			' It is a worrisome problem which has got no of underlying causes our practice ensures that we make a correct diagnosis of this condition and treat it accordingly.'
+			' It is a worrisome problem which has got a number of underlying causes our practice ensures that we make a correct diagnosis of this condition and treat it accordingly.'
 	},
 	{
 		title: 'Undecended testis',
 		description:
 			'Our practice deals with common congenital condition of children for their testis being absent or not present in its normal place of scrotum.'
+	},
+	{
+		title: 'Hernias & Hydroceles',
+		description:
+			'Our practice also specializes in addressing hernias and hydroceles in both adults and children. We offer treatments using open and laparoscopic methods. '
 	}
 ] as const;

@@ -22,7 +22,7 @@
 		style="background-image:url({aboutUsHeader})"
 	/>
 	<div
-		class="sticky flex bg-transparent p-5 md:p-2 lg:flex-row flex-col items-center lg:justify-center z-0 gap-y-8 w-full"
+		class="sticky flex bg-transparent p-5 md:p-2 lg:flex-row flex-col items-center lg:justify-center z-0 gap-y-8 gap-x-8 w-full"
 	>
 		<div
 			class="flex flex-col md:flex-row items-center justify-center md:justify-end md:items-end lg:h-full xs:mt-5 sm:mt-5"
@@ -31,8 +31,8 @@
 				Meet<br />Dr. Ahsan Ahmad
 			</h4>
 		</div>
-		<div class="flex justify-center items-center">
-			<img class="w-full md:w-[500px] md:h-[650px] mr-2" src={profile} alt="Dr. Ahsan Ahmad" />
+		<div class="flex justify-center items-center lg:items-end">
+			<img class="w-full md:w-[500px] md:h-[650px]" src={profile} alt="Dr. Ahsan Ahmad" />
 		</div>
 	</div>
 </section>
@@ -49,7 +49,7 @@
 		>
 			<svelte:component
 				this={floatingTitle}
-				title="MEET"
+				title="GET TO KNOW"
 				subtitle="Dr. Ahsan Ahmad"
 				yOffset={-50}
 				isVisible={isInViewMeetTitle}
@@ -94,8 +94,8 @@
 		>
 			<svelte:component
 				this={floatingTitle}
-				title=""
-				subtitle="Specialising in"
+				title="SPECIALITIES"
+				subtitle="We specialise in the following"
 				yOffset={-50}
 				isVisible={isInViewSpecialitiesTitle}
 			/>
@@ -138,8 +138,8 @@
 		>
 			<svelte:component
 				this={floatingTitle}
-				title=""
-				subtitle="Other services we provide."
+				title="WHAT ELSE?"
+				subtitle="Other services we provide"
 				yOffset={-50}
 				isVisible={isInViewOtherServicesTitle}
 			/>
