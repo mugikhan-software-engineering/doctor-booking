@@ -12,7 +12,7 @@ const config = {
 	],
 	theme: {
 		extend: {
-			screens:{
+			screens: {
 				'xs': { max: '639px' }
 			}
 		},
