@@ -7,8 +7,5 @@ export const testiculars = [
 	},
 	{
 		title: 'Torsion of the testes (blockage of blood supply to the testes)'
-	},
-	{
-		title: 'Water around the testes'
 	}
 ] as const;

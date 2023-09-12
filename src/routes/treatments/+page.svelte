@@ -193,10 +193,9 @@
 					<div class="p-6 flex flex-col gap-y-1">
 						<p class="text-black">
 							The male sexual dysfunction is the most common problem among males in our society
-							arising from various diseases including high blood pressure, diabetes, high blood
-							pressure treatment, smoking, high cholesterol, prostate cancer and enlargements,
-							testosterone deficiency, heart and vascular diseases (some psychological elements are
-							also responsible for this problem).
+							arising from various diseases including high blood pressure, diabetes, smoking, high
+							cholesterol, prostate cancer and enlargements, testosterone deficiency, heart and
+							vascular diseases (some psychological elements are also responsible for this problem).
 						</p>
 					</div>
 				</div>

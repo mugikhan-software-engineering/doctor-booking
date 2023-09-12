@@ -3,7 +3,7 @@ export const specialiaties = [
 		title:
 			'All kinds of Kidney, Prostate, Bladder, Testicular and Penile diseases and their cancers',
 		description:
-			'Our medical team specializes in diagnosing, managing, and treating a comprehensive range of diseases associated with the kidneys, prostate, bladder, testicles, and penis. From benign(non-cancerous conditions) to malignancies (cancerous conditions) our practice ensures that patients receive top-notch care throughout their journey.'
+			'Our medical team specializes in diagnosing, managing, and treating a comprehensive range of diseases associated with the kidneys, prostate, bladder, testicles, and penis. From benign (non-cancerous conditions) to malignancies (cancerous conditions) our practice ensures that patients receive top-notch care throughout their journey.'
 	},
 	{
 		title: 'Stone Diseases in Kidney, Bladder and Ureter',
@@ -29,7 +29,7 @@ export const specialiaties = [
 	{
 		title: 'Prostate enlargement and Prostate screening',
 		description:
-			'A proactive approach to prostate health can prevent complications. We provide screenings for early detection of prostate issues and expert care for conditions like prostate enlargement, prostate cancer,ensuring men maintain their well-being.'
+			'A proactive approach to prostate health can prevent complications. We provide screenings for early detection of prostate issues and expert care for conditions like prostate enlargement, prostate cancer, ensuring men maintain their well-being.'
 	},
 	{
 		title: 'Laser TURP - Prostate Laser Surgery',

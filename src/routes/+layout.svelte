@@ -182,10 +182,12 @@
 		<div class="flex flex-col md:flex-row justify-center items-center pl-2 md:pl-0 bg-white">
 			<p class="text-md">
 				Copyright © {currentYear} Dr. Ahsan Ahmad. All Rights Reserved. Website by&nbsp;
-				<a href="https://mugikhan.com/" target="_blank">Mugi Khan</a>
+				<a href="https://mugikhan.com/" target="_blank" class="hover:underline underline-offset-2"
+					>Mugi Khan</a
+				>
 			</p>
-		</div></svelte:fragment
-	>
+		</div>
+	</svelte:fragment>
 
 	<div
 		class="absolute {scrolledToBottom
