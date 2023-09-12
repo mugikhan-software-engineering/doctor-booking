@@ -18,21 +18,21 @@
 	class="pb-32 relative w-screen h-screen flex flex-col md:flex-row justify-center items-center"
 >
 	<div
-		class="absolute w-screen h-screen top-0 left-0 bg-cover bg-center bg-no-repeat bg-fixed bg-blend-color opacity-60 blur-[1px]"
+		class="absolute w-screen h-screen top-0 left-0 bg-cover bg-center bg-no-repeat bg-fixed bg-blend-color opacity-80 blur-[1px]"
 		style="background-image:url({aboutUsHeader})"
 	/>
 	<div
-		class="sticky flex bg-transparent p-5 md:p-2 lg:flex-row flex-col items-center lg:justify-center z-0 gap-y-8 gap-x-8 w-full"
+		class="sticky flex bg-transparent p-5 lg:flex-row flex-col items-center justify-between z-0 gap-y-8"
 	>
 		<div
-			class="flex flex-col md:flex-row items-center justify-center md:justify-end md:items-end lg:h-full xs:mt-5 sm:mt-5"
+			class="flex flex-col md:flex-row items-center justify-start md:justify-start md:items-center xs:mt-5 sm:mt-5 md:mt-0 basis-3/5 text-start"
 		>
-			<h4 class="md:text-[50px] text-[40px] leading-none text-center md:mx-0 uppercase w-full">
-				Meet<br />Dr. Ahsan Ahmad
+			<h4 class="lg:text-[50px] md:text-[40px] text-[30px] leading-none md:mx-0 w-full uppercase">
+				Get to know more about Dr Ahsan Ahmad.
 			</h4>
 		</div>
-		<div class="flex justify-center items-center lg:items-end">
-			<img class="w-full md:w-[500px] md:h-[650px]" src={profile} alt="Dr. Ahsan Ahmad" />
+		<div class="flex">
+			<img class="w-full mr-2" src={profile} alt="Dr. Ahsan Ahmad" />
 		</div>
 	</div>
 </section>
@@ -49,7 +49,7 @@
 		>
 			<svelte:component
 				this={floatingTitle}
-				title="GET TO KNOW"
+				title="ABOUT"
 				subtitle="Dr. Ahsan Ahmad"
 				yOffset={-50}
 				isVisible={isInViewMeetTitle}

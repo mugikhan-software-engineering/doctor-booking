@@ -9,6 +9,7 @@ export const infertilities = [
 		title: 'Swollen veins in the scrotum (Varicoceles)'
 	},
 	{
-		title: 'Damage related to cancer and its treatment'
+		title:
+			'Damage from physical trauma, surgery, or cancer treatment can impair your production of sperm.'
 	}
 ] as const;
