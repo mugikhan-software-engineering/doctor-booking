@@ -1,6 +1,6 @@
 <script lang="ts">
 	import profile from '$lib/assets/png/dr-ahsan-ahmad.png';
-	import stethoscope from '$lib/assets/banner1-a.jpg';
+	import stethoscope from '$lib/assets/doctor-stetho.jpg';
 	import mapPin from '$lib/assets/svg/map-pin.svg';
 	import call from '$lib/assets/svg/call.svg';
 	import whatsapp from '$lib/assets/svg/whatsapp-icon.svg';
@@ -26,6 +26,7 @@
 	let isInViewMap: boolean = false;
 	let isHoneypotChecked: boolean = false;
 	let isVisibleContactForm: boolean = false;
+	let isInViewReviewTitle: boolean = false;
 
 	let elemCarousel: HTMLDivElement;
 
@@ -76,7 +77,7 @@
 		style="background-image:url({paralax})"
 	/>
 	<div
-		class="sticky flex bg-transparent p-5 md:p-2 lg:flex-row flex-col items-center justify-between z-0 gap-y-8 w-full"
+		class="sticky flex bg-transparent p-5 lg:flex-row flex-col items-center justify-between z-0 gap-y-8 w-full"
 	>
 		<div
 			class="flex flex-col md:flex-row items-start justify-start md:justify-start md:items-start xs:mt-5 sm:mt-5 md:mt-0 basis-3/5"
@@ -84,8 +85,7 @@
 			<h4
 				class="lg:text-[50px] md:text-[40px] text-[30px] leading-none text-start md:mx-0 uppercase w-full"
 			>
-				A specialist Urologist, with a focus on all kinds of prostate, kidney, bladder, testicular
-				and penile illnesses
+				Expert Urologist Specializing in Kidney, Bladder, Testicular, and Penile Disorders
 			</h4>
 		</div>
 		<div class="flex">
@@ -149,23 +149,26 @@
 			/>
 		</div>
 
-		<div class="flex flex-col md:flex-row w-full place-content-center items-start px-6 my-4">
-			<div class="flex flex-1 md:basis-1/3 justify-center items-center">
-				<img class="w-full rounded-md h-[350px]" src={stethoscope} alt="Stethoscope" />
+		<div
+			class="flex flex-col md:flex-row w-full place-content-center items-start px-6 my-4 md:gap-y-4 gap-y-4"
+		>
+			<div class="flex md:basis-3/12 justify-center items-center">
+				<img class="rounded-md aspect-square drop-shadow-md" src={stethoscope} alt="Stethoscope" />
 			</div>
-			<div class="flex flex-1 md:basis-2/3 justify-center items-start md:px-5 md:mt-0 mt-2">
+			<div class="flex md:basis-9/12 justify-center items-start md:pl-5">
 				<p class="text-lg text-token">
-					As a Urologist, Dr. Ahmad is able to assist patients with other conditions of the urinary
-					tract system, as well as male reproductive organs. These include, but are not limited to,
-					the kidneys, ureters, adrenal glands, bladder, urethra, testes and prostate.
+					Dr. Ahmad is a dedicated Urologist, specializing in the health of the urinary system and
+					male reproductive organs. If you have concerns related to your kidneys, bladder, prostate,
+					or other related organs, he's here to help!
 					<br />
 					<br />
-					He attended the University of Witwatersrand, where he received his post-graduation specialist
-					Urological degree in 2005 through The College of Medicine South Africa and since then he is
-					practicing both in the Private and Public sector.
+					Educated at the renowned University of Witwatersrand, Dr. Ahmad earned his advanced Urology
+					degree in 2005 from The College of Medicine South Africa. With years of experience in both
+					private and public healthcare sectors, he ensures the best care for his patients.
 					<br />
 					<br />
-					Dr. Ahsan is based in Lenasia, Johannesburg, South Africa.
+					Located conveniently in Lenasia, Johannesburg, Dr. Ahmad is ready to assist you. Reach out
+					today to book an appointment!
 				</p>
 			</div>
 		</div>
@@ -424,13 +427,29 @@
 			width="100%"
 			height="600"
 			style="border:0;"
-			allowfullscreen={true}
+			allow="fullscreen"
 			loading="lazy"
 			referrerpolicy="no-referrer-when-downgrade"
 		/>
 	</section>
 
 	{#if data.reviews}
+		<div
+			class="mt-5"
+			use:inview
+			on:inview_change={(event) => {
+				const { inView } = event.detail;
+				isInViewReviewTitle = inView;
+			}}
+		>
+			<svelte:component
+				this={floatingTitle}
+				title="WHAT OUR PATIENTS ARE SAYING"
+				subtitle="Reviews"
+				yOffset={-50}
+				isVisible={isInViewReviewTitle}
+			/>
+		</div>
 		<div class="md:p-4 grid grid-cols-[auto_1fr_auto] md:gap-4 items-center md:my-4 mt-5 mb-20">
 			<!-- Button: Left -->
 			<button type="button" class="btn-icon variant-ghost" on:click={carouselLeft}>

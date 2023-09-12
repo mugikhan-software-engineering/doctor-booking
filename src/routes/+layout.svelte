@@ -45,7 +45,7 @@
 		// Provide your property overrides:
 		bgDrawer: '!bg-slate-100',
 		bgBackdrop: '!variant-soft',
-		width: 'xs:w-[calc(100%-100px)] sm:w-[calc(100%-150px)] md:w-[480px]',
+		width: 'xs:w-[calc(100%-20px)] sm:w-[calc(100%-20px)] md:w-[480px]',
 		padding: 'pr-4',
 		rounded: 'rounded-lg'
 	};
@@ -60,46 +60,47 @@
 </script>
 
 <Drawer>
-	<div class="flex flex-row justify-between items-center p-4">
-		<h4 id="drawer-navigation-label" class="h4 text-base font-semibold text-black uppercase">
-			Menu
-		</h4>
+	<div class="flex flex-row justify-end items-center p-8">
 		<button
 			type="button"
 			data-drawer-hide="drawer-navigation"
 			aria-controls="drawer-navigation"
 			on:click={closeDrawer}
-			class="text-black bg-transparent hover:bg-black-200 hover:text-black-900 rounded-lg text-sm w-8 h-8 top-2.5 right-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white"
+			class="btn-icon variant-ringed-primary text-black"
 		>
-			<XIcon size="24" />
+			<XIcon
+				size="32"
+				class="dark:hover:bg-gray-600 dark:hover:text-white hover:bg-black-200 hover:text-slate-500"
+			/>
 			<span class="sr-only">Close menu</span>
 		</button>
 	</div>
-
-	<div class="flex flex-col justify-end grow py-4 overflow-y-auto self-end">
-		<ul class="font-medium flex flex-col space-y-4 pl-2">
-			<li>
-				<a
-					on:click={closeDrawer}
-					class="flex flex-row items-center px-4 text-lg py-2 block text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-					href="/"><HomeIcon size="24" class="text-black mr-4" />Home</a
-				>
-			</li>
-			<li>
-				<a
-					on:click={closeDrawer}
-					class="flex flex-row items-center px-4 text-lg block py-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-					href="/about"><BookOpenIcon size="24" class="text-black mr-4" />About</a
-				>
-			</li>
-			<li>
-				<a
-					on:click={closeDrawer}
-					class="flex flex-row items-center px-4 text-lg block py-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-					href="/treatments"><UserIcon size="24" class="text-black mr-4" />Treatments</a
-				>
-			</li>
-		</ul>
+	<div class="block absolute bottom-8 w-[calc(100%-40px)]">
+		<div class="flex flex-col justify-end grow py-4 overflow-y-auto self-end">
+			<ul class="font-medium flex flex-col space-y-12 pl-1 w-full">
+				<li>
+					<a
+						on:click={closeDrawer}
+						class="flex flex-row items-center px-4 text-2xl block text-gray-900 rounded hover:bg-slate-50 hover:text-slate-500 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+						href="/"><HomeIcon size="32" class="text-black mr-4" />Home</a
+					>
+				</li>
+				<li>
+					<a
+						on:click={closeDrawer}
+						class="flex flex-row items-center px-4 text-2xl block text-gray-900 rounded hover:bg-slate-50 hover:text-slate-500 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+						href="/about"><BookOpenIcon size="32" class="text-black mr-4" />About</a
+					>
+				</li>
+				<li>
+					<a
+						on:click={closeDrawer}
+						class="flex flex-row items-center px-4 text-2xl block text-gray-900 rounded hover:bg-slate-50 hover:text-slate-500 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+						href="/treatments"><UserIcon size="32" class="text-black mr-4" />Treatments</a
+					>
+				</li>
+			</ul>
+		</div>
 	</div>
 </Drawer>
 
@@ -112,11 +113,9 @@
 			class="!bg-secondary-100-800-token"
 		>
 			<svelte:fragment slot="lead"
-				><img
-					alt="The project logo"
-					class="h-auto max-w-none md:max-w-full"
-					src={logo}
-				/></svelte:fragment
+				><a href="/"
+					><img alt="The project logo" class="h-auto max-w-none md:max-w-full" src={logo} /></a
+				></svelte:fragment
 			>
 			<svelte:fragment slot="trail">
 				<div class="hidden md:flex gap-5">
@@ -149,30 +148,6 @@
 							/>
 						</svg></button
 					>
-					<div class="block" data-popup="popupClick">
-						<ul
-							class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
-						>
-							<li>
-								<a
-									class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-									href="/">Home</a
-								>
-							</li>
-							<li>
-								<a
-									class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-									href="/about">About</a
-								>
-							</li>
-							<li>
-								<a
-									class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-									href="/treatments">Treatments</a
-								>
-							</li>
-						</ul>
-					</div>
 				</div>
 			</svelte:fragment>
 		</AppBar>
@@ -182,10 +157,12 @@
 		<div class="flex flex-col md:flex-row justify-center items-center pl-2 md:pl-0 bg-white">
 			<p class="text-md">
 				Copyright © {currentYear} Dr. Ahsan Ahmad. All Rights Reserved. Website by&nbsp;
-				<a href="https://mugikhan.com/" target="_blank">Mugi Khan</a>
+				<a href="https://mugikhan.com/" target="_blank" class="hover:underline underline-offset-2"
+					>Mugi Khan</a
+				>
 			</p>
-		</div></svelte:fragment
-	>
+		</div>
+	</svelte:fragment>
 
 	<div
 		class="absolute {scrolledToBottom

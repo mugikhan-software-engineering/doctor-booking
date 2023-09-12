@@ -35,11 +35,11 @@
 	<div
 		class="sticky flex bg-transparent p-5 md:p-2 lg:flex-row flex-col items-center lg:justify-between z-0 gap-y-8"
 	>
-		<div class="flex flex-col flex-1 justify-center items-center lg:h-full xs:mt-5 sm: mt-5">
+		<div class="flex flex-col flex-1 justify-center items-center lg:h-full">
 			<h4
-				class="md:text-[60px] text-[32px] leading-none xs:text-center md:px-6 md:mx-0 lg:mt-2 uppercase w-full"
+				class="md:text-[60px] text-[32px] leading-none text-center md:px-6 md:mx-0 uppercase w-full"
 			>
-				Common Diseases
+				Common Diseases & Treatments
 			</h4>
 		</div>
 	</div>
@@ -193,10 +193,12 @@
 					<div class="p-6 flex flex-col gap-y-1">
 						<p class="text-black">
 							The male sexual dysfunction is the most common problem among males in our society
-							arising from various diseases including high blood pressure, diabetes, high blood
-							pressure treatment, smoking, high cholesterol, prostate cancer and enlargements,
-							testosterone deficiency, heart and vascular diseases (some psychological elements are
-							also responsible for this problem).
+							arising from various diseases including high blood pressure, diabetes, smoking, high
+							cholesterol, prostate cancer and enlargements, testosterone deficiency, heart and
+							vascular diseases (some psychological elements are also responsible for this problem).<br
+							/>
+							We strongly recommend you exercise moderately and maintain a healthy diet. This will not
+							only improve your overall health but also improve your sexual health.
 						</p>
 					</div>
 				</div>
