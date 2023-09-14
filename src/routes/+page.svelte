@@ -13,8 +13,8 @@
 	import reviewCard from '$lib/components/review_card.svelte';
 	import { enhance } from '$app/forms';
 
-	import { Noir, NoirLight, Drawer, drawerStore } from '@skeletonlabs/skeleton';
-	import type { DrawerSettings } from '@skeletonlabs/skeleton';
+	import { Noir, NoirLight, Drawer, getDrawerStore } from '@skeletonlabs/skeleton';
+	import type { DrawerSettings, DrawerStore } from '@skeletonlabs/skeleton';
 
 	import { inview } from 'svelte-inview';
 	import { fly } from 'svelte/transition';

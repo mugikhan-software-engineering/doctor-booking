@@ -1,10 +1,4 @@
 <script lang="ts">
-	// Your selected Skeleton theme:
-	import '../theme.postcss';
-
-	// This contains the bulk of Skeletons required styles:
-	import '@skeletonlabs/skeleton/styles/skeleton.css';
-
 	// Finally, your application's global stylesheet (sometimes labeled 'app.css')
 	import '../app.postcss';
 	import { onMount } from 'svelte';
@@ -13,9 +7,9 @@
 	import logo from '$lib/assets/svg/logo.svg';
 	import whatsapp from '$lib/assets/svg/whatsapp.svg';
 
-	import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
+	import { Drawer, getDrawerStore, initializeStores } from '@skeletonlabs/skeleton';
 
-	import type { DrawerSettings } from '@skeletonlabs/skeleton';
+	import type { DrawerSettings, DrawerStore } from '@skeletonlabs/skeleton';
 
 	import type { ComponentEvents } from 'svelte';
 
@@ -23,6 +17,10 @@
 
 	let currentYear: String = '2023';
 	let scrolledToBottom: boolean = false;
+
+	initializeStores();
+
+	const drawerStore = getDrawerStore();
 
 	onMount(() => {
 		const d: Date = new Date();

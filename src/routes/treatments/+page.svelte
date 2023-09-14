@@ -1,11 +1,5 @@
 <script lang="ts">
-	import { inview } from 'svelte-inview';
-
-	import floatingTitle from '$lib/components/float_in_title.svelte';
-
-	import kidneyHome from '$lib/assets/kidney-home.jpg';
-	import kidneyHeader from '$lib/assets/kidney-header.jpg';
-	import bladderHeader from '$lib/assets/bladder-header.jpg';
+	import kidneyHome from '$lib/assets/banner2.jpg';
 	import kidneysIcon from '$lib/assets/png/kidney.png';
 	import bladderIcon from '$lib/assets/png/bladder.png';
 	import prostateIcon from '$lib/assets/png/prostate.png';
@@ -18,11 +12,6 @@
 	import { prostates } from '$lib/constants/prostate';
 	import { testiculars } from '$lib/constants/testicular';
 	import { infertilities } from '$lib/constants/infertility';
-
-	import { Avatar } from '@skeletonlabs/skeleton';
-
-	let isInViewKidneyTitle: boolean;
-	let isInViewBladderTitle: boolean;
 </script>
 
 <section

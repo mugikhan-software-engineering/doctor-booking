@@ -5,6 +5,7 @@
 	import floatingTitle from '$lib/components/float_in_title.svelte';
 	import profile from '$lib/assets/png/dr-about.png';
 	import aboutUsHeader from '$lib/assets/about-us-header.jpg';
+	import medicalDoctor from '$lib/assets/png/medical.png';
 
 	import { specialiaties } from '$lib/constants/specialities';
 	import { otherServices } from '$lib/constants/other_services';
@@ -22,13 +23,13 @@
 		style="background-image:url({aboutUsHeader})"
 	/>
 	<div
-		class="sticky flex bg-transparent p-5 lg:flex-row flex-col items-center justify-between z-0 gap-y-8"
+		class="sticky flex bg-transparent p-5 lg:flex-row flex-col items-center md:justify-center justify-between z-0 gap-y-8"
 	>
 		<div
 			class="flex flex-col md:flex-row items-center justify-start md:justify-start md:items-center xs:mt-5 sm:mt-5 md:mt-0 basis-3/5 text-start"
 		>
 			<h4 class="lg:text-[50px] md:text-[40px] text-[30px] leading-none md:mx-0 w-full uppercase">
-				Get to know more about Dr Ahsan Ahmad.
+				Get to know more about Dr. Ahsan Ahmad
 			</h4>
 		</div>
 		<div class="flex">
@@ -57,7 +58,7 @@
 		</div>
 
 		<div class="flex flex-col md:flex-row w-full place-content-center items-start px-6 my-4">
-			<div class="flex flex-1 md:basis-2/3 justify-center items-start md:mt-0 mt-2">
+			<div class="flex flex-1 md:basis-9/12 justify-center items-start md:mt-0 mt-2">
 				<p class="text-lg">
 					As a Urologist, Dr Ahmad is able to assist patients with conditions of the urinary tract
 					system, as well as male reproductive organs. These include, but are not limited to, the
@@ -79,7 +80,13 @@
 				</p>
 			</div>
 
-			<div class="flex flex-1 md:basis-1/3 justify-center items-start md:mt-0 mt-2" />
+			<div class="md:basis-3/12 justify-center items-center hidden md:flex">
+				<img
+					class="rounded-md aspect-square drop-shadow-md"
+					src={medicalDoctor}
+					alt="Medical Doctor"
+				/>
+			</div>
 		</div>
 	</section>
 

@@ -1,3 +1,9 @@
+/* Write your global styles here, in PostCSS syntax */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
 @font-face {
 	font-family: 'Montserrat';
 	src: url('/fonts/Montserrat-VariableFont_wght.ttf');
@@ -7,7 +13,7 @@ body {
 	@apply h-full overflow-hidden;
 }
 
-:root {
+:root [data-theme='doctor-theme'] {
 	--theme-font-family-base: 'Montserrat', sans-serif;
 	--theme-font-family-heading: 'Montserrat', sans-serif;
 }
