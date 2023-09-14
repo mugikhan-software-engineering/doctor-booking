@@ -1,9 +1,6 @@
 <script lang="ts">
 	import profile from '$lib/assets/png/dr-ahsan-ahmad.png';
 	import stethoscope from '$lib/assets/doctor-stetho.jpg';
-	import mapPin from '$lib/assets/svg/map-pin.svg';
-	import call from '$lib/assets/svg/call.svg';
-	import whatsapp from '$lib/assets/svg/whatsapp-icon.svg';
 	import paralax from '$lib/assets/paralax.jpg';
 	import appointmentBanner from '$lib/assets/appointment-banner.jpg';
 
@@ -333,18 +330,18 @@
 
 				{#if isVisibleContactForm}
 					<div
-						class="card p-2 mx-4 md:mr-4 my-2 flex flex-col grow-0 flex-none basis-1/4 shrink variant-glass-primary"
+						class="card py-2 pr-2 pl-4 mx-4 md:mr-4 my-2 gap-y-5 flex flex-col grow-0 flex-none basis-1/4 shrink variant-glass-primary"
 						transition:fly={{ duration: 600, x: 500, opacity: 0 }}
 					>
-						<p class="text-sm md:text-base text-white mb-4">
+						<p class="text-base md:text-lg text-white">
 							Prefer to book by phone? Call us directly, and our assistant will arrange your
 							appointment.
 						</p>
 
-						<div class="flex flex-row items-start justify-start mb-3">
+						<div class="flex flex-row items-start justify-start">
 							<div class="flex"><MapIcon size="24" class="text-white" /></div>
 							<a
-								class="text-sm md:text-base text-white px-2 hover:underline underline-offset-2"
+								class="text-sm md:text-base text-white hover:underline underline-offset-2 px-2"
 								href={mapsLink}
 								target="_blank"
 							>
@@ -353,50 +350,87 @@
 							</a>
 						</div>
 
-						<div class="flex flex-row items-center justify-start mb-3">
-							<div class="flex"><PhoneCallIcon size="24" class="text-white" /></div>
-							<a
-								class="text-sm md:text-base text-white px-2 hover:underline underline-offset-2"
-								href="tel:0118524348"
-							>
-								(+27) 11 852 4348
-							</a>
+						<div class="flex flex-row flex-wrap items-center justify-start gap-y-4 gap-x-8">
+							<div class="flex">
+								<PhoneCallIcon size="24" class="text-white" />
+								<a
+									class="text-sm md:text-base text-white hover:underline underline-offset-2 px-2"
+									href="tel:0118524348"
+								>
+									(+27) 11 852 4348
+								</a>
+							</div>
+							<div class="flex">
+								<PhoneCallIcon size="24" class="text-white" />
+								<a
+									class="text-sm md:text-base text-white hover:underline underline-offset-2 px-2"
+									href="tel:0870879294"
+								>
+									(+27) 87 087 9294
+								</a>
+							</div>
 						</div>
 
-						<div class="flex flex-row items-center justify-start mb-3">
-							<div class="flex"><PhoneCallIcon size="24" class="text-white" /></div>
-							<a
-								class="text-sm md:text-base text-white px-2 hover:underline underline-offset-2"
-								href="tel:0118546029"
-							>
-								(+27) 11 854 6029
-							</a>
+						<div class="flex flex-row flex-wrap items-center justify-start gap-y-4 gap-x-8">
+							<div class="flex">
+								<PhoneCallIcon size="24" class="text-white" />
+								<a
+									class="text-sm md:text-base text-white hover:underline underline-offset-2 px-2"
+									href="tel:0118546029"
+								>
+									(+27) 11 854 6029
+								</a>
+							</div>
+							<div class="flex flex-row items-center justify-start">
+								<svg
+									width="26px"
+									height="26px"
+									viewBox="0 0 48 48"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<g id="Layer_2" data-name="Layer 2">
+										<g id="invisible_box" data-name="invisible box">
+											<rect width="48" height="48" fill="none" />
+										</g>
+										<g id="Icons">
+											<g>
+												<path
+													d="M38.9,8.1A20.9,20.9,0,0,0,3.2,22.8,19.8,19.8,0,0,0,6,33.2L3,44l11.1-2.9a20.3,20.3,0,0,0,10,2.5A20.8,20.8,0,0,0,38.9,8.1Zm-14.8,32a17.1,17.1,0,0,1-9.5-2.8L8,39.1l1.8-6.4a17.9,17.9,0,0,1-3.1-9.9A17.4,17.4,0,1,1,24.1,40.1Z"
+													fill="#fff"
+												/>
+												<path
+													d="M33.6,27.2A29.2,29.2,0,0,0,30,25.5c-.4-.2-.8-.3-1.1.2s-1.4,1.7-1.7,2.1a.8.8,0,0,1-1.1.1,15.2,15.2,0,0,1-4.2-2.6A15,15,0,0,1,19,21.7a.7.7,0,0,1,.2-1l.8-1a3.5,3.5,0,0,0,.5-.8.9.9,0,0,0,0-.9c-.2-.3-1.2-2.8-1.6-3.9s-.9-.9-1.2-.9h-1a1.7,1.7,0,0,0-1.4.7,5.5,5.5,0,0,0-1.8,4.3,10.4,10.4,0,0,0,2.1,5.4c.3.3,3.7,5.6,8.9,7.8a16.4,16.4,0,0,0,3,1.1,6.4,6.4,0,0,0,3.3.2c1-.1,3.1-1.2,3.5-2.4s.5-2.3.3-2.5A2.1,2.1,0,0,0,33.6,27.2Z"
+													fill="#fff"
+												/>
+											</g>
+										</g>
+									</g>
+								</svg>
+								<a
+									aria-label="Chat on WhatsApp"
+									href="https://wa.me/+27605680361"
+									class="text-sm md:text-base text-white hover:underline underline-offset-2 px-2"
+									target="_blank"
+								>
+									(+27) 60 568 0361
+								</a>
+							</div>
 						</div>
 
-						<div class="flex flex-row items-center justify-start mb-3">
-							<img src={whatsapp} width="26px" height="26px" alt="call-whatsapp" />
-							<a
-								aria-label="Chat on WhatsApp"
-								href="https://wa.me/+27605680361"
-								class="text-sm md:text-base text-white px-2 hover:underline underline-offset-2"
-								target="_blank"
-							>
-								(+27) 60 568 0361
-							</a>
+						<div>
+							<p class="text-sm md:text-base font-bold text-white px-2">Our working hours:</p>
+							<ul class="list-none">
+								<li class="text-sm md:text-base text-white px-2">
+									Monday - Friday:<span class="ml-2">8:00 AM - 4:00 PM</span>
+								</li>
+								<li class="text-sm md:text-base text-white px-2">
+									Saturday:<span class="ml-2">8:00 AM - 1:00 PM</span>
+								</li>
+								<li class="text-sm md:text-base text-white px-2">
+									Sunday:<span class="ml-2">Closed</span>
+								</li>
+							</ul>
 						</div>
-						<p class="text-sm md:text-base text-white px-2">Our working hours:</p>
-
-						<ul class="list-none">
-							<li class="text-sm md:text-base text-white px-2">
-								Monday - Friday:<span class="ml-2">8:00 AM - 4:00 PM</span>
-							</li>
-							<li class="text-sm md:text-base text-white px-2">
-								Saturday:<span class="ml-2">8:00 AM - 1:00 PM</span>
-							</li>
-							<li class="text-sm md:text-base text-white px-2">
-								Sunday:<span class="ml-2">Closed</span>
-							</li>
-						</ul>
 					</div>
 				{/if}
 			</div>

@@ -12,6 +12,19 @@
 	import { prostates } from '$lib/constants/prostate';
 	import { testiculars } from '$lib/constants/testicular';
 	import { infertilities } from '$lib/constants/infertility';
+
+	import { ChevronsDownIcon } from 'svelte-feather-icons';
+
+	const scrollIntoView = ({ currentTarget }: any) => {
+		const scrollToElement = document.querySelector(currentTarget.getAttribute('href'));
+
+		if (!scrollToElement) return;
+
+		scrollToElement.scrollIntoView({
+			behavior: 'smooth',
+			block: 'nearest'
+		});
+	};
 </script>
 
 <section
@@ -26,10 +39,20 @@
 	>
 		<div class="flex flex-col flex-1 justify-center items-center lg:h-full">
 			<h4
-				class="md:text-[60px] text-[32px] leading-none text-center md:px-6 md:mx-0 uppercase w-full"
+				class="h4 md:text-[60px] text-[32px] leading-none text-center md:px-6 md:mx-0 uppercase w-full"
 			>
 				Common Diseases & Treatments
 			</h4>
+
+			<div class="flex flex-col mt-6 items-center">
+				<a
+					class="font-display max-w-sm text-lg font-bold leading-tight"
+					href="#kidney"
+					on:click|preventDefault={scrollIntoView}
+				>
+					<span class="link link-underline link-underline-black text-black"> Learn more </span>
+				</a>
+			</div>
 		</div>
 	</div>
 </section>
