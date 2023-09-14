@@ -1,11 +1,5 @@
 <script lang="ts">
-	import { inview } from 'svelte-inview';
-
-	import floatingTitle from '$lib/components/float_in_title.svelte';
-
-	import kidneyHome from '$lib/assets/kidney-home.jpg';
-	import kidneyHeader from '$lib/assets/kidney-header.jpg';
-	import bladderHeader from '$lib/assets/bladder-header.jpg';
+	import kidneyHome from '$lib/assets/banner2.jpg';
 	import kidneysIcon from '$lib/assets/png/kidney.png';
 	import bladderIcon from '$lib/assets/png/bladder.png';
 	import prostateIcon from '$lib/assets/png/prostate.png';
@@ -19,10 +13,18 @@
 	import { testiculars } from '$lib/constants/testicular';
 	import { infertilities } from '$lib/constants/infertility';
 
-	import { Avatar } from '@skeletonlabs/skeleton';
+	import { ChevronsDownIcon } from 'svelte-feather-icons';
 
-	let isInViewKidneyTitle: boolean;
-	let isInViewBladderTitle: boolean;
+	const scrollIntoView = ({ currentTarget }: any) => {
+		const scrollToElement = document.querySelector(currentTarget.getAttribute('href'));
+
+		if (!scrollToElement) return;
+
+		scrollToElement.scrollIntoView({
+			behavior: 'smooth',
+			block: 'nearest'
+		});
+	};
 </script>
 
 <section
@@ -37,10 +39,20 @@
 	>
 		<div class="flex flex-col flex-1 justify-center items-center lg:h-full">
 			<h4
-				class="md:text-[60px] text-[32px] leading-none text-center md:px-6 md:mx-0 uppercase w-full"
+				class="h4 md:text-[60px] text-[32px] leading-none text-center md:px-6 md:mx-0 uppercase w-full"
 			>
 				Common Diseases & Treatments
 			</h4>
+
+			<div class="flex flex-col mt-6 items-center">
+				<a
+					class="font-display max-w-sm text-lg font-bold leading-tight"
+					href="#kidney"
+					on:click|preventDefault={scrollIntoView}
+				>
+					<span class="link link-underline link-underline-black text-black"> Learn more </span>
+				</a>
+			</div>
 		</div>
 	</div>
 </section>

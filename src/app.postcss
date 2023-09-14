@@ -1,3 +1,9 @@
+/* Write your global styles here, in PostCSS syntax */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
 @font-face {
 	font-family: 'Montserrat';
 	src: url('/fonts/Montserrat-VariableFont_wght.ttf');
@@ -7,7 +13,7 @@ body {
 	@apply h-full overflow-hidden;
 }
 
-:root {
+:root [data-theme='doctor-theme'] {
 	--theme-font-family-base: 'Montserrat', sans-serif;
 	--theme-font-family-heading: 'Montserrat', sans-serif;
 }
@@ -15,4 +21,22 @@ body {
 ::-webkit-scrollbar-thumb {
 	background: #cfedf0;
 	border-radius: 5px;
+}
+
+.link-underline {
+	border-bottom-width: 0;
+	background-image: linear-gradient(transparent, transparent), linear-gradient(#fff, #fff);
+	background-size: 0 3px;
+	background-position: 0 100%;
+	background-repeat: no-repeat;
+	transition: background-size 0.3s ease-in-out;
+}
+
+.link-underline-black {
+	background-image: linear-gradient(transparent, transparent), linear-gradient(#000, #000);
+}
+
+.link-underline:hover {
+	background-size: 100% 3px;
+	background-position: 0 100%;
 }
