@@ -1,5 +1,5 @@
 import type { SSTConfig } from 'sst';
-import { SvelteKitSite } from 'sst/constructs';
+import { SvelteKitSite, Api } from 'sst/constructs';
 
 export default {
 	config(_input) {
@@ -11,9 +11,17 @@ export default {
 	},
 	stacks(app) {
 		app.stack(function Site({ stack }) {
-			const site = new SvelteKitSite(stack, 'site');
+			const api = new Api(stack, 'api', {
+				routes: {
+					'POST /send-email': 'src/functions/send_email'
+				}
+			});
+			const site = new SvelteKitSite(stack, 'site', {
+				bind: [api]
+			});
 			stack.addOutputs({
-				url: site.url
+				ApiUrl: api.url,
+				SiteUrl: site.url
 			});
 		});
 	}
