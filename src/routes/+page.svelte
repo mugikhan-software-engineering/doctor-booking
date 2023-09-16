@@ -339,9 +339,9 @@
 						</p>
 
 						<div class="flex flex-row items-start justify-start">
-							<div class="flex"><MapIcon size="24" class="text-white" /></div>
+							<div class="flex"><MapIcon size="24" class="text-white mr-2" /></div>
 							<a
-								class="text-sm md:text-base text-white hover:underline underline-offset-2 px-2"
+								class="text-sm md:text-base text-white hover:underline underline-offset-2"
 								href={mapsLink}
 								target="_blank"
 							>
@@ -352,18 +352,18 @@
 
 						<div class="flex flex-row flex-wrap items-center justify-start gap-y-4 gap-x-8">
 							<div class="flex">
-								<PhoneCallIcon size="24" class="text-white" />
+								<PhoneCallIcon size="24" class="text-white mr-2" />
 								<a
-									class="text-sm md:text-base text-white hover:underline underline-offset-2 px-2"
+									class="text-sm md:text-base text-white link link-underline-thin link-underline-white py-[2px]"
 									href="tel:0118524348"
 								>
 									(+27) 11 852 4348
 								</a>
 							</div>
 							<div class="flex">
-								<PhoneCallIcon size="24" class="text-white" />
+								<PhoneCallIcon size="24" class="text-white mr-2" />
 								<a
-									class="text-sm md:text-base text-white hover:underline underline-offset-2 px-2"
+									class="text-sm md:text-base text-white link link-underline-thin link-underline-white py-[2px]"
 									href="tel:0870879294"
 								>
 									(+27) 87 087 9294
@@ -373,9 +373,9 @@
 
 						<div class="flex flex-row flex-wrap items-center justify-start gap-y-4 gap-x-8">
 							<div class="flex">
-								<PhoneCallIcon size="24" class="text-white" />
+								<PhoneCallIcon size="24" class="text-white mr-2" />
 								<a
-									class="text-sm md:text-base text-white hover:underline underline-offset-2 px-2"
+									class="text-sm md:text-base text-white link link-underline-thin link-underline-white py-[2px]"
 									href="tel:0118546029"
 								>
 									(+27) 11 854 6029
@@ -387,6 +387,7 @@
 									height="26px"
 									viewBox="0 0 48 48"
 									xmlns="http://www.w3.org/2000/svg"
+									class=" mr-2"
 								>
 									<g id="Layer_2" data-name="Layer 2">
 										<g id="invisible_box" data-name="invisible box">
@@ -409,7 +410,7 @@
 								<a
 									aria-label="Chat on WhatsApp"
 									href="https://wa.me/+27605680361"
-									class="text-sm md:text-base text-white hover:underline underline-offset-2 px-2"
+									class="text-sm md:text-base text-white link link-underline-thin link-underline-white py-[2px]"
 									target="_blank"
 								>
 									(+27) 60 568 0361

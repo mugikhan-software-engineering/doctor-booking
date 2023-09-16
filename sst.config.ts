@@ -5,7 +5,7 @@ export default {
 	config(_input) {
 		return {
 			name: 'doctor-booking',
-			region: 'us-east-1',
+			region: 'af-south-1',
 			profile: _input.stage === 'prod' ? 'admin' : 'admin'
 		};
 	},
