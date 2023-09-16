@@ -62,7 +62,7 @@
 		<div class="flex flex-col md:flex-row mt-5">
 			<div class="flex justify-center items-center basis-2/5">
 				<span class="bg-[#CBE9FA] w-44 h-44 rounded-full flex justify-center items-center">
-					<img src={kidneysIcon} class="w-36 h-36 rounded-full" alt="Kidneys" />
+					<img src={kidneysIcon} class="w-36 h-36 rounded-full" alt="Kidneys" loading="lazy" />
 				</span>
 			</div>
 
@@ -88,7 +88,7 @@
 		<div class="flex flex-col md:flex-row mt-5">
 			<div class="flex justify-center items-center basis-2/5">
 				<span class="bg-[#CBE9FA] w-44 h-44 rounded-full flex justify-center items-center">
-					<img src={bladderIcon} class="w-36 h-36 rounded-full" alt="Bladder" />
+					<img src={bladderIcon} class="w-36 h-36 rounded-full" alt="Bladder" loading="lazy" />
 				</span>
 			</div>
 
@@ -114,7 +114,7 @@
 		<div class="flex flex-col md:flex-row mt-5">
 			<div class="flex justify-center items-center basis-2/5">
 				<span class="bg-[#CBE9FA] w-44 h-44 rounded-full flex justify-center items-center">
-					<img src={prostateIcon} class="w-36 h-36 rounded-full" alt="Prostate" />
+					<img src={prostateIcon} class="w-36 h-36 rounded-full" alt="Prostate" loading="lazy" />
 				</span>
 			</div>
 
@@ -140,7 +140,12 @@
 		<div class="flex flex-col md:flex-row mt-5">
 			<div class="flex justify-center items-center basis-2/5">
 				<span class="bg-[#CBE9FA] w-44 h-44 rounded-full flex justify-center items-center">
-					<img src={testicularIcon} class="w-36 h-36 rounded-full" alt="Testicular" />
+					<img
+						src={testicularIcon}
+						class="w-36 h-36 rounded-full"
+						alt="Testicular"
+						loading="lazy"
+					/>
 				</span>
 			</div>
 
@@ -166,7 +171,12 @@
 		<div class="flex flex-col md:flex-row mt-5">
 			<div class="flex justify-center items-center basis-2/5">
 				<span class="bg-[#CBE9FA] w-44 h-44 rounded-full flex justify-center items-center">
-					<img src={infertilityIcon} class="w-36 h-36 rounded-full" alt="Infertility" />
+					<img
+						src={infertilityIcon}
+						class="w-36 h-36 rounded-full"
+						alt="Infertility"
+						loading="lazy"
+					/>
 				</span>
 			</div>
 
@@ -192,7 +202,12 @@
 		<div class="flex flex-col md:flex-row mt-5">
 			<div class="flex justify-center items-center basis-2/5">
 				<span class="bg-[#CBE9FA] w-44 h-44 rounded-full flex justify-center items-center">
-					<img src={sexualHealthIcon} class="w-36 h-36 rounded-full" alt="Sexual health" />
+					<img
+						src={sexualHealthIcon}
+						class="w-36 h-36 rounded-full"
+						alt="Sexual health"
+						loading="lazy"
+					/>
 				</span>
 			</div>
 

@@ -86,7 +86,12 @@
 			</h4>
 		</div>
 		<div class="flex">
-			<img class="w-full md:w-[550px] md:h-[550px] mr-2" src={profile} alt="Dr. Ahsan Ahmad" />
+			<img
+				class="w-full md:w-[550px] md:h-[550px] mr-2"
+				src={profile}
+				alt="Dr. Ahsan Ahmad"
+				loading="lazy"
+			/>
 		</div>
 	</div>
 	<div
@@ -150,7 +155,12 @@
 			class="flex flex-col md:flex-row w-full place-content-center items-start px-6 my-4 md:gap-y-4 gap-y-4"
 		>
 			<div class="flex md:basis-3/12 justify-center items-center">
-				<img class="rounded-md aspect-square drop-shadow-md" src={stethoscope} alt="Stethoscope" />
+				<img
+					class="rounded-md aspect-square drop-shadow-md"
+					src={stethoscope}
+					alt="Stethoscope"
+					loading="lazy"
+				/>
 			</div>
 			<div class="flex md:basis-9/12 justify-center items-start md:pl-5">
 				<p class="text-lg text-token">
