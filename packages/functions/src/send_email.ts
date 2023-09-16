@@ -1,7 +1,11 @@
-import type { APIGatewayProxyHandlerV2, APIGatewayProxyEventV2 } from 'aws-lambda';
+import type {
+	APIGatewayProxyHandlerV2,
+	APIGatewayProxyEventV2,
+	APIGatewayProxyStructuredResultV2
+} from 'aws-lambda';
 import { SESClient, SendTemplatedEmailCommand } from '@aws-sdk/client-ses';
 
-export async function handler(event: APIGatewayProxyEventV2) {
+export const handler: APIGatewayProxyHandlerV2 = async (event) => {
 	const client = new SESClient({ region: 'af-south-1' });
 
 	if (event.body !== null && event.body !== undefined) {
@@ -14,24 +18,23 @@ export async function handler(event: APIGatewayProxyEventV2) {
 			},
 			Source: 'mugikhan@gmail.com',
 			Template: 'ContactUsTemplate',
-			TemplateData: JSON.stringify({ name: name, email: email, issue: issue, message: message }),
-			ReplyToAddresses: ['EMAIL_ADDRESS']
+			TemplateData: JSON.stringify({ name: name, email: email, issue: issue, message: message })
 		});
-		const run = async () => {
-			const sendReminderEmailCommand = params;
-			try {
-				return await client.send(sendReminderEmailCommand);
-			} catch (err) {
-				console.log('Failed to send template email', err);
-				return err;
-			}
-		};
 
 		try {
 			let response = await client.send(params);
-			return response;
+			console.log(response);
+			return {
+				statusCode: 200,
+				body: 'Your email has been sent!'
+			};
 		} catch (error) {
-			return error;
+			console.error(error);
+			let response = {
+				statusCode: 400,
+				body: 'Your email failed to send!'
+			};
+			return response;
 		}
 	} else {
 		return {
@@ -39,4 +42,4 @@ export async function handler(event: APIGatewayProxyEventV2) {
 			body: 'Your email failed to send!'
 		};
 	}
-}
+};

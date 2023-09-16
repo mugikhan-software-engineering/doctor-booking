@@ -33,7 +33,7 @@
 			</h4>
 		</div>
 		<div class="flex">
-			<img class="w-full mr-2" src={profile} alt="Dr. Ahsan Ahmad" />
+			<img class="w-full mr-2" src={profile} alt="Dr. Ahsan Ahmad" loading="lazy" />
 		</div>
 	</div>
 </section>
@@ -85,6 +85,7 @@
 					class="rounded-md aspect-square drop-shadow-md"
 					src={medicalDoctor}
 					alt="Medical Doctor"
+					loading="lazy"
 				/>
 			</div>
 		</div>
@@ -162,6 +163,7 @@
 							src={service.icon}
 							alt="service"
 							class="h-[48px] w-[48px] md:h-[48px] md:w-[48px] mr-5 md:mr-8"
+							loading="lazy"
 						/>
 						<div class="flex flex-col">
 							<p class="font-bold text-2xl underline">{service.title}</p>

@@ -112,7 +112,12 @@
 		>
 			<svelte:fragment slot="lead"
 				><a href="/"
-					><img alt="The project logo" class="h-auto max-w-none md:max-w-full" src={logo} /></a
+					><img
+						alt="The project logo"
+						class="h-auto max-w-none md:max-w-full"
+						src={logo}
+						loading="lazy"
+					/></a
 				></svelte:fragment
 			>
 			<svelte:fragment slot="trail">

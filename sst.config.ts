@@ -13,9 +13,10 @@ export default {
 		app.stack(function Site({ stack }) {
 			const api = new Api(stack, 'api', {
 				routes: {
-					'POST /send-email': 'src/functions/send_email'
+					'POST /send-email': 'packages/functions/src/send_email.handler'
 				}
 			});
+			api.attachPermissions(['ses:SendTemplatedEmail']);
 			const site = new SvelteKitSite(stack, 'site', {
 				bind: [api]
 			});
