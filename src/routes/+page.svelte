@@ -69,7 +69,9 @@
 		const t: ToastSettings = {
 			message: message as string,
 			background: 'variant-filled-success',
-			timeout: 2000
+			timeout: 2000,
+			hideDismiss: true,
+			classes: 'text-white'
 		};
 		toastStore.trigger(t);
 	};
@@ -78,7 +80,9 @@
 		const t: ToastSettings = {
 			message: message as string,
 			background: 'variant-filled-error',
-			timeout: 2000
+			timeout: 2000,
+			hideDismiss: true,
+			classes: 'text-white'
 		};
 		toastStore.trigger(t);
 	};
@@ -264,7 +268,7 @@
 								if (result.type === 'success') {
 									formElement.reset();
 									if (result.data) {
-										showSuccessToast(result.data['body']);
+										showSuccessToast(result.data['description']);
 									}
 								} else if (result.type === 'failure') {
 									if (result.data) {
