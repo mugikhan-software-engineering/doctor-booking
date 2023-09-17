@@ -20,9 +20,9 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
 
 	const params = new SendTemplatedEmailCommand({
 		Destination: {
-			ToAddresses: ['mugikhan@gmail.com']
+			ToAddresses: ['receptiondrahmad66@gmail.com']
 		},
-		Source: 'mugikhan@gmail.com',
+		Source: 'receptiondrahmad66@gmail.com',
 		Template: 'ContactUsTemplate',
 		TemplateData: JSON.stringify({ name: name, email: email, issue: issue, message: message })
 	});
