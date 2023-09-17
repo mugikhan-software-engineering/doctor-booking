@@ -1,5 +1,6 @@
-import type { PageServerLoad } from './$types';
+import type { PageServerLoad, Actions } from './$types';
 import { PLACES_API_KEY } from '$env/static/private';
+import { fail } from '@sveltejs/kit';
 
 export const load = (async () => {
 	const response = await fetch(
@@ -10,3 +11,36 @@ export const load = (async () => {
 		reviews: res.result.reviews ?? []
 	};
 }) satisfies PageServerLoad;
+
+export const actions: Actions = {
+	sendEmail: async ({ cookies, request }) => {
+		const data = await request.formData();
+		if (data.get('confirm')) {
+			return fail(404, {
+				description: 'Failed to send email, Try again later.',
+				error: 'bot'
+			});
+		}
+		try {
+			const response = await fetch(
+				'https://yf1xxtnqq3.execute-api.af-south-1.amazonaws.com/send-email',
+				{
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(data)
+				}
+			);
+			const json = await response.json();
+			console.log(json);
+			return json;
+		} catch (err) {
+			console.log(err);
+			return fail(400, {
+				description: 'Failed to send email, Try again later.',
+				error: JSON.stringify(err)
+			});
+		}
+	}
+};

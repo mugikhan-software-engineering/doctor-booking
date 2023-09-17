@@ -7,7 +7,7 @@
 	import logo from '$lib/assets/svg/logo.svg';
 	import whatsapp from '$lib/assets/svg/whatsapp.svg';
 
-	import { Drawer, getDrawerStore, initializeStores } from '@skeletonlabs/skeleton';
+	import { Drawer, getDrawerStore, initializeStores, Toast } from '@skeletonlabs/skeleton';
 
 	import type { DrawerSettings, DrawerStore } from '@skeletonlabs/skeleton';
 
@@ -101,6 +101,8 @@
 		</div>
 	</div>
 </Drawer>
+
+<Toast />
 
 <AppShell on:scroll={scrollHandler}>
 	<svelte:fragment slot="header">
