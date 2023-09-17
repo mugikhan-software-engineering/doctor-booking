@@ -21,22 +21,26 @@ export const actions: Actions = {
 				error: 'bot'
 			});
 		}
+		const emailObj = {
+			name: data.get('name'),
+			email: data.get('email'),
+			issue: data.get('issue'),
+			message: data.get('message')
+		};
 		try {
 			const response = await fetch(
-				'https://yf1xxtnqq3.execute-api.af-south-1.amazonaws.com/send-email',
+				'https://69zzj7jgrj.execute-api.us-east-1.amazonaws.com/send-email',
 				{
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json'
 					},
-					body: JSON.stringify(data)
+					body: JSON.stringify(emailObj)
 				}
 			);
 			const json = await response.json();
-			console.log(json);
 			return json;
 		} catch (err) {
-			console.log(err);
 			return fail(400, {
 				description: 'Failed to send email, Try again later.',
 				error: JSON.stringify(err)
