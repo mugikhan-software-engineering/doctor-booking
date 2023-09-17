@@ -8,14 +8,18 @@
 
 	import floatingTitle from '$lib/components/float_in_title.svelte';
 	import reviewCard from '$lib/components/review_card.svelte';
-	import { enhance } from '$app/forms';
+	import { enhance, applyAction } from '$app/forms';
 
-	import { Noir, NoirLight, Drawer, getDrawerStore } from '@skeletonlabs/skeleton';
-	import type { DrawerSettings, DrawerStore } from '@skeletonlabs/skeleton';
+	import { Noir, NoirLight, Toast, getToastStore } from '@skeletonlabs/skeleton';
+	import type { ToastSettings, ToastStore } from '@skeletonlabs/skeleton';
 
 	import { inview } from 'svelte-inview';
 	import { fly } from 'svelte/transition';
 	import type { PageServerData } from './$types';
+
+	import { SyncLoader } from 'svelte-loading-spinners';
+
+	const toastStore = getToastStore();
 
 	let isInViewAboutTitle: boolean;
 	let isInViewContactTitle: boolean = true;
@@ -38,7 +42,7 @@
 		});
 	};
 
-	const onChangehoneypotCheck = (event: any) => {
+	const onChangeCheck = (event: any) => {
 		isHoneypotChecked = event.target.checked;
 	};
 
@@ -60,6 +64,38 @@
 
 	const mapsLink =
 		'https://www.google.com/maps/place/Dr+Ahsan+Ahmad+-+Urologist/@-26.3285516,27.8597674,17z/data=!3m1!4b1!4m6!3m5!1s0x1e95a89cea357707:0x72e6d95d420b7803!8m2!3d-26.3285564!4d27.8623423!16s%2Fg%2F11b5yzxp5m?entry=ttu';
+
+	const showSuccessToast = (message: any) => {
+		const t: ToastSettings = {
+			message: message as string,
+			background: 'variant-filled-success',
+			timeout: 2000
+		};
+		toastStore.trigger(t);
+	};
+
+	const showErrorToast = (message: any) => {
+		const t: ToastSettings = {
+			message: message as string,
+			background: 'variant-filled-error',
+			timeout: 2000
+		};
+		toastStore.trigger(t);
+	};
+
+	let email: String = '';
+
+	let loading: Boolean = false;
+
+	function validateEmail(email: String) {
+		var emailRegEx =
+			/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		return emailRegEx.test(String(email).toLowerCase());
+	}
+
+	$: isValidEmail = validateEmail(email);
+
+	$: active_class = loading ? 'loading pointer-events-none opacity-30' : '';
 
 	export let form: any;
 	export let data: PageServerData;
@@ -216,7 +252,30 @@
 				<div
 					class="static flex flex-1 grow flex-col justify-center bg-transparent my-2 md:px-4 z-2"
 				>
-					<form novalidate class="group" method="POST" action="?/sendEmail" use:enhance>
+					<form
+						novalidate
+						class="group"
+						method="POST"
+						action="?/sendEmail"
+						use:enhance={({ formElement, formData }) => {
+							loading = true;
+							return async ({ result, update }) => {
+								loading = false;
+								if (result.type === 'success') {
+									formElement.reset();
+									if (result.data) {
+										showSuccessToast(result.data['body']);
+									}
+								} else if (result.type === 'failure') {
+									if (result.data) {
+										showErrorToast(result.data['description']);
+									}
+								}
+								await applyAction(result);
+								update();
+							};
+						}}
+					>
 						<div class="flex flex-col md:flex-row mb-3">
 							<label class="label px-5 flex-1 mb-3 md:mb-0">
 								<span class="text-white">Name</span>
@@ -247,6 +306,7 @@
 									type="email"
 									placeholder="Your email"
 									required
+									bind:value={email}
 								/>
 								<span
 									class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block"
@@ -297,44 +357,44 @@
 						</label>
 
 						<label class="flex items-center justify-center space-x-2 opacity-0">
-							<input class="checkbox" type="checkbox" on:change={onChangehoneypotCheck} />
+							<input class="checkbox" type="checkbox" name="confirm" on:change={onChangeCheck} />
 							<p>Click here to confirm</p>
 						</label>
 
-						<div class="w-full flex flex-row items-center justify-center">
-							<button
-								type="submit"
-								class="btn py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-300 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-								><p class="text-md text-black">Send</p>
-								<div class="ml-3">
-									<svg
-										width="20px"
-										viewBox="0 0 33 33"
-										version="1.1"
-										xmlns="http://www.w3.org/2000/svg"
-										xmlns:xlink="http://www.w3.org/1999/xlink"
-									>
-										<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-											<g id="Icon-Set" transform="translate(-568.000000, -254.000000)" fill="#000">
-												<path
-													d="M584,283 C584,283 580.872,276.976 580,275 L596.075,259.779 L584,283 L584,283 Z M572,270 L595,259 L579,274 C578.996,273.996 572,270 572,270 L572,270 Z M599,255 C597.844,255.563 568,270 568,270 C568,270 578.052,276.059 578,276 C577.983,275.981 584,287 584,287 C584,287 599.75,256.5 600,256 C600.219,255.375 599.75,254.688 599,255 L599,255 Z"
-													id="send-email"
-												/>
+						<div
+							class="w-full flex flex-row items-center justify-center mb-5 group-invalid:pointer-events-none group-invalid:opacity-30 {active_class}"
+						>
+							<button type="submit" class="btn variant-filled-surface text-black">
+								{#if loading}
+									<p>Sending</p>
+									<SyncLoader size="30" color="#000" unit="px" duration="1s" />
+								{:else}
+									Send
+									<div class="ml-3">
+										<svg
+											width="20px"
+											viewBox="0 0 33 33"
+											version="1.1"
+											xmlns="http://www.w3.org/2000/svg"
+											xmlns:xlink="http://www.w3.org/1999/xlink"
+										>
+											<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+												<g
+													id="Icon-Set"
+													transform="translate(-568.000000, -254.000000)"
+													fill="#000000"
+												>
+													<path
+														d="M584,283 C584,283 580.872,276.976 580,275 L596.075,259.779 L584,283 L584,283 Z M572,270 L595,259 L579,274 C578.996,273.996 572,270 572,270 L572,270 Z M599,255 C597.844,255.563 568,270 568,270 C568,270 578.052,276.059 578,276 C577.983,275.981 584,287 584,287 C584,287 599.75,256.5 600,256 C600.219,255.375 599.75,254.688 599,255 L599,255 Z"
+														id="send-email"
+													/>
+												</g>
 											</g>
-										</g>
-									</svg>
-								</div>
+										</svg>
+									</div>
+								{/if}
 							</button>
 						</div>
-
-						{#if form?.error}
-							<aside class="alert variant-filled-error">
-								<div class="alert-message">
-									<h3 class="h3">Error!</h3>
-									<p>{form.description}</p>
-								</div>
-							</aside>
-						{/if}
 					</form>
 				</div>
 
