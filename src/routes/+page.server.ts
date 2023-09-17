@@ -1,6 +1,6 @@
 import type { PageServerLoad, Actions } from './$types';
 import { PLACES_API_KEY } from '$env/static/private';
-import { fail } from '@sveltejs/kit';
+import { fail, json } from '@sveltejs/kit';
 
 export const load = (async () => {
 	const response = await fetch(
@@ -38,8 +38,9 @@ export const actions: Actions = {
 					body: JSON.stringify(emailObj)
 				}
 			);
-			const json = await response.json();
-			return json;
+			return {
+				description: 'Your email has been sent!'
+			};
 		} catch (err) {
 			return fail(400, {
 				description: 'Failed to send email, Try again later.',
