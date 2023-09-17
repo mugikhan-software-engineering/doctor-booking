@@ -29,7 +29,7 @@ export const actions: Actions = {
 		};
 		try {
 			const response = await fetch(
-				'https://69zzj7jgrj.execute-api.us-east-1.amazonaws.com/send-email',
+				'https://yf1xxtnqq3.execute-api.af-south-1.amazonaws.com/send-email',
 				{
 					method: 'POST',
 					headers: {
