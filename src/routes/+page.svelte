@@ -496,10 +496,10 @@
 							<p class="text-sm md:text-base font-bold text-white px-2">Our working hours:</p>
 							<ul class="list-none">
 								<li class="text-sm md:text-base text-white px-2">
-									Monday - Friday:<span class="ml-2">8:00 AM - 4:00 PM</span>
+									Monday - Friday:<span class="ml-2">9:00 AM - 4:00 PM</span>
 								</li>
 								<li class="text-sm md:text-base text-white px-2">
-									Saturday:<span class="ml-2">8:00 AM - 1:00 PM</span>
+									Saturday:<span class="ml-2">8:30 AM - 1:00 PM</span>
 								</li>
 								<li class="text-sm md:text-base text-white px-2">
 									Sunday:<span class="ml-2">Closed</span>
