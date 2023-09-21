@@ -8,6 +8,7 @@
 
 	import floatingTitle from '$lib/components/float_in_title.svelte';
 	import reviewCard from '$lib/components/review_card.svelte';
+	import phoneNumber from '$lib/components/phone_number.svelte';
 	import { enhance, applyAction } from '$app/forms';
 
 	import { Noir, NoirLight, Toast, getToastStore } from '@skeletonlabs/skeleton';
@@ -18,6 +19,7 @@
 	import type { PageServerData } from './$types';
 
 	import { SyncLoader } from 'svelte-loading-spinners';
+	import PhoneNumber from '$lib/components/phone_number.svelte';
 
 	const toastStore = getToastStore();
 
@@ -38,7 +40,7 @@
 
 		scrollToElement.scrollIntoView({
 			behavior: 'smooth',
-			block: 'nearest'
+			block: 'center'
 		});
 	};
 
@@ -348,7 +350,7 @@
                                 focus:outline-none focus:ring-1 focus:ring-sky-500
                                 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
                                 focus:border-tertiary-500 focus:invalid:border-error-500"
-								rows="4"
+								rows="5"
 								required
 								placeholder="Briefly describe your current condition..."
 								name="message"
@@ -404,7 +406,7 @@
 
 				{#if isVisibleContactForm}
 					<div
-						class="card py-2 pr-2 pl-4 mx-4 md:mr-4 my-2 gap-y-5 flex flex-col grow-0 flex-none basis-1/4 shrink variant-glass-primary"
+						class="card py-2 pr-2 pl-4 mx-4 md:mr-4 my-2 gap-y-5 flex flex-col grow-0 flex-none basis-1/4 shrink variant-glass-surface"
 						transition:fly={{ duration: 600, x: 500, opacity: 0 }}
 					>
 						<p class="text-base md:text-lg text-white">
@@ -415,7 +417,7 @@
 						<div class="flex flex-row items-start justify-start">
 							<div class="flex"><MapIcon size="24" class="text-white mr-2" /></div>
 							<a
-								class="text-sm md:text-base text-white hover:underline underline-offset-2"
+								class="text-sm md:text-base text-primary-400 md:text-white sm:underline xs:underline md:no-underline md:hover:underline underline-offset-2"
 								href={mapsLink}
 								target="_blank"
 							>
@@ -427,33 +429,18 @@
 						<div class="flex flex-row flex-wrap items-center justify-start gap-y-4 gap-x-8">
 							<div class="flex">
 								<PhoneCallIcon size="24" class="text-white mr-2" />
-								<a
-									class="text-sm md:text-base text-white link link-underline-thin link-underline-white py-[2px]"
-									href="tel:0118524348"
-								>
-									(+27) 11 852 4348
-								</a>
+								<PhoneNumber number="(+27) 11 852 4348" url="tel:0118524348" />
 							</div>
 							<div class="flex">
 								<PhoneCallIcon size="24" class="text-white mr-2" />
-								<a
-									class="text-sm md:text-base text-white link link-underline-thin link-underline-white py-[2px]"
-									href="tel:0870879294"
-								>
-									(+27) 87 087 9294
-								</a>
+								<PhoneNumber number="(+27) 87 087 9294" url="tel:0870879294" />
 							</div>
 						</div>
 
 						<div class="flex flex-row flex-wrap items-center justify-start gap-y-4 gap-x-8">
 							<div class="flex">
 								<PhoneCallIcon size="24" class="text-white mr-2" />
-								<a
-									class="text-sm md:text-base text-white link link-underline-thin link-underline-white py-[2px]"
-									href="tel:0118546029"
-								>
-									(+27) 11 854 6029
-								</a>
+								<PhoneNumber number="(+27) 11 854 6029" url="tel:0118546029" />
 							</div>
 							<div class="flex flex-row items-center justify-start">
 								<svg
@@ -484,7 +471,7 @@
 								<a
 									aria-label="Chat on WhatsApp"
 									href="https://wa.me/+27605680361"
-									class="text-sm md:text-base text-white link link-underline-thin link-underline-white py-[2px]"
+									class="text-sm md:text-base text-primary-400 md:text-white sm:underline xs:underline md:no-underline link link-underline-thin link-underline-white py-[2px]"
 									target="_blank"
 								>
 									(+27) 60 568 0361

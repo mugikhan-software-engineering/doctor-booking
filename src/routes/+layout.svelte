@@ -43,7 +43,7 @@
 		// Provide your property overrides:
 		bgDrawer: '!bg-slate-100',
 		bgBackdrop: '!variant-soft',
-		width: 'xs:w-[calc(100%-20px)] sm:w-[calc(100%-20px)] md:w-[480px]',
+		width: 'xs:w-[calc(100%-40px)] sm:w-[calc(100%-40px)] md:w-[480px]',
 		padding: 'pr-4',
 		rounded: 'rounded-lg'
 	};
@@ -79,22 +79,24 @@
 				<li>
 					<a
 						on:click={closeDrawer}
-						class="flex flex-row items-center px-4 text-2xl block text-gray-900 rounded hover:bg-slate-50 hover:text-slate-500 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-						href="/"><HomeIcon size="32" class="text-black mr-4" />Home</a
+						class="flex flex-row items-center px-4 text-2xl block text-gray-900 rounded hover:text-slate-500 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+						href="/"><HomeIcon size="32" class="text-black mr-4 hover:text-slate-500" />Home</a
 					>
 				</li>
 				<li>
 					<a
 						on:click={closeDrawer}
-						class="flex flex-row items-center px-4 text-2xl block text-gray-900 rounded hover:bg-slate-50 hover:text-slate-500 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-						href="/about"><BookOpenIcon size="32" class="text-black mr-4" />About</a
+						class="flex flex-row items-center px-4 text-2xl block text-gray-900 rounded hover:text-slate-500 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+						href="/about"
+						><BookOpenIcon size="32" class="text-black mr-4 hover:text-slate-500" />About</a
 					>
 				</li>
 				<li>
 					<a
 						on:click={closeDrawer}
-						class="flex flex-row items-center px-4 text-2xl block text-gray-900 rounded hover:bg-slate-50 hover:text-slate-500 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-						href="/treatments"><UserIcon size="32" class="text-black mr-4" />Treatments</a
+						class="flex flex-row items-center px-4 text-2xl block text-gray-900 rounded hover:text-slate-500 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+						href="/treatments"
+						><UserIcon size="32" class="text-black mr-4 hover:text-slate-500" />Treatments</a
 					>
 				</li>
 			</ul>

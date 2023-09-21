@@ -22,7 +22,7 @@
 
 		scrollToElement.scrollIntoView({
 			behavior: 'smooth',
-			block: 'nearest'
+			block: 'center'
 		});
 	};
 </script>
@@ -50,7 +50,11 @@
 					href="#kidney"
 					on:click|preventDefault={scrollIntoView}
 				>
-					<span class="link link-underline link-underline-black text-black"> Learn more </span>
+					<span
+						class="text-black sm:underline xs:underline md:no-underline underline-offset-2 link link-underline link-underline-black"
+					>
+						Learn more
+					</span>
 				</a>
 			</div>
 		</div>
