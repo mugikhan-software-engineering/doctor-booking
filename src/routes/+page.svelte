@@ -103,12 +103,8 @@
 
 	$: active_class = loading ? 'loading pointer-events-none opacity-30' : '';
 
-	export let form: any;
 	export let data: PageServerData;
 </script>
-
-<Noir />
-<NoirLight />
 
 <section class="pb-32 relative w-screen h-screen flex flex-col justify-between items-center">
 	<div
