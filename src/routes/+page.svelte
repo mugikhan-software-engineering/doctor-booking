@@ -8,18 +8,17 @@
 
 	import floatingTitle from '$lib/components/float_in_title.svelte';
 	import reviewCard from '$lib/components/review_card.svelte';
-	import phoneNumber from '$lib/components/phone_number.svelte';
+	import PhoneNumber from '$lib/components/phone_number.svelte';
 	import { enhance, applyAction } from '$app/forms';
 
-	import { Noir, NoirLight, Toast, getToastStore } from '@skeletonlabs/skeleton';
-	import type { ToastSettings, ToastStore } from '@skeletonlabs/skeleton';
+	import { getToastStore } from '@skeletonlabs/skeleton';
+	import type { ToastSettings } from '@skeletonlabs/skeleton';
 
 	import { inview } from 'svelte-inview';
 	import { fly } from 'svelte/transition';
 	import type { PageServerData } from './$types';
 
 	import { SyncLoader } from 'svelte-loading-spinners';
-	import PhoneNumber from '$lib/components/phone_number.svelte';
 
 	const toastStore = getToastStore();
 
@@ -107,7 +106,7 @@
 </script>
 
 <svelte:head>
-	<title>Home</title>
+	<title>Dr. Ahsan Ahmad: Expert Urologist</title>
 </svelte:head>
 
 <section class="pb-32 relative w-screen h-screen flex flex-col justify-between items-center">
