@@ -1,16 +1,7 @@
 import type { PageServerLoad, Actions } from './$types';
-import { PLACES_API_KEY } from '$env/static/private';
-import { fail, json } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
 
-export const load = (async () => {
-	const response = await fetch(
-		`https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJB3c16pyolR4RA3gLQl3Z5nI&key=${PLACES_API_KEY}`
-	);
-	let res = await response.json();
-	return {
-		reviews: res.result.reviews ?? []
-	};
-}) satisfies PageServerLoad;
+export const load = (async () => {}) satisfies PageServerLoad;
 
 export const actions: Actions = {
 	sendEmail: async ({ cookies, request }) => {

@@ -9,6 +9,7 @@
 	import floatingTitle from '$lib/components/float_in_title.svelte';
 	import reviewCard from '$lib/components/review_card.svelte';
 	import PhoneNumber from '$lib/components/phone_number.svelte';
+	import ReviewCardPlaceholder from '$lib/components/review_card_placeholder.svelte';
 	import { enhance, applyAction } from '$app/forms';
 
 	import { getToastStore } from '@skeletonlabs/skeleton';
@@ -29,6 +30,13 @@
 	let isHoneypotChecked: boolean = false;
 	let isVisibleContactForm: boolean = false;
 	let isInViewReviewTitle: boolean = false;
+
+	const loadReviews = async () => {
+		const response = await fetch(`/reviews`);
+		return await response.json();
+	};
+
+	let reviewsPromise = loadReviews();
 
 	let elemCarousel: HTMLDivElement;
 
@@ -528,59 +536,62 @@
 		/>
 	</section>
 
-	{#if data.reviews}
+	<div
+		class="mt-5"
+		use:inview
+		on:inview_change={(event) => {
+			const { inView } = event.detail;
+			isInViewReviewTitle = inView;
+		}}
+	>
+		<svelte:component
+			this={floatingTitle}
+			title="WHAT OUR PATIENTS ARE SAYING"
+			subtitle="Reviews"
+			yOffset={-50}
+			isVisible={isInViewReviewTitle}
+		/>
+	</div>
+	<div class="md:p-4 grid grid-cols-[auto_1fr_auto] md:gap-4 items-center md:my-4 mt-5 mb-20">
+		<!-- Button: Left -->
+		<button type="button" class="btn-icon variant-ghost" on:click={carouselLeft}>
+			<svg width="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path
+					d="M15 6L9 12L15 18"
+					stroke="#000000"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				/>
+			</svg>
+		</button>
+		<!-- Full Images -->
 		<div
-			class="mt-5"
-			use:inview
-			on:inview_change={(event) => {
-				const { inView } = event.detail;
-				isInViewReviewTitle = inView;
-			}}
+			bind:this={elemCarousel}
+			class="snap-x scroll-px-4 snap-mandatory scroll-smooth flex md:gap-10 overflow-x-auto md:px-5 md:py-10"
 		>
-			<svelte:component
-				this={floatingTitle}
-				title="WHAT OUR PATIENTS ARE SAYING"
-				subtitle="Reviews"
-				yOffset={-50}
-				isVisible={isInViewReviewTitle}
-			/>
-		</div>
-		<div class="md:p-4 grid grid-cols-[auto_1fr_auto] md:gap-4 items-center md:my-4 mt-5 mb-20">
-			<!-- Button: Left -->
-			<button type="button" class="btn-icon variant-ghost" on:click={carouselLeft}>
-				<svg width="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path
-						d="M15 6L9 12L15 18"
-						stroke="#000000"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					/>
-				</svg>
-			</button>
-			<!-- Full Images -->
-			<div
-				bind:this={elemCarousel}
-				class="snap-x scroll-px-4 snap-mandatory scroll-smooth flex md:gap-10 overflow-x-auto md:px-5 md:py-10"
-			>
-				{#each data.reviews as review}
+			{#await reviewsPromise}
+				<ReviewCardPlaceholder />
+				<ReviewCardPlaceholder />
+			{:then reviewData}
+				{#each reviewData.reviews as review}
 					<svelte:component this={reviewCard} {review} />
 				{/each}
-			</div>
-			<!-- Button: Right -->
-			<button type="button" class="btn-icon variant-ghost" on:click={carouselRight}>
-				<svg width="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path
-						d="M9 6L15 12L9 18"
-						stroke="#000000"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					/>
-				</svg>
-			</button>
+			{/await}
 		</div>
-	{/if}
+		<!-- Button: Right -->
+		<button type="button" class="btn-icon variant-ghost" on:click={carouselRight}>
+			<svg width="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path
+					d="M9 6L15 12L9 18"
+					stroke="#000000"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				/>
+			</svg>
+		</button>
+	</div>
 
 	<div id="reviews" class="invisible mt:10 md:mt-20">Scroll to</div>
 </div>
