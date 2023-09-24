@@ -27,6 +27,10 @@
 	};
 </script>
 
+<svelte:head>
+	<title>Treatments</title>
+</svelte:head>
+
 <section
 	class="pb-32 relative w-screen h-screen flex flex-col md:flex-row justify-center items-center"
 >
@@ -38,11 +42,11 @@
 		class="sticky flex bg-transparent p-5 md:p-2 lg:flex-row flex-col items-center lg:justify-between z-0 gap-y-8"
 	>
 		<div class="flex flex-col flex-1 justify-center items-center lg:h-full">
-			<h4
-				class="h4 md:text-[60px] text-[32px] leading-none text-center md:px-6 md:mx-0 uppercase w-full"
+			<h1
+				class="h1 md:text-[60px] text-[32px] leading-none text-center md:px-6 md:mx-0 uppercase w-full"
 			>
 				Common Diseases & Treatments
-			</h4>
+			</h1>
 
 			<div class="flex flex-col mt-6 items-center">
 				<a
