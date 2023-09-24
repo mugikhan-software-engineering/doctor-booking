@@ -15,7 +15,7 @@ export default {
 			const cert = Certificate.fromCertificateArn(
 				stack,
 				'MyCert',
-				'arn:aws:acm:us-east-1:075245960512:certificate/5b8a11bd-7441-443b-bc2d-05e31e93b110'
+				'arn:aws:acm:af-south-1:075245960512:certificate/747e222a-0247-4de6-a886-26abb1aa6b32'
 			);
 			const api = new Api(stack, 'api', {
 				routes: {
