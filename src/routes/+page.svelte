@@ -106,6 +106,10 @@
 	export let data: PageServerData;
 </script>
 
+<svelte:head>
+	<title>Home</title>
+</svelte:head>
+
 <section class="pb-32 relative w-screen h-screen flex flex-col justify-between items-center">
 	<div
 		class="absolute w-screen h-screen top-0 left-0 bg-cover bg-center bg-no-repeat bg-fixed bg-blend-color opacity-60 blur-[1px]"
@@ -117,11 +121,11 @@
 		<div
 			class="flex flex-col md:flex-row items-start justify-start md:justify-start md:items-start xs:mt-5 sm:mt-5 md:mt-0 basis-3/5"
 		>
-			<h4
-				class="lg:text-[50px] md:text-[40px] text-[30px] leading-none text-start md:mx-0 uppercase w-full"
+			<h1
+				class="h1 lg:text-[50px] md:text-[40px] text-[30px] leading-none text-start md:mx-0 uppercase w-full"
 			>
 				Expert Urologist Specializing in Kidney, Bladder, Testicular, and Penile Disorders
-			</h4>
+			</h1>
 		</div>
 		<div class="flex">
 			<img

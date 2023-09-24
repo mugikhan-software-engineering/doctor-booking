@@ -15,6 +15,10 @@
 	let isInViewOtherServicesTitle: boolean;
 </script>
 
+<svelte:head>
+	<title>About</title>
+</svelte:head>
+
 <section
 	class="pb-32 relative w-screen h-screen flex flex-col md:flex-row justify-center items-center"
 >
@@ -28,9 +32,11 @@
 		<div
 			class="flex flex-col md:flex-row items-center justify-start md:justify-start md:items-center xs:mt-5 sm:mt-5 md:mt-0 basis-3/5 text-start"
 		>
-			<h4 class="lg:text-[50px] md:text-[40px] text-[30px] leading-none md:mx-0 w-full uppercase">
+			<h1
+				class="h1 lg:text-[50px] md:text-[40px] text-[30px] leading-none md:mx-0 w-full uppercase"
+			>
 				Get to know more about Dr. Ahsan Ahmad
-			</h4>
+			</h1>
 		</div>
 		<div class="flex">
 			<img class="w-full mr-2" src={profile} alt="Dr. Ahsan Ahmad" loading="lazy" />

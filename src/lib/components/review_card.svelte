@@ -18,6 +18,7 @@
 				loading="lazy"
 				width="w-12 h-12 md:w-24 md:h-24"
 				rounded="rounded-full"
+				alt={review.author_name}
 			/>
 		</div>
 		<div class="flex flex-col gap-2">
