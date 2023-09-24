@@ -109,8 +109,6 @@
 	$: isValidEmail = validateEmail(email);
 
 	$: active_class = loading ? 'loading pointer-events-none opacity-30' : '';
-
-	export let data: PageServerData;
 </script>
 
 <svelte:head>
