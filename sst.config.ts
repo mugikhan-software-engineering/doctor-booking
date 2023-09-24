@@ -12,33 +12,33 @@ export default {
 	},
 	stacks(app) {
 		app.stack(function Site({ stack }: StackContext) {
-			const cert = Certificate.fromCertificateArn(
-				stack,
-				'MyCert',
-				'arn:aws:acm:af-south-1:075245960512:certificate/747e222a-0247-4de6-a886-26abb1aa6b32'
-			);
+			// const cert = Certificate.fromCertificateArn(
+			// 	stack,
+			// 	'MyCert',
+			// 	'arn:aws:acm:af-south-1:075245960512:certificate/747e222a-0247-4de6-a886-26abb1aa6b32'
+			// );
 			const api = new Api(stack, 'api', {
 				routes: {
 					'POST /send-email': 'packages/functions/src/send_email.handler'
-				},
-				customDomain: {
-					domainName: 'api.drahsanahmad.com',
-					isExternalDomain: true,
-					cdk: {
-						certificate: cert
-					}
 				}
+				// customDomain: {
+				// 	domainName: 'api.drahsanahmad.com',
+				// 	isExternalDomain: true,
+				// 	cdk: {
+				// 		certificate: cert
+				// 	}
+				// }
 			});
 			api.attachPermissions(['ses:SendTemplatedEmail']);
 			const site = new SvelteKitSite(stack, 'site', {
-				bind: [api],
-				customDomain: {
-					domainName: 'drahsanahmad.com',
-					isExternalDomain: true,
-					cdk: {
-						certificate: cert
-					}
-				}
+				bind: [api]
+				// customDomain: {
+				// 	domainName: 'drahsanahmad.com',
+				// 	isExternalDomain: true,
+				// 	cdk: {
+				// 		certificate: cert
+				// 	}
+				// }
 			});
 			stack.addOutputs({
 				ApiUrl: api.customDomainUrl || api.url,
