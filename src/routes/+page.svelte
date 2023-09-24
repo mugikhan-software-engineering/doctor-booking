@@ -112,7 +112,7 @@
 </script>
 
 <svelte:head>
-	<title>Dr. Ahsan Ahmad: Expert Urologist</title>
+	<title>Dr. Ahsan Ahmad - Expert Urologist</title>
 </svelte:head>
 
 <section class="pb-32 relative w-screen h-screen flex flex-col justify-between items-center">
