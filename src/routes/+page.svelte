@@ -112,7 +112,7 @@
 </script>
 
 <svelte:head>
-	<title>Dr. Ahsan Ahmad: Expert Urologist</title>
+	<title>Dr. Ahsan Ahmad - Expert Urologist</title>
 </svelte:head>
 
 <section class="pb-32 relative w-screen h-screen flex flex-col justify-between items-center">
@@ -449,8 +449,8 @@
 							</div>
 							<div class="flex flex-row items-center justify-start">
 								<svg
-									width="26px"
-									height="26px"
+									width="24px"
+									height="24px"
 									viewBox="0 0 48 48"
 									xmlns="http://www.w3.org/2000/svg"
 									class=" mr-2"
