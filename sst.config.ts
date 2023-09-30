@@ -15,6 +15,9 @@ export default {
 			const api = new Api(stack, 'api', {
 				routes: {
 					'POST /send-email': 'packages/functions/src/send_email.handler'
+				},
+				customDomain: {
+					domainName: 'api.drahsanahmad.com'
 				}
 			});
 			api.attachPermissions(['ses:SendTemplatedEmail']);
