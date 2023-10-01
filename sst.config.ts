@@ -1,6 +1,5 @@
 import type { SSTConfig } from 'sst';
 import { SvelteKitSite, Api, StackContext } from 'sst/constructs';
-import { Certificate } from 'aws-cdk-lib/aws-certificatemanager';
 
 export default {
 	config(_input) {
