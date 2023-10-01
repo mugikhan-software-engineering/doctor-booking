@@ -61,7 +61,7 @@
 		<div class="flex-1">
 			<img
 				alt="The project logo"
-				class="h-auto xs:h-[30px] max-w-[280px]"
+				class="h-auto xs:h-[30px] max-w-[280px] xxs:max-w-[140px]"
 				src={newLogo}
 				loading="lazy"
 			/>
@@ -88,25 +88,24 @@
 				<li>
 					<a
 						on:click={closeDrawer}
-						class="flex flex-row items-center px-4 text-2xl block text-gray-900 rounded group-hover:text-slate-500 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-						href="/"
-						><HomeIcon size="32" class="text-black mr-4 group-hover:text-slate-500" />Home</a
+						class="flex flex-row items-center px-4 text-2xl block text-gray-900 rounded hover:text-slate-500 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+						href="/"><HomeIcon size="32" class="text-black mr-4 hover:text-slate-500" />Home</a
 					>
 				</li>
 				<li>
 					<a
 						on:click={closeDrawer}
-						class="flex flex-row items-center px-4 text-2xl block text-gray-900 rounded group-hover:text-slate-500 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+						class="flex flex-row items-center px-4 text-2xl block text-gray-900 rounded hover:text-slate-500 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
 						href="/about"
-						><BookOpenIcon size="32" class="text-black mr-4 group-hover:text-slate-500" />About</a
+						><BookOpenIcon size="32" class="text-black mr-4 hover:text-slate-500" />About</a
 					>
 				</li>
 				<li>
 					<a
 						on:click={closeDrawer}
-						class="flex flex-row items-center px-4 text-2xl block text-gray-900 rounded group-hover:text-slate-500 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+						class="flex flex-row items-center px-4 text-2xl block text-gray-900 rounded hover:text-slate-500 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
 						href="/treatments"
-						><UserIcon size="32" class="text-black mr-4 group-hover:text-slate-500" />Treatments</a
+						><UserIcon size="32" class="text-black mr-4 hover:text-slate-500" />Treatments</a
 					>
 				</li>
 			</ul>
@@ -129,7 +128,7 @@
 				><a href="/"
 					><img
 						alt="The project logo"
-						class="h-auto xs:h-[30px] xs:w-[100%] w-[300px]"
+						class="h-auto xs:h-[30px] w-[200px]"
 						src={newLogo}
 						loading="lazy"
 					/></a

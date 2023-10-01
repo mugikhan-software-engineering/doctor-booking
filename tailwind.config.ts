@@ -17,6 +17,7 @@ const config = {
 				sans: ['Monsterrat', ...defaultTheme.fontFamily.sans]
 			},
 			screens: {
+				xxs: { max: '290px' },
 				xs: { max: '639px' }
 			}
 		}
