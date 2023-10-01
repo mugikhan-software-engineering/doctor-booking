@@ -19,16 +19,13 @@ export const actions: Actions = {
 			message: data.get('message')
 		};
 		try {
-			const response = await fetch(
-				'https://yf1xxtnqq3.execute-api.af-south-1.amazonaws.com/send-email',
-				{
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify(emailObj)
-				}
-			);
+			const response = await fetch('https://api.drahsanahmad.com/send-email', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(emailObj)
+			});
 			return {
 				description: 'Your email has been sent!'
 			};
