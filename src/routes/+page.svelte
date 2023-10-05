@@ -4,7 +4,13 @@
 	import paralax from '$lib/assets/paralax.jpg';
 	import appointmentBanner from '$lib/assets/appointment-banner.jpg';
 
-	import { ChevronsDownIcon, PhoneCallIcon, MapIcon } from 'svelte-feather-icons';
+	import {
+		ChevronsDownIcon,
+		PhoneCallIcon,
+		MapIcon,
+		ChevronLeftIcon,
+		ChevronRightIcon
+	} from 'svelte-feather-icons';
 
 	import floatingTitle from '$lib/components/float_in_title.svelte';
 	import reviewCard from '$lib/components/review_card.svelte';
@@ -108,7 +114,7 @@
 
 	$: isValidEmail = validateEmail(email);
 
-	$: active_class = loading ? 'loading pointer-events-none opacity-30' : '';
+	$: active_class = loading ? 'loading pointer-events-none opacity-50' : '';
 </script>
 
 <svelte:head>
@@ -133,12 +139,7 @@
 			</h1>
 		</div>
 		<div class="flex">
-			<img
-				class="w-full md:w-[550px] md:h-[550px] mr-2"
-				src={profile}
-				alt="Dr. Ahsan Ahmad"
-				loading="lazy"
-			/>
+			<img class="w-full md:w-[550px] md:h-[550px] mr-2" src={profile} alt="Dr. Ahsan Ahmad" />
 		</div>
 	</div>
 	<div
@@ -259,9 +260,9 @@
 				isVisibleContactForm = inView;
 			}}
 		>
-			<div class="flex flex-col md:flex-row w-full">
+			<div class="flex flex-col md:flex-row w-full gap-y-5">
 				<div
-					class="static flex flex-1 grow flex-col justify-center bg-transparent my-2 md:px-4 z-2"
+					class="static flex flex-1 grow flex-col justify-center bg-transparent mt-5 md:px-4 z-2"
 				>
 					<form
 						novalidate
@@ -372,13 +373,14 @@
 							<p>Click here to confirm</p>
 						</label>
 
-						<div
-							class="w-full flex flex-row items-center justify-center mb-5 group-invalid:pointer-events-none group-invalid:opacity-30 {active_class}"
-						>
-							<button type="submit" class="btn variant-filled-surface text-black">
+						<div class="w-full flex flex-row items-center justify-center">
+							<button
+								type="submit"
+								class="btn variant-filled-surface bg-surface-200 text-black text-lg group-invalid:pointer-events-none group-invalid:opacity-50 {active_class}"
+							>
 								{#if loading}
 									<p>Sending</p>
-									<SyncLoader size="30" color="#000" unit="px" duration="1s" />
+									<SyncLoader size="30" color="#000" unit="px" duration="2s" />
 								{:else}
 									Send
 									<div class="ml-3">
@@ -552,21 +554,18 @@
 	</div>
 	<div class="md:p-4 grid grid-cols-[auto_1fr_auto] md:gap-4 items-center md:my-4 mt-5 mb-20">
 		<!-- Button: Left -->
-		<button type="button" class="btn-icon variant-ghost" on:click={carouselLeft}>
-			<svg width="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path
-					d="M15 6L9 12L15 18"
-					stroke="#000000"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-				/>
-			</svg>
+		<button
+			type="button"
+			class="btn-icon variant-ghost"
+			on:click={carouselLeft}
+			aria-label="chevron-left"
+		>
+			<ChevronLeftIcon size="32" class="text-slate-600" />
 		</button>
 		<!-- Full Images -->
 		<div
 			bind:this={elemCarousel}
-			class="snap-x scroll-px-4 snap-mandatory scroll-smooth flex md:gap-10 overflow-x-auto md:px-5 md:py-10"
+			class="snap-x scroll-px-4 snap-mandatory scroll-smooth flex md:gap-10 overflow-x-auto md:px-5 md:py-10 overflow-y-auto"
 		>
 			{#await reviewsPromise}
 				<ReviewCardPlaceholder />
@@ -578,16 +577,13 @@
 			{/await}
 		</div>
 		<!-- Button: Right -->
-		<button type="button" class="btn-icon variant-ghost" on:click={carouselRight}>
-			<svg width="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path
-					d="M9 6L15 12L9 18"
-					stroke="#000000"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-				/>
-			</svg>
+		<button
+			type="button"
+			class="btn-icon variant-ghost"
+			on:click={carouselRight}
+			aria-label="chevron-right"
+		>
+			<ChevronRightIcon size="32" class="text-slate-600" />
 		</button>
 	</div>
 

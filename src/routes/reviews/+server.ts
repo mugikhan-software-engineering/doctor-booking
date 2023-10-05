@@ -12,7 +12,10 @@ export const GET: RequestHandler = async () => {
 			reviews: res.result.reviews ?? []
 		},
 		{
-			status: 200
+			status: 200,
+			headers: {
+				'Cache-Control': 'max-age=86400, s-maxage=86400, stale-if-error=86400, must-revalidate'
+			}
 		}
 	);
 };

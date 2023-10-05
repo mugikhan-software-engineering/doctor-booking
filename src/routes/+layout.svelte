@@ -63,7 +63,6 @@
 				alt="The project logo"
 				class="h-auto xs:h-[30px] max-w-[280px] xxs:max-w-[140px]"
 				src={newLogo}
-				loading="lazy"
 			/>
 		</div>
 		<div class="flex-none">
