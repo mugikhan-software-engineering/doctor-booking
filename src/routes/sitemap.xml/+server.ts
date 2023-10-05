@@ -1,7 +1,8 @@
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async () => {
-	const website = 'https://www.drahsanahmad.com';
+	const websiteFull = 'https://www.drahsanahmad.com';
+	const website = 'https://drahsanahmad.com';
 	const pages = [`about`, `treatments`];
 	return new Response(
 		`<?xml version="1.0" encoding="UTF-8" ?>
@@ -16,7 +17,7 @@ export const GET: RequestHandler = async () => {
 				<url>
 					<loc>${website}</loc>
 					<changefreq>daily</changefreq>
-					<priority>0.7</priority>
+					<priority>1</priority>
 				</url>
 				${pages
 					.map(
@@ -28,10 +29,25 @@ export const GET: RequestHandler = async () => {
 				</url>`
 					)
 					.join('')}
+					<url>
+					<loc>${websiteFull}</loc>
+					<changefreq>daily</changefreq>
+					<priority>1</priority>
+				</url>
+				${pages
+					.map(
+						(page) => `
+				<url>
+					<loc>${websiteFull}/${page}</loc>
+					<changefreq>daily</changefreq>
+					<priority>0.7</priority>
+				</url>`
+					)
+					.join('')}
 			</urlset>`.trim(),
 		{
 			headers: {
-				'Cache-Control': 'max-age=0, s-maxage=3600',
+				'Cache-Control': 'max-age=3600, s-maxage=3600',
 				'Content-Type': 'application/xml'
 			},
 			status: 200

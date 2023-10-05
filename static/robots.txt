@@ -1,4 +1,7 @@
+User-agent: Googlebot
+Disallow: /nogooglebot/
+
 User-agent: *
 Allow: /
 
-Sitemap: https://www.drahsanahmad.com/sitemap.xml
+Sitemap: https://drahsanahmad.com/sitemap.xml
