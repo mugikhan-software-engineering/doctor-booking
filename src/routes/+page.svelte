@@ -373,7 +373,7 @@
 							<p>Click here to confirm</p>
 						</label>
 
-						<div class="w-full flex flex-row items-center justify-center">
+						<div class="w-full flex flex-row items-center justify-center md:mb-2">
 							<button
 								type="submit"
 								class="btn variant-filled-surface bg-surface-200 text-black text-lg group-invalid:pointer-events-none group-invalid:opacity-50 {active_class}"
