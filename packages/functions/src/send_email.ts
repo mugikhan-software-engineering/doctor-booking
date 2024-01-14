@@ -16,7 +16,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
 	}
 
 	const data = JSON.parse(event.body);
-	const { name, email, issue, message } = data;
+	const { name, contact, email, issue, message } = data;
 
 	const params = new SendTemplatedEmailCommand({
 		Destination: {
@@ -24,7 +24,13 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
 		},
 		Source: 'help@drahsanahmad.com',
 		Template: 'ContactUsTemplate',
-		TemplateData: JSON.stringify({ name: name, email: email, issue: issue, message: message })
+		TemplateData: JSON.stringify({
+			name: name,
+			contact: contact,
+			email: email,
+			issue: issue,
+			message: message
+		})
 	});
 
 	try {
