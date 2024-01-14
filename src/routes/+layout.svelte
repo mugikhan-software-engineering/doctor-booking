@@ -185,7 +185,7 @@
 			? 'xs:bottom-[52px] sm:bottom-[27px] md:bottom-[27px]'
 			: 'bottom-[12px]'} right-[12px] z-100"
 	>
-		<a aria-label="Chat on WhatsApp" href="https://wa.me/+27605680361">
+		<a aria-label="Chat on WhatsApp" href="https://wa.me/+27737881600">
 			<img alt="Chat on WhatsApp" src={whatsapp} />
 		</a>
 	</div>
