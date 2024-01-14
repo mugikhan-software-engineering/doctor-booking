@@ -477,7 +477,7 @@
 								</svg>
 								<a
 									aria-label="Chat on WhatsApp"
-									href="https://wa.me/+27605680361"
+									href="https://wa.me/+27737881600"
 									class="text-sm md:text-base text-primary-400 md:text-white sm:underline xs:underline md:no-underline link link-underline-thin link-underline-white py-[2px]"
 									target="_blank"
 								>
