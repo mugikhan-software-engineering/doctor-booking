@@ -14,6 +14,7 @@ export const actions: Actions = {
 		}
 		const emailObj = {
 			name: data.get('name'),
+			contact: data.get('contact'),
 			email: data.get('email'),
 			issue: data.get('issue'),
 			message: data.get('message')

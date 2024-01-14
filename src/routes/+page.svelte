@@ -23,7 +23,6 @@
 
 	import { inview } from 'svelte-inview';
 	import { fly } from 'svelte/transition';
-	import type { PageServerData } from './$types';
 
 	import { SyncLoader } from 'svelte-loading-spinners';
 
@@ -105,14 +104,6 @@
 	let email: String = '';
 
 	let loading: Boolean = false;
-
-	function validateEmail(email: String) {
-		var emailRegEx =
-			/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-		return emailRegEx.test(String(email).toLowerCase());
-	}
-
-	$: isValidEmail = validateEmail(email);
 
 	$: active_class = loading ? 'loading pointer-events-none opacity-50' : '';
 </script>
@@ -289,7 +280,7 @@
 						}}
 					>
 						<div class="flex flex-col md:flex-row mb-3">
-							<label class="label px-5 flex-1 mb-3 md:mb-0">
+							<label class="label px-5 flex-1 md:mb-0">
 								<span class="text-white">Name</span>
 								<input
 									name="name"
@@ -305,6 +296,28 @@
 									class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block"
 								>
 									Please enter your name
+								</span>
+							</label>
+						</div>
+
+						<div class="flex flex-col md:flex-row mb-3">
+							<label class="label px-5 flex-1 mb-3 md:mb-0">
+								<span class="text-white">Contact number</span>
+								<input
+									name="contact"
+									class="input peer bg-white border border-2 border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
+                                    focus:outline-none focus:ring-1 focus:ring-sky-500
+                                    disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+                                    focus:border-tertiary-500 focus:invalid:border-error-500"
+									type="text"
+									placeholder="Your phone number"
+									required
+									pattern="^(\+27|0)[0-9]&#123;9&#125;$"
+								/>
+								<span
+									class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block"
+								>
+									Please enter a valid contact number
 								</span>
 							</label>
 							<label class="label px-5 flex-1">
@@ -481,7 +494,7 @@
 									class="text-sm md:text-base text-primary-400 md:text-white sm:underline xs:underline md:no-underline link link-underline-thin link-underline-white py-[2px]"
 									target="_blank"
 								>
-									(+27) 60 568 0361
+									(+27) 73 788 1600
 								</a>
 							</div>
 						</div>
