@@ -4,7 +4,7 @@ import { fail } from '@sveltejs/kit';
 export const load = (async () => {}) satisfies PageServerLoad;
 
 export const actions: Actions = {
-	sendEmail: async ({ cookies, request }) => {
+	sendEmail: async ({ request }) => {
 		const data = await request.formData();
 		if (data.get('confirm')) {
 			return fail(404, {
@@ -12,7 +12,7 @@ export const actions: Actions = {
 				error: 'bot'
 			});
 		}
-		const emailObj = {
+		const contactObj = {
 			name: data.get('name'),
 			contact: data.get('contact'),
 			email: data.get('email'),
@@ -20,20 +20,36 @@ export const actions: Actions = {
 			message: data.get('message')
 		};
 		try {
-			const response = await fetch('https://api.drahsanahmad.com/send-email', {
+			const apiUrl = 'https://api.drahsanahmad.com/contact';
+
+			console.log('Sending contact form to:', apiUrl);
+
+			const response = await fetch(apiUrl, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify(emailObj)
+				body: JSON.stringify(contactObj)
 			});
+
+			const result = await response.json();
+
+			if (!response.ok) {
+				console.error('Contact submission error:', result);
+				return fail(response.status, {
+					description: 'Failed to process your request. Please try again later.',
+					error: result.message || 'Unknown error'
+				});
+			}
+
 			return {
-				description: 'Your email has been sent!'
+				description: 'Your message has been sent successfully!'
 			};
 		} catch (err) {
+			console.error('Contact submission error:', err);
 			return fail(400, {
-				description: 'Failed to send email, Try again later.',
-				error: JSON.stringify(err)
+				description: 'Failed to send your message. Please try again later.',
+				error: err instanceof Error ? err.message : 'Unknown error'
 			});
 		}
 	}
