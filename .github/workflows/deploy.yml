@@ -33,6 +33,8 @@ jobs:
         uses: SpicyPizza/create-envfile@v2.0
         with:
           envkey_PLACES_API_KEY: ${{ secrets.PLACES_API_KEY }}
+          envkey_WHATSAPP_PHONE_NUMBER_ID: ${{ secrets.WHATSAPP_PHONE_NUMBER_ID }}
+          envkey_WHATSAPP_ACCESS_TOKEN: ${{ secrets.WHATSAPP_ACCESS_TOKEN }}
           file_name: .env
       - name: Deploy app
         run: |
