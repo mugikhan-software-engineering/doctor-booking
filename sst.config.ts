@@ -21,6 +21,7 @@ export default {
 				},
 				defaults: {
 					function: {
+						runtime: 'nodejs20.x',
 						environment: {
 							WHATSAPP_API_VERSION: 'v22.0',
 							WHATSAPP_PHONE_NUMBER_ID: process.env.WHATSAPP_PHONE_NUMBER_ID || '',
