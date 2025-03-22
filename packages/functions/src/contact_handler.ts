@@ -23,7 +23,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
 		const client = new SESClient({ region: 'af-south-1' });
 		const emailParams = new SendTemplatedEmailCommand({
 			Destination: {
-				ToAddresses: ['mugikhan@gmail.com']
+				ToAddresses: ['receptiondrahmad66@gmail.com']
 			},
 			Source: 'help@drahsanahmad.com',
 			Template: 'ContactUsTemplate',
