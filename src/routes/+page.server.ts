@@ -19,10 +19,13 @@ export const actions: Actions = {
 			issue: data.get('issue'),
 			message: data.get('message')
 		};
+
+		if (contactObj.contact.startsWith('0')) {
+			contactObj.contact = '+27' + contactObj.contact.substring(1);
+		}
+
 		try {
 			const apiUrl = 'https://api.drahsanahmad.com/contact';
-
-			console.log('Sending contact form to:', apiUrl);
 
 			const response = await fetch(apiUrl, {
 				method: 'POST',
@@ -35,7 +38,6 @@ export const actions: Actions = {
 			const result = await response.json();
 
 			if (!response.ok) {
-				console.error('Contact submission error:', result);
 				return fail(response.status, {
 					description: 'Failed to process your request. Please try again later.',
 					error: result.message || 'Unknown error'
@@ -46,7 +48,6 @@ export const actions: Actions = {
 				description: 'Your message has been sent successfully!'
 			};
 		} catch (err) {
-			console.error('Contact submission error:', err);
 			return fail(400, {
 				description: 'Failed to send your message. Please try again later.',
 				error: err instanceof Error ? err.message : 'Unknown error'
