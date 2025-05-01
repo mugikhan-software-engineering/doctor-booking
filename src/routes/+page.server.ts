@@ -54,9 +54,12 @@ export const actions: Actions = {
 				},
 				body: JSON.stringify(contactObj)
 			});
+			const textResult = await response.text();
+			console.log('Text result:', textResult); //TODO: Remove this
 
-			const result: ContactResponse = await response.json();
-			console.warn(`Result: ${JSON.stringify(result)}`); //TODO: Remove this
+			const result = await response.json();
+			console.log('Raw result:', result); //TODO: Remove this
+			console.log('Result type:', typeof result); //TODO: Remove this
 
 			if (!response.ok || result.statusCode < 200 || result.statusCode >= 300) {
 				return fail(result.statusCode, {
