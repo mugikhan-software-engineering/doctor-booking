@@ -1,7 +1,7 @@
 import type { PageServerLoad, Actions } from './$types';
 import { fail } from '@sveltejs/kit';
 
-export const load = (async () => {}) satisfies PageServerLoad;
+export const load = (async () => { }) satisfies PageServerLoad;
 
 export const actions: Actions = {
 	sendEmail: async ({ request }) => {
@@ -13,14 +13,27 @@ export const actions: Actions = {
 			});
 		}
 		const contactObj = {
-			name: data.get('name'),
-			contact: data.get('contact'),
-			email: data.get('email'),
-			issue: data.get('issue'),
-			message: data.get('message')
+			name: data.get('name')?.toString() ?? '',
+			contact: data.get('contact')?.toString() ?? '',
+			email: data.get('email')?.toString() ?? '',
+			issue: data.get('issue')?.toString()?.toLowerCase() ?? '',
+			message: data.get('message')?.toString() ?? ''
 		};
 
-		if (contactObj.contact.startsWith('0')) {
+		if (
+			!contactObj.contact ||
+			!contactObj.email ||
+			!contactObj.issue ||
+			!contactObj.message ||
+			!contactObj.name
+		) {
+			return fail(400, {
+				description: 'Please fill in all fields',
+				error: 'Missing required fields'
+			});
+		}
+
+		if (contactObj.contact && contactObj.contact.startsWith('0')) {
 			contactObj.contact = '+27' + contactObj.contact.substring(1);
 		}
 
