@@ -1,13 +1,6 @@
 import type { PageServerLoad, Actions } from './$types';
 import { fail } from '@sveltejs/kit';
 
-interface ContactResponse {
-	statusCode: number;
-	body: {
-		message: string;
-	};
-}
-
 export const load = (async () => { }) satisfies PageServerLoad;
 
 export const actions: Actions = {
@@ -54,19 +47,19 @@ export const actions: Actions = {
 				},
 				body: JSON.stringify(contactObj)
 			});
-
-			const result = await response.text();
+			
+			const responseMessage = await response.text();
 
 			if (!response.ok) {
 				return fail(response.status, {
 					description: 'Failed to send your message. Please try again.',
-					error: result
+					error: responseMessage
 				});
 			}
 
 			return {
 				success: true,
-				description: result
+				description: responseMessage
 			};
 		} catch (err) {
 			return fail(400, {
