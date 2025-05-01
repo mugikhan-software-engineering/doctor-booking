@@ -6,7 +6,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event): Promise<APIGatew
 	if (event.body == null || event.body == undefined) {
 		return {
 			statusCode: 400,
-			body: JSON.stringify({ message: 'Missing request body' })
+			body: 'Missing request body'
 		};
 	}
 
@@ -108,7 +108,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event): Promise<APIGatew
 
 	if (!results.email.success && !results.whatsapp.success) {
 		statusCode = 500;
-		responseMessage = 'Failed to send message';
+		responseMessage = 'Failed to send your message. Please try again later.';
 	} else if (!results.email.success) {
 		statusCode = 207; // Partial success
 		responseMessage = 'WhatsApp message sent, but email failed';
@@ -119,6 +119,6 @@ export const handler: APIGatewayProxyHandlerV2 = async (event): Promise<APIGatew
 
 	return {
 		statusCode: statusCode,
-		body: JSON.stringify({ message: responseMessage })
+		body: responseMessage
 	};
 };

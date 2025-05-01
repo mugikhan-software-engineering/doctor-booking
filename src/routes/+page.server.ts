@@ -47,32 +47,28 @@ export const actions: Actions = {
 		try {
 			const apiUrl = 'https://api.drahsanahmad.com/contact';
 
-			const response: Response = await fetch(apiUrl, {
+			const response = await fetch(apiUrl, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify(contactObj)
 			});
-			const textResult = await response.text();
-			console.log('Text result:', textResult); //TODO: Remove this
 
 			const result = await response.json();
-			console.log('Raw result:', result); //TODO: Remove this
-			console.log('Result type:', typeof result); //TODO: Remove this
 
-			if (!response.ok || result.statusCode < 200 || result.statusCode >= 300) {
+			if (result.statusCode < 200 || result.statusCode >= 300) {
 				return fail(result.statusCode, {
-					description: 'Failed to process your request. Please try again later.',
-					error: result.body.message || 'Unknown error'
+					description: 'Failed to send your message. Please try again later.',
+					error: result.body
 				});
 			}
 
 			return {
-				description: result.body.message
+				success: true,
+				description: 'Your message has been sent successfully!'
 			};
 		} catch (err) {
-			console.error(`Error: ${err}`); //TODO: Remove this
 			return fail(400, {
 				description: 'Failed to send your message. Please try again later.',
 				error: err instanceof Error ? err.message : 'Unknown error'
