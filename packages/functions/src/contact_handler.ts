@@ -104,7 +104,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event): Promise<APIGatew
 
 	// Determine overall status code based on results
 	let statusCode = 200;
-	let responseMessage = 'Contact form submitted successfully';
+	let responseMessage = 'Your message has been sent successfully!';
 
 	if (!results.email.success && !results.whatsapp.success) {
 		statusCode = 500;
@@ -119,6 +119,6 @@ export const handler: APIGatewayProxyHandlerV2 = async (event): Promise<APIGatew
 
 	return {
 		statusCode: statusCode,
-		body: responseMessage
+		body: JSON.stringify({ message: responseMessage })
 	};
 };

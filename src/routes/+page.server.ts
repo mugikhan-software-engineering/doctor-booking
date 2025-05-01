@@ -3,7 +3,9 @@ import { fail } from '@sveltejs/kit';
 
 interface ContactResponse {
 	statusCode: number;
-	body: string;
+	body: {
+		message: string;
+	};
 }
 
 export const load = (async () => { }) satisfies PageServerLoad;
@@ -54,18 +56,20 @@ export const actions: Actions = {
 			});
 
 			const result: ContactResponse = await response.json();
+			console.warn(`Result: ${JSON.stringify(result)}`); //TODO: Remove this
 
 			if (!response.ok || result.statusCode < 200 || result.statusCode >= 300) {
 				return fail(result.statusCode, {
 					description: 'Failed to process your request. Please try again later.',
-					error: result.body || 'Unknown error'
+					error: result.body.message || 'Unknown error'
 				});
 			}
 
 			return {
-				description: 'Your message has been sent successfully!'
+				description: result.body.message
 			};
 		} catch (err) {
+			console.error(`Error: ${err}`); //TODO: Remove this
 			return fail(400, {
 				description: 'Failed to send your message. Please try again later.',
 				error: err instanceof Error ? err.message : 'Unknown error'
