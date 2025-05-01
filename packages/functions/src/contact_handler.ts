@@ -117,6 +117,10 @@ export const handler: APIGatewayProxyHandlerV2 = async (event): Promise<APIGatew
 		responseMessage = "Email sent, but WhatsApp message failed";
 	}
 
+	console.log('Response message:', responseMessage);
+	console.log('Status code:', statusCode);
+	console.log('Results:', results);
+
 	return {
 		statusCode: statusCode,
 		body: JSON.stringify({ message: responseMessage }),
