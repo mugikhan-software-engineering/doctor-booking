@@ -55,14 +55,14 @@ export const actions: Actions = {
 				body: JSON.stringify(contactObj)
 			});
 
-			if (!response.ok) {
-				return fail(response.status, {
+			const result = await response.json();
+
+			if (result.statusCode < 200 || result.statusCode >= 300) {
+				return fail(result.statusCode, {
 					description: 'Failed to send your message. Please try again later.',
-					error: response.statusText
+					error: result.body
 				});
 			}
-
-			const result = await response.json();
 
 			return {
 				success: true,
