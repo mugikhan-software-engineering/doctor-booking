@@ -16,7 +16,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event): Promise<APIGatew
 	// Track success/failure of each channel
 	const results = {
 		email: { success: false, error: null as string | null },
-		whatsapp: { success: true, error: null as string | null }
+		whatsapp: { success: false, error: null as string | null }
 	};
 
 	// Send email
@@ -109,23 +109,10 @@ export const handler: APIGatewayProxyHandlerV2 = async (event): Promise<APIGatew
 	if (!results.email.success && !results.whatsapp.success) {
 		statusCode = 500;
 		responseMessage = "Failed to send your message. Please try again later.";
-	} else if (!results.email.success) {
-		statusCode = 207; // Partial success
-		responseMessage = "WhatsApp message sent, but email failed";
-	} else if (!results.whatsapp.success && contact) {
-		statusCode = 207; // Partial success
-		responseMessage = "Email sent, but WhatsApp message failed";
 	}
-
-	console.log('Response message:', responseMessage);
-	console.log('Status code:', statusCode);
-	console.log('Results:', results);
 
 	return {
 		statusCode: statusCode,
-		body: JSON.stringify({ message: responseMessage }),
-		headers: {
-			'Content-Type': 'application/json'
-		},
+		body: responseMessage
 	};
 };
