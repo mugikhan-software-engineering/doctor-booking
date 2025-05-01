@@ -1,8 +1,8 @@
-import type { APIGatewayProxyHandlerV2, APIGatewayProxyResultV2 } from 'aws-lambda';
+import type { APIGatewayProxyHandlerV2, APIGatewayProxyStructuredResultV2 } from 'aws-lambda';
 import { SESClient, SendTemplatedEmailCommand } from '@aws-sdk/client-ses';
 import twilio from 'twilio';
 
-export const handler: APIGatewayProxyHandlerV2 = async (event): Promise<APIGatewayProxyResultV2> => {
+export const handler: APIGatewayProxyHandlerV2 = async (event): Promise<APIGatewayProxyStructuredResultV2> => {
 	if (event.body == null || event.body == undefined) {
 		return {
 			statusCode: 400,
@@ -16,7 +16,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event): Promise<APIGatew
 	// Track success/failure of each channel
 	const results = {
 		email: { success: false, error: null as string | null },
-		whatsapp: { success: false, error: null as string | null }
+		whatsapp: { success: true, error: null as string | null }
 	};
 
 	// Send email
@@ -45,62 +45,62 @@ export const handler: APIGatewayProxyHandlerV2 = async (event): Promise<APIGatew
 	}
 
 	// Send WhatsApp message if contact number is provided
-	if (contact) {
-		try {
-			const accountSid = process.env.TWILIO_ACCOUNT_SID;
-			const authToken = process.env.TWILIO_AUTH_TOKEN;
+	// if (contact) {
+	// 	try {
+	// 		const accountSid = process.env.TWILIO_ACCOUNT_SID;
+	// 		const authToken = process.env.TWILIO_AUTH_TOKEN;
 
-			// Skip WhatsApp if credentials are missing
-			if (!accountSid || !authToken) {
-				throw new Error('Missing Twilio Account SID OR Auth Token');
-			}
+	// 		// Skip WhatsApp if credentials are missing
+	// 		if (!accountSid || !authToken) {
+	// 			throw new Error('Missing Twilio Account SID OR Auth Token');
+	// 		}
 
-			const twilioClient = twilio(accountSid, authToken);
+	// 		const twilioClient = twilio(accountSid, authToken);
 
-			// Format phone number (remove any non-digit characters and ensure it has country code)
-			let recipientPhone = contact.replace(/\D/g, '');
-			if (!recipientPhone.startsWith('+27')) {
-				// Add South Africa country code if not present (assuming South African numbers)
-				if (recipientPhone.startsWith('0')) {
-					recipientPhone = '+27' + recipientPhone.substring(1);
-				} else if (recipientPhone.startsWith('27')) {
-					recipientPhone = '+27' + recipientPhone.substring(2);
-				} else {
-					recipientPhone = '+27' + recipientPhone;
-				}
-			}
+	// 		// Format phone number (remove any non-digit characters and ensure it has country code)
+	// 		let recipientPhone = contact.replace(/\D/g, '');
+	// 		if (!recipientPhone.startsWith('+27')) {
+	// 			// Add South Africa country code if not present (assuming South African numbers)
+	// 			if (recipientPhone.startsWith('0')) {
+	// 				recipientPhone = '+27' + recipientPhone.substring(1);
+	// 			} else if (recipientPhone.startsWith('27')) {
+	// 				recipientPhone = '+27' + recipientPhone.substring(2);
+	// 			} else {
+	// 				recipientPhone = '+27' + recipientPhone;
+	// 			}
+	// 		}
 
-			const contentSid = 'HX78c6666f3a4e8a1a5bbd64fdb6ff40b0';
-			const messagingServiceSid = process.env.TWILIO_MESSAGING_SERVICE_SID;
-			if (!messagingServiceSid) {
-				throw new Error('Missing Twilio Messaging Service SID');
-			}
+	// 		const contentSid = 'HX78c6666f3a4e8a1a5bbd64fdb6ff40b0';
+	// 		const messagingServiceSid = process.env.TWILIO_MESSAGING_SERVICE_SID;
+	// 		if (!messagingServiceSid) {
+	// 			throw new Error('Missing Twilio Messaging Service SID');
+	// 		}
 
-			const from = 'whatsapp:+27737881600';
-			const to = `whatsapp:${recipientPhone}`;
+	// 		const from = 'whatsapp:+27737881600';
+	// 		const to = `whatsapp:${recipientPhone}`;
 
-			const message = await twilioClient.messages.create({
-				contentSid: contentSid,
-				contentVariables: JSON.stringify({ 1: `${name}`, 2: `${issue}` }),
-				from: from,
-				messagingServiceSid: messagingServiceSid,
-				to: to
-			});
+	// 		const message = await twilioClient.messages.create({
+	// 			contentSid: contentSid,
+	// 			contentVariables: JSON.stringify({ 1: `${name}`, 2: `${issue}` }),
+	// 			from: from,
+	// 			messagingServiceSid: messagingServiceSid,
+	// 			to: to
+	// 		});
 
-			if (!message) {
-				throw new Error('Failed to send WhatsApp message');
-			}
+	// 		if (!message) {
+	// 			throw new Error('Failed to send WhatsApp message');
+	// 		}
 
-			if (message.errorCode !== null || message.errorMessage !== null) {
-				throw new Error(message.errorMessage || 'Error sending WhatsApp message');
-			}
+	// 		if (message.errorCode !== null || message.errorMessage !== null) {
+	// 			throw new Error(message.errorMessage || 'Error sending WhatsApp message');
+	// 		}
 
-			results.whatsapp.success = true;
-		} catch (error) {
-			results.whatsapp.error = error instanceof Error ? error.message : String(error);
-			results.whatsapp.success = false;
-		}
-	}
+	// 		results.whatsapp.success = true;
+	// 	} catch (error) {
+	// 		results.whatsapp.error = error instanceof Error ? error.message : String(error);
+	// 		results.whatsapp.success = false;
+	// 	}
+	// }
 
 	// Determine overall status code based on results
 	let statusCode = 200;

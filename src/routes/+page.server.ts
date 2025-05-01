@@ -55,13 +55,12 @@ export const actions: Actions = {
 				body: JSON.stringify(contactObj)
 			});
 
-			const result = await response.json();
-			const body = JSON.parse(result.body);
+			const result = await response.text();
 
-			if (result.statusCode < 200 || result.statusCode >= 300) {
-				return fail(result.statusCode, {
-					description: 'Failed to send your message. Please try again later.',
-					error: body.message
+			if (!response.ok) {
+				return fail(response.status, {
+					description: 'Failed to send your message. Please try again.',
+					error: result
 				});
 			}
 
