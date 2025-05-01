@@ -66,7 +66,7 @@ export const actions: Actions = {
 
 			return {
 				success: true,
-				description: result.body
+				description: 'Your message has been sent successfully!'
 			};
 		} catch (err) {
 			return fail(400, {
