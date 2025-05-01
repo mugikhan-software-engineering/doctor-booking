@@ -1,7 +1,8 @@
-import type { APIGatewayProxyHandlerV2 } from 'aws-lambda';
+import type { APIGatewayProxyHandlerV2, APIGatewayProxyResultV2 } from 'aws-lambda';
 import { SESClient, SendTemplatedEmailCommand } from '@aws-sdk/client-ses';
+import twilio from 'twilio';
 
-export const handler: APIGatewayProxyHandlerV2 = async (event) => {
+export const handler: APIGatewayProxyHandlerV2 = async (event): Promise<APIGatewayProxyResultV2> => {
 	if (event.body == null || event.body == undefined) {
 		return {
 			statusCode: 400,
@@ -23,7 +24,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
 		const client = new SESClient({ region: 'af-south-1' });
 		const emailParams = new SendTemplatedEmailCommand({
 			Destination: {
-				ToAddresses: ['receptiondrahmad66@gmail.com']
+				ToAddresses: ['mugikhan@gmail.com']
 			},
 			Source: 'help@drahsanahmad.com',
 			Template: 'ContactUsTemplate',
@@ -46,79 +47,58 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
 	// Send WhatsApp message if contact number is provided
 	if (contact) {
 		try {
-			// Get WhatsApp API credentials from environment variables
-			const version = process.env.WHATSAPP_API_VERSION || 'v22.0';
-			const phoneNumberId = process.env.WHATSAPP_PHONE_NUMBER_ID;
-			const accessToken = process.env.WHATSAPP_ACCESS_TOKEN;
+			const accountSid = process.env.TWILIO_ACCOUNT_SID;
+			const authToken = process.env.TWILIO_AUTH_TOKEN;
 
 			// Skip WhatsApp if credentials are missing
-			if (!phoneNumberId || !accessToken) {
-				throw new Error('Missing WhatsApp API credentials');
+			if (!accountSid || !authToken) {
+				throw new Error('Missing Twilio Account SID OR Auth Token');
 			}
+
+			const twilioClient = twilio(accountSid, authToken);
 
 			// Format phone number (remove any non-digit characters and ensure it has country code)
 			let recipientPhone = contact.replace(/\D/g, '');
-			if (!recipientPhone.startsWith('27') && !recipientPhone.startsWith('+27')) {
+			if (!recipientPhone.startsWith('+27')) {
 				// Add South Africa country code if not present (assuming South African numbers)
-				recipientPhone = recipientPhone.startsWith('0')
-					? '27' + recipientPhone.substring(1)
-					: '27' + recipientPhone;
+				if (recipientPhone.startsWith('0')) {
+					recipientPhone = '+27' + recipientPhone.substring(1);
+				} else if (recipientPhone.startsWith('27')) {
+					recipientPhone = '+27' + recipientPhone.substring(2);
+				} else {
+					recipientPhone = '+27' + recipientPhone;
+				}
 			}
 
-			// Remove any remaining '+' characters
-			recipientPhone = recipientPhone.replace('+', '');
+			const contentSid = 'HX78c6666f3a4e8a1a5bbd64fdb6ff40b0';
+			const messagingServiceSid = process.env.TWILIO_MESSAGING_SERVICE_SID;
+			if (!messagingServiceSid) {
+				throw new Error('Missing Twilio Messaging Service SID');
+			}
 
-			// Prepare WhatsApp API request
-			const url = `https://graph.facebook.com/${version}/${phoneNumberId}/messages`;
-			const body = {
-				messaging_product: 'whatsapp',
-				recipient_type: 'individual',
-				to: recipientPhone,
-				type: 'template',
-				template: {
-					name: 'website_contact_reply',
-					language: {
-						code: 'en_za'
-					},
-					components: [
-						{
-							type: 'body',
-							parameters: [
-								{
-									type: 'text',
-									parameter_name: 'customer_name',
-									text: name
-								},
-								{
-									type: 'text',
-									parameter_name: 'health_issue',
-									text: issue
-								}
-							]
-						}
-					]
-				}
-			};
+			const from = 'whatsapp:+27737881600';
+			const to = `whatsapp:${recipientPhone}`;
 
-			const response = await globalThis.fetch(url, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: `Bearer ${accessToken}`
-				},
-				body: JSON.stringify(body)
+			const message = await twilioClient.messages.create({
+				contentSid: contentSid,
+				contentVariables: JSON.stringify({ 1: `${name}`, 2: `${issue}` }),
+				from: from,
+				messagingServiceSid: messagingServiceSid,
+				to: to
 			});
 
-			const responseData = await response.json();
+			if (!message) {
+				throw new Error('Failed to send WhatsApp message');
+			}
 
-			if (!response.ok) {
-				throw new Error(JSON.stringify(responseData));
+			if (message.errorCode !== null || message.errorMessage !== null) {
+				throw new Error(message.errorMessage || 'Error sending WhatsApp message');
 			}
 
 			results.whatsapp.success = true;
 		} catch (error) {
-			console.error('WhatsApp error:', error);
 			results.whatsapp.error = error instanceof Error ? error.message : String(error);
+			results.whatsapp.success = false;
 		}
 	}
 
@@ -128,7 +108,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
 
 	if (!results.email.success && !results.whatsapp.success) {
 		statusCode = 500;
-		responseMessage = 'Failed to send message through any channel';
+		responseMessage = 'Failed to send message';
 	} else if (!results.email.success) {
 		statusCode = 207; // Partial success
 		responseMessage = 'WhatsApp message sent, but email failed';
@@ -139,9 +119,6 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
 
 	return {
 		statusCode,
-		body: JSON.stringify({
-			message: responseMessage,
-			results
-		})
+		body: responseMessage
 	};
 };

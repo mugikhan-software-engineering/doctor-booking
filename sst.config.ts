@@ -23,9 +23,9 @@ export default {
 					function: {
 						runtime: 'nodejs20.x',
 						environment: {
-							WHATSAPP_API_VERSION: 'v22.0',
-							WHATSAPP_PHONE_NUMBER_ID: process.env.WHATSAPP_PHONE_NUMBER_ID || '',
-							WHATSAPP_ACCESS_TOKEN: process.env.WHATSAPP_ACCESS_TOKEN || ''
+							TWILIO_ACCOUNT_SID: process.env.TWILIO_ACCOUNT_SID || '',
+							TWILIO_AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN || '',
+							TWILIO_MESSAGING_SERVICE_SID: process.env.TWILIO_MESSAGING_SERVICE_SID || ''
 						}
 					}
 				}
