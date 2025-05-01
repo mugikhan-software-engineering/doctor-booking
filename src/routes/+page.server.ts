@@ -1,6 +1,11 @@
 import type { PageServerLoad, Actions } from './$types';
 import { fail } from '@sveltejs/kit';
 
+interface ContactResponse {
+	statusCode: number;
+	body: string;
+}
+
 export const load = (async () => { }) satisfies PageServerLoad;
 
 export const actions: Actions = {
@@ -40,7 +45,7 @@ export const actions: Actions = {
 		try {
 			const apiUrl = 'https://api.drahsanahmad.com/contact';
 
-			const response = await fetch(apiUrl, {
+			const response: Response = await fetch(apiUrl, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -48,12 +53,12 @@ export const actions: Actions = {
 				body: JSON.stringify(contactObj)
 			});
 
-			const result = await response.json();
+			const result: ContactResponse = await response.json();
 
-			if (!response.ok) {
-				return fail(response.status, {
+			if (!response.ok || result.statusCode < 200 || result.statusCode >= 300) {
+				return fail(result.statusCode, {
 					description: 'Failed to process your request. Please try again later.',
-					error: result.message || 'Unknown error'
+					error: result.body || 'Unknown error'
 				});
 			}
 

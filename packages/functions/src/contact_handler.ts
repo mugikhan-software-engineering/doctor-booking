@@ -118,7 +118,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event): Promise<APIGatew
 	}
 
 	return {
-		statusCode,
+		statusCode: statusCode,
 		body: responseMessage
 	};
 };
