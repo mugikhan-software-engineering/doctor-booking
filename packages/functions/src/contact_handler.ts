@@ -104,21 +104,24 @@ export const handler: APIGatewayProxyHandlerV2 = async (event): Promise<APIGatew
 
 	// Determine overall status code based on results
 	let statusCode = 200;
-	let responseMessage = 'Your message has been sent successfully!';
+	let responseMessage = "Your message has been sent successfully!";
 
 	if (!results.email.success && !results.whatsapp.success) {
 		statusCode = 500;
-		responseMessage = 'Failed to send your message. Please try again later.';
+		responseMessage = "Failed to send your message. Please try again later.";
 	} else if (!results.email.success) {
 		statusCode = 207; // Partial success
-		responseMessage = 'WhatsApp message sent, but email failed';
+		responseMessage = "WhatsApp message sent, but email failed";
 	} else if (!results.whatsapp.success && contact) {
 		statusCode = 207; // Partial success
-		responseMessage = 'Email sent, but WhatsApp message failed';
+		responseMessage = "Email sent, but WhatsApp message failed";
 	}
 
 	return {
 		statusCode: statusCode,
-		body: responseMessage
+		body: JSON.stringify({ message: responseMessage }),
+		headers: {
+			'Content-Type': 'application/json'
+		},
 	};
 };

@@ -56,11 +56,12 @@ export const actions: Actions = {
 			});
 
 			const result = await response.json();
+			const body = JSON.parse(result.body);
 
 			if (result.statusCode < 200 || result.statusCode >= 300) {
 				return fail(result.statusCode, {
 					description: 'Failed to send your message. Please try again later.',
-					error: result.body
+					error: body.message
 				});
 			}
 
