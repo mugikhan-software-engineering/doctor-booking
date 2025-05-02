@@ -24,9 +24,6 @@ const config = {
 	},
 	plugins: [
 		forms,
-		skeleton({
-			themes: { custom: [doctorTheme] }
-		})
 	]
 } satisfies Config;
 
