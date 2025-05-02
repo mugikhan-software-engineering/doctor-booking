@@ -44,5 +44,6 @@ export default {
 				SiteUrl: site.customDomainUrl || site.url
 			});
 		});
+		app.setDefaultRemovalPolicy("retain");
 	}
 } satisfies SSTConfig;
