@@ -48,7 +48,7 @@
 </section>
 
 <div class="h-fit w-screen">
-	<section id="about" class="mt-10 z-1 flex-col md:flex-row">
+	<section id="about" class="mt-2 z-1 flex-col md:flex-row">
 		<div
 			class="flex flex-row flex-wrap w-full place-content-start items-start"
 			use:inview
@@ -99,7 +99,7 @@
 		</div>
 	</section>
 
-	<section id="specialities" class="mt-10 z-1 flex-col md:flex-row">
+	<section id="specialities" class="mt-2 z-1 flex-col md:flex-row">
 		<div
 			class="flex flex-row flex-wrap w-full place-content-start items-start mb-2"
 			use:inview
@@ -121,7 +121,7 @@
 		</div>
 	</section>
 
-	<section id="other_services" class="mt-10 z-1 flex-col md:flex-row">
+	<section id="other_services" class="mt-2 z-1 flex-col md:flex-row">
 		<div
 			class="flex flex-row flex-wrap w-full place-content-start items-start"
 			use:inview
@@ -140,7 +140,7 @@
 
 		<div class="flex flex-col md:flex-row w-full px-6 my-4">
 			<div
-				class="w-full base-font-color card preset-filled-primary-500 p-2 md:p-4 flex flex-col md:flex-row justify-between items-start"
+				class="w-full base-font-color card bg-secondary-400 p-2 md:p-4 flex flex-col md:flex-row justify-between items-start"
 			>
 				{#each otherServices as service, i}
 					<div class="flex flex-row text-white m-4">

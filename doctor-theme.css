@@ -1,5 +1,5 @@
 [data-theme='doctor'] {
-	--text-scaling: 1.125;
+	--text-scaling: 1.067;
 	--base-font-color: var(--color-surface-950);
 	--base-font-color-dark: var(--color-surface-50);
 	--base-font-family: 'Montserrat Variable', sans-serif;
@@ -11,7 +11,7 @@
 	--heading-font-color: inherit;
 	--heading-font-color-dark: inherit;
 	--heading-font-family: 'Montserrat Variable', sans-serif;
-	--heading-font-weight: bold;
+	--heading-font-weight: normal;
 	--heading-font-style: normal;
 	--heading-letter-spacing: inherit;
 	--anchor-font-color: var(--color-primary-500);
@@ -35,15 +35,15 @@
 	--body-background-color: var(--color-surface-50);
 	--body-background-color-dark: var(--color-surface-950);
 	--color-primary-50: oklch(95.45% 0.07 196.04deg);
-	--color-primary-100: oklch(90.47% 0.09 199.21deg);
-	--color-primary-200: oklch(85.52% 0.11 202.9deg);
-	--color-primary-300: oklch(81.02% 0.12 204.61deg);
-	--color-primary-400: oklch(76.7% 0.13 208.03deg);
-	--color-primary-500: oklch(72.91% 0.13 210.8deg);
-	--color-primary-600: oklch(66.26% 0.12 212.04deg);
-	--color-primary-700: oklch(59.49% 0.1 214.41deg);
-	--color-primary-800: oklch(52.21% 0.09 217.64deg);
-	--color-primary-900: oklch(45% 0.08 221.82deg);
+	--color-primary-100: oklch(94.74% 0.06 197.4deg);
+	--color-primary-200: oklch(94.26% 0.05 197.64deg);
+	--color-primary-300: oklch(93.64% 0.05 199.7deg);
+	--color-primary-400: oklch(93.18% 0.04 200.38deg);
+	--color-primary-500: oklch(92.53% 0.03 203.91deg);
+	--color-primary-600: oklch(82% 0.04 209.99deg);
+	--color-primary-700: oklch(71.15% 0.05 213.76deg);
+	--color-primary-800: oklch(60.07% 0.06 215.82deg);
+	--color-primary-900: oklch(48.76% 0.07 219.52deg);
 	--color-primary-950: oklch(37.43% 0.07 226.46deg);
 	--color-primary-contrast-dark: var(--color-primary-950);
 	--color-primary-contrast-light: var(--color-primary-50);

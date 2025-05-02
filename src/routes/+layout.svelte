@@ -13,7 +13,7 @@
 <Toaster {toaster}></Toaster>
 
 <div class="min-h-screen grid grid-rows-[auto_1fr_auto]">
-	<header class="sticky top-0 z-1">
+	<header class="sticky top-0 z-4">
 		<AppBar />
 	</header>
 

@@ -4,7 +4,7 @@
     import newLogo from '$lib/assets/png/new_logo.png';
 </script>
 
-<AppBar background="bg-tertiary-200">
+<AppBar background="bg-primary-500">
     {#snippet lead()}
         <a href="/">
             <img
