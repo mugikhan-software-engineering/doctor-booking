@@ -15,7 +15,7 @@
 </script>
 
 <div
-		class="flex flex-row place-self-center justify-center items-center h-fit w-fit z-2 sticky mb-10 md:mb-0 bg-secondary-600/25 p-2 md:p-3 rounded-md xs:space-x-1 space-x-4 md:space-x-8"
+		class="flex flex-row place-self-center justify-center items-center h-fit w-fit z-2 sticky mb-10 md:mb-0 bg-secondary-400/15 p-2 md:p-3 rounded-md xs:space-x-1 space-x-4 md:space-x-8"
 	>
 		<div class="flex flex-row items-center">
 			<a

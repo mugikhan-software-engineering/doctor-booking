@@ -37,7 +37,7 @@
 	<div
 		class="absolute w-screen h-screen top-0 left-0 bg-cover bg-center bg-no-repeat bg-fixed bg-blend-color opacity-60 blur-[1px]"
 		style="background-image:url({kidneyHome})"
-	/>
+	></div>
 	<div
 		class="sticky flex bg-transparent p-5 md:p-2 lg:flex-row flex-col items-center lg:justify-between z-0 gap-y-8"
 	>
@@ -69,7 +69,7 @@
 	<section id="kidney" class="flex flex-col h-fit w-screen bg-[#f4f5f7] py-8">
 		<div class="flex flex-col md:flex-row mt-5">
 			<div class="flex justify-center items-center basis-2/5">
-				<span class="bg-[#CBE9FA] w-44 h-44 rounded-full flex justify-center items-center">
+				<span class="bg-primary-500 w-44 h-44 rounded-full flex justify-center items-center">
 					<img src={kidneysIcon} class="w-36 h-36 rounded-full" alt="Kidneys" loading="lazy" />
 				</span>
 			</div>

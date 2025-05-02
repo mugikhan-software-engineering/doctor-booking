@@ -5,8 +5,6 @@
 	import appointmentBanner from '$lib/assets/appointment-banner.jpg';
 
 	import {
-		PhoneCallIcon,
-		MapIcon,
 		ChevronLeftIcon,
 		ChevronRightIcon
 	} from 'svelte-feather-icons';
@@ -220,11 +218,11 @@
 		<!-- Button: Left -->
 		<button
 			type="button"
-			class="btn-icon preset-tonal border border-surface-500"
+			class="btn-icon preset-surface-500 rounded-full border-0"
 			on:click={carouselLeft}
 			aria-label="chevron-left"
 		>
-			<ChevronLeftIcon size="32" class="text-slate-600" />
+			<ChevronLeftIcon size="36" class="text-slate-600" />
 		</button>
 		<!-- Full Images -->
 		<div
@@ -243,11 +241,11 @@
 		<!-- Button: Right -->
 		<button
 			type="button"
-			class="btn-icon preset-tonal border border-surface-500"
+			class="btn-icon preset-surface-500 rounded-full border-0"
 			on:click={carouselRight}
 			aria-label="chevron-right"
 		>
-			<ChevronRightIcon size="32" class="text-slate-600" />
+			<ChevronRightIcon size="36" class="text-slate-600" />
 		</button>
 	</div>
 
