@@ -76,7 +76,7 @@
 
 			<div class="flex flex-col shrink-0 basis-3/5 pl-5 md:pl-0">
 				<div class="flex flex-row items-center">
-					<span class="badge-icon p-7 variant-soft-primary mr-5 text-xl text-black">{1}</span>
+					<span class="badge-icon p-7 preset-tonal-primary mr-5 text-xl text-black">{1}</span>
 					<h3 class="h2">Kidneys</h3>
 				</div>
 				<div>
@@ -102,7 +102,7 @@
 
 			<div class="flex flex-col shrink-0 basis-3/5 pl-5 md:pl-0">
 				<div class="flex flex-row items-center">
-					<span class="badge-icon p-7 variant-soft-primary mr-5 text-xl text-black">{2}</span>
+					<span class="badge-icon p-7 preset-tonal-primary mr-5 text-xl text-black">{2}</span>
 					<h3 class="h2">Bladders</h3>
 				</div>
 				<div>
@@ -128,7 +128,7 @@
 
 			<div class="flex flex-col shrink-0 basis-3/5 pl-5 md:pl-0">
 				<div class="flex flex-row items-center">
-					<span class="badge-icon p-7 variant-soft-primary mr-5 text-xl text-black">{3}</span>
+					<span class="badge-icon p-7 preset-tonal-primary mr-5 text-xl text-black">{3}</span>
 					<h3 class="h2">Prostate</h3>
 				</div>
 				<div>
@@ -159,7 +159,7 @@
 
 			<div class="flex flex-col shrink-0 basis-3/5 pl-5 md:pl-0">
 				<div class="flex flex-row items-center">
-					<span class="badge-icon p-7 variant-soft-primary mr-5 text-xl text-black">{4}</span>
+					<span class="badge-icon p-7 preset-tonal-primary mr-5 text-xl text-black">{4}</span>
 					<h3 class="h2">Testicular</h3>
 				</div>
 				<div>
@@ -190,7 +190,7 @@
 
 			<div class="flex flex-col shrink-0 basis-3/5 pl-5 md:pl-0">
 				<div class="flex flex-row items-center">
-					<span class="badge-icon p-7 variant-soft-primary mr-5 text-xl text-black">{5}</span>
+					<span class="badge-icon p-7 preset-tonal-primary mr-5 text-xl text-black">{5}</span>
 					<h3 class="h2">Male infertility</h3>
 				</div>
 				<div>
@@ -221,7 +221,7 @@
 
 			<div class="flex flex-col shrink-0 basis-3/5 pl-5 md:pl-0">
 				<div class="flex flex-row items-center">
-					<span class="badge-icon p-7 variant-soft-primary mr-5 text-xl text-black">{6}</span>
+					<span class="badge-icon p-7 preset-tonal-primary mr-5 text-xl text-black">{6}</span>
 					<h3 class="h2">Male sexual health</h3>
 				</div>
 				<div>

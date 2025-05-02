@@ -124,7 +124,7 @@
 </form>
 
 {#if form?.error}
-	<aside class="alert variant-filled-error">
+	<aside class="alert preset-filled-error-500">
 		<div class="alert-message">
 			<h3 class="h3">Error!</h3>
 			<p>{form.description}</p>

@@ -1,14 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import 'tailwindcss';
+@import '@skeletonlabs/skeleton';
+@import '@skeletonlabs/skeleton/optional/presets';
+@import '@fontsource-variable/montserrat';
+@import '../doctor-theme.css';
+@source '../node_modules/@skeletonlabs/skeleton-svelte/dist';
+/* Add your theme import for your theme: "doctor-theme" here */
 
-@tailwind base;
-@tailwind components;
 @tailwind utilities;
-@tailwind variants;
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+	--breakpoint-xxs: 290px;
+	--breakpoint-xs: 639px;
+}
 
 html,
 body {
-	@apply h-full overflow-hidden;
+	@apply h-full;
 }
 
 :root [data-theme='doctor-theme'] {

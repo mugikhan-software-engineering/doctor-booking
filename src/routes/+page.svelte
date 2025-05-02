@@ -18,15 +18,14 @@
 	import ReviewCardPlaceholder from '$lib/components/review_card_placeholder.svelte';
 	import { enhance, applyAction } from '$app/forms';
 
-	import { getToastStore } from '@skeletonlabs/skeleton';
-	import type { ToastSettings } from '@skeletonlabs/skeleton';
-
 	import { inview } from 'svelte-inview';
 	import { fly } from 'svelte/transition';
 
 	import { SyncLoader } from 'svelte-loading-spinners';
 
-	const toastStore = getToastStore();
+	import { toaster } from '$lib/components/toasts/toaster-svelte';
+
+	// const toastStore = getToastStore();
 
 	let isInViewAboutTitle: boolean;
 	let isInViewContactTitle: boolean = true;
@@ -80,25 +79,19 @@
 		'https://www.google.com/maps/place/Dr+Ahsan+Ahmad+-+Urologist/@-26.3285516,27.8597674,17z/data=!3m1!4b1!4m6!3m5!1s0x1e95a89cea357707:0x72e6d95d420b7803!8m2!3d-26.3285564!4d27.8623423!16s%2Fg%2F11b5yzxp5m?entry=ttu';
 
 	const showSuccessToast = (message: any) => {
-		const t: ToastSettings = {
-			message: message as string,
-			background: 'variant-filled-success',
-			timeout: 2000,
-			hideDismiss: true,
-			classes: 'text-white'
-		};
-		toastStore.trigger(t);
+		toaster.success({
+			title: message as string,
+			duration: 2000,
+			closable: false,
+		});
 	};
 
 	const showErrorToast = (message: any) => {
-		const t: ToastSettings = {
-			message: message as string,
-			background: 'variant-filled-error',
-			timeout: 2000,
-			hideDismiss: true,
-			classes: 'text-white'
-		};
-		toastStore.trigger(t);
+		toaster.error({
+			title: message as string,
+			duration: 2000,
+			closable: false,
+		});
 	};
 
 	let email: String = '';
@@ -116,7 +109,7 @@
 	<div
 		class="absolute w-screen h-screen top-0 left-0 bg-cover bg-center bg-no-repeat bg-fixed bg-blend-color opacity-60 blur-[1px]"
 		style="background-image:url({paralax})"
-	/>
+	></div>
 	<div
 		class="sticky flex bg-transparent p-5 lg:flex-row flex-col items-center justify-between z-0 gap-y-8 w-full"
 	>
@@ -134,7 +127,7 @@
 		</div>
 	</div>
 	<div
-		class="flex flex-row place-self-center justify-center items-center h-fit w-fit z-2 sticky mb-10 md:mb-0 variant-glass-secondary p-2 md:p-3 rounded-md xs:space-x-1 space-x-4 md:space-x-8"
+		class="flex flex-row place-self-center justify-center items-center h-fit w-fit z-2 sticky mb-10 md:mb-0 preset-tonal-secondary p-2 md:p-3 rounded-md xs:space-x-1 space-x-4 md:space-x-8"
 	>
 		<div class="flex flex-row items-center">
 			<a
@@ -202,7 +195,7 @@
 				/>
 			</div>
 			<div class="flex md:basis-9/12 justify-center items-start md:pl-5">
-				<p class="text-lg text-token">
+				<p class="text-lg base-font-color">
 					Dr. Ahmad is a dedicated Urologist, specializing in the health of the urinary system and
 					male reproductive organs. If you have concerns related to your kidneys, bladder, prostate,
 					or other related organs, he's here to help!
@@ -284,7 +277,7 @@
 								<span class="text-white">Name</span>
 								<input
 									name="name"
-									class="input peer bg-white border border-2 border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
+									class="input peer bg-white border-2 border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
                                     focus:outline-none focus:ring-1 focus:ring-sky-500
                                     disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
                                     focus:border-tertiary-500 focus:invalid:border-error-500"
@@ -305,14 +298,14 @@
 								<span class="text-white">Contact number</span>
 								<input
 									name="contact"
-									class="input peer bg-white border border-2 border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
+									class="input peer bg-white border-2 border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
                                     focus:outline-none focus:ring-1 focus:ring-sky-500
                                     disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
                                     focus:border-tertiary-500 focus:invalid:border-error-500"
 									type="text"
 									placeholder="Your phone number"
 									required
-									pattern="^(\+27|0)[0-9]&#123;9&#125;$"
+									pattern="^(\+27|0)[0-9]{9}$"
 								/>
 								<span
 									class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block"
@@ -324,7 +317,7 @@
 								<span class="text-white">Email</span>
 								<input
 									name="email"
-									class="input peer bg-white border border-2 border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
+									class="input peer bg-white border-2 border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
                                     focus:outline-none focus:ring-1 focus:ring-sky-500
                                     disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
                                     focus:border-tertiary-500 focus:invalid:border-error-500"
@@ -345,7 +338,7 @@
 							<span class="text-white">Select your issue</span>
 							<select
 								name="issue"
-								class="select bg-white border border-2 border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
+								class="select bg-white border-2 border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
                                 focus:outline-none focus:ring-1 focus:ring-sky-500
                                 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
                                 focus:border-tertiary-500 focus:invalid:border-error-500"
@@ -365,7 +358,7 @@
 						<label class="label px-5 my-3">
 							<span class="text-white">Message</span>
 							<textarea
-								class="textarea peer bg-white border border-2 border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
+								class="textarea peer bg-white border-2 border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
                                 focus:outline-none focus:ring-1 focus:ring-sky-500
                                 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
                                 focus:border-tertiary-500 focus:invalid:border-error-500"
@@ -373,12 +366,13 @@
 								required
 								placeholder="Briefly describe your current condition..."
 								name="message"
-							/>
-							<span
-								class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block"
 							>
-								Please enter a message
-							</span>
+								<span
+									class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block"
+								>
+									Please enter a message
+								</span>
+							</textarea>
 						</label>
 
 						<label class="flex items-center justify-center space-x-2 opacity-0">
@@ -389,7 +383,7 @@
 						<div class="w-full flex flex-row items-center justify-center md:mb-2">
 							<button
 								type="submit"
-								class="btn variant-filled-surface bg-surface-200 text-black text-lg group-invalid:pointer-events-none group-invalid:opacity-50 {active_class}"
+								class="btn preset-filled-surface-500 bg-surface-200 text-black text-lg group-invalid:pointer-events-none group-invalid:opacity-50 {active_class}"
 							>
 								{#if loading}
 									<p>Sending</p>
@@ -426,7 +420,7 @@
 
 				{#if isVisibleContactForm}
 					<div
-						class="card py-2 pr-2 pl-4 mx-4 md:mr-4 my-2 gap-y-5 flex flex-col grow-0 flex-none basis-1/4 shrink variant-glass-surface"
+						class="card py-2 pr-2 pl-4 mx-4 md:mr-4 my-2 gap-y-5 flex flex-col grow-0 flex-none basis-1/4 shrink preset-tonal-surface"
 						transition:fly={{ duration: 600, x: 500, opacity: 0 }}
 					>
 						<p class="text-base md:text-lg text-white">
@@ -569,7 +563,7 @@
 		<!-- Button: Left -->
 		<button
 			type="button"
-			class="btn-icon variant-ghost"
+			class="btn-icon preset-tonal border border-surface-500"
 			on:click={carouselLeft}
 			aria-label="chevron-left"
 		>
@@ -592,7 +586,7 @@
 		<!-- Button: Right -->
 		<button
 			type="button"
-			class="btn-icon variant-ghost"
+			class="btn-icon preset-tonal border border-surface-500"
 			on:click={carouselRight}
 			aria-label="chevron-right"
 		>

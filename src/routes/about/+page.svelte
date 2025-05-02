@@ -1,18 +1,21 @@
 <script lang="ts">
 	import { inview } from 'svelte-inview';
-	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
-
 	import floatingTitle from '$lib/components/float_in_title.svelte';
 	import profile from '$lib/assets/png/dr-about.png';
 	import aboutUsHeader from '$lib/assets/about-us-header.jpg';
 	import medicalDoctor from '$lib/assets/png/medical.png';
 
-	import { specialiaties } from '$lib/constants/specialities';
+	
 	import { otherServices } from '$lib/constants/other_services';
 
-	let isInViewMeetTitle: boolean;
-	let isInViewSpecialitiesTitle: boolean;
-	let isInViewOtherServicesTitle: boolean;
+	import Accordion from '$lib/components/accordion.svelte';
+	import FloatInTitle from '$lib/components/float_in_title.svelte';
+
+	let isInViewMeetTitle: boolean = $state(false);
+	let isInViewSpecialitiesTitle: boolean = $state(false);
+	let isInViewOtherServicesTitle: boolean = $state(false);
+
+	let value = $state(['club']);
 </script>
 
 <svelte:head>
@@ -25,7 +28,7 @@
 	<div
 		class="absolute w-screen h-screen top-0 left-0 bg-cover bg-center bg-no-repeat bg-fixed bg-blend-color opacity-80 blur-[1px]"
 		style="background-image:url({aboutUsHeader})"
-	/>
+	></div>
 	<div
 		class="sticky flex bg-transparent p-5 lg:flex-row flex-col items-center md:justify-center justify-between z-0 gap-y-8"
 	>
@@ -49,13 +52,12 @@
 		<div
 			class="flex flex-row flex-wrap w-full place-content-start items-start"
 			use:inview
-			on:inview_change={(event) => {
+			oninview_change={(event) => {
 				const { inView } = event.detail;
 				isInViewMeetTitle = inView;
 			}}
 		>
-			<svelte:component
-				this={floatingTitle}
+			<FloatInTitle
 				title="ABOUT"
 				subtitle="Dr. Ahsan Ahmad"
 				yOffset={-50}
@@ -101,13 +103,12 @@
 		<div
 			class="flex flex-row flex-wrap w-full place-content-start items-start mb-2"
 			use:inview
-			on:inview_change={(event) => {
+			oninview_change={(event) => {
 				const { inView } = event.detail;
 				isInViewSpecialitiesTitle = inView;
 			}}
 		>
-			<svelte:component
-				this={floatingTitle}
+			<FloatInTitle
 				title="SPECIALITIES"
 				subtitle="We specialise in the following"
 				yOffset={-50}
@@ -116,28 +117,7 @@
 		</div>
 
 		<div class="flex w-full">
-			<Accordion padding="py-2 px-2">
-				<div class="text-token space-y-2 md:space-y-4 m-1 md:m-6 flex flex-col">
-					{#each specialiaties as speciality, i}
-						<AccordionItem>
-							<svelte:fragment slot="lead"
-								><span class="badge-icon p-4 variant-soft-secondary mr-0 md:mr-5">{i + 1}</span
-								></svelte:fragment
-							>
-							<svelte:fragment slot="summary"
-								><p class="font-bold text-base md:text-2xl md:m-2">
-									{speciality.title}
-								</p></svelte:fragment
-							>
-							<svelte:fragment slot="content"
-								><p class="text-base md:text-lg opacity-80">
-									{speciality.description}
-								</p></svelte:fragment
-							>
-						</AccordionItem>
-					{/each}
-				</div>
-			</Accordion>
+			<Accordion />
 		</div>
 	</section>
 
@@ -145,13 +125,12 @@
 		<div
 			class="flex flex-row flex-wrap w-full place-content-start items-start"
 			use:inview
-			on:inview_change={(event) => {
+			oninview_change={(event) => {
 				const { inView } = event.detail;
 				isInViewOtherServicesTitle = inView;
 			}}
 		>
-			<svelte:component
-				this={floatingTitle}
+			<FloatInTitle
 				title="WHAT ELSE?"
 				subtitle="Other services we provide"
 				yOffset={-50}
@@ -161,7 +140,7 @@
 
 		<div class="flex flex-col md:flex-row w-full px-6 my-4">
 			<div
-				class="w-full text-token card variant-filled-primary p-2 md:p-4 flex flex-col md:flex-row justify-between items-start"
+				class="w-full base-font-color card preset-filled-primary-500 p-2 md:p-4 flex flex-col md:flex-row justify-between items-start"
 			>
 				{#each otherServices as service, i}
 					<div class="flex flex-row text-white m-4">

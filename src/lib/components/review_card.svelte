@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
-	import { Avatar, Ratings } from '@skeletonlabs/skeleton';
+	import { Avatar, Rating } from '@skeletonlabs/skeleton-svelte';
 
 	import { icons } from '../constants/icons';
 
@@ -23,11 +23,11 @@
 		</div>
 		<div class="flex flex-col gap-2">
 			<p class="text-base p-2 capitalize">{review.author_name}</p>
-			<Ratings bind:value={review.rating} max={5} class="!place-content-start items-center">
+			<Rating bind:value={review.rating} max={5} class="!place-content-start items-center">
 				<svelte:fragment slot="empty">{@html icons.starEmpty}</svelte:fragment>
 				<svelte:fragment slot="half">{@html icons.starHalf}</svelte:fragment>
 				<svelte:fragment slot="full">{@html icons.starFull}</svelte:fragment>
-			</Ratings>
+			</Rating>
 			<p class="text-base p-2">{review.text}</p>
 		</div>
 	</div>
