@@ -22,7 +22,10 @@ export default $config({
     const router = new sst.aws.Router("DoctorBooking", {
       domain: {
         name: domain,
-        aliases: [`*.${domain}`]
+        aliases: [`*.${domain}`],
+        dns: sst.aws.dns({
+          override: $app.stage === "production" ? false : true
+        })
       }
     });
     await import("./infra/api");
