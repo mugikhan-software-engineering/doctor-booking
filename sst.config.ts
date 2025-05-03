@@ -1,49 +1,29 @@
-import type { SSTConfig } from 'sst';
-import { SvelteKitSite, Api, StackContext } from 'sst/constructs';
+/// <reference path="./.sst/platform/config.d.ts" />
 
-export default {
-	config(_input) {
-		return {
-			name: 'doctor-booking',
-			region: 'af-south-1',
-			profile: _input.stage === 'prod' ? 'admin' : 'admin'
-		};
-	},
-	stacks(app) {
-		app.stack(function Site({ stack }: StackContext) {
-			const api = new Api(stack, 'api', {
-				routes: {
-					'POST /send-email': 'packages/functions/src/send_email.handler',
-					'POST /contact': 'packages/functions/src/contact_handler.handler'
-				},
-				customDomain: {
-					domainName: 'api.drahsanahmad.com'
-				},
-				defaults: {
-					function: {
-						runtime: 'nodejs20.x',
-						environment: {
-							TWILIO_ACCOUNT_SID: process.env.TWILIO_ACCOUNT_SID || '',
-							TWILIO_AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN || '',
-							TWILIO_MESSAGING_SERVICE_SID: process.env.TWILIO_MESSAGING_SERVICE_SID || ''
-						}
-					}
-				}
-			});
-			// Add permissions for SES and allow outbound HTTP requests for WhatsApp API
-			api.attachPermissions(['ses:SendTemplatedEmail', 'execute-api:Invoke']);
-			const site = new SvelteKitSite(stack, 'site', {
-				customDomain: {
-					domainName: 'drahsanahmad.com',
-					domainAlias: 'www.drahsanahmad.com'
-				},
-				bind: [api]
-			});
-			stack.addOutputs({
-				ApiUrl: api.customDomainUrl || api.url,
-				SiteUrl: site.customDomainUrl || site.url
-			});
-		});
-		app.setDefaultRemovalPolicy("retain");
-	}
-} satisfies SSTConfig;
+export default $config({
+  app(input) {
+    return {
+      name: "doctor-booking",
+      removal: input?.stage === "production" ? "retain" : "remove",
+      protect: ["production"].includes(input?.stage),
+      home: "aws",
+      providers: {
+        aws: {
+          profile: input.stage === "production" ? "default" : "doctor-dev"
+        }
+      }
+    };
+  },
+  async run() {
+    const api = await import("./infra/api");
+    const email = await import("./infra/email");
+
+    new sst.aws.SvelteKit("site", {
+      domain: {
+        name: "drahsanahmad.com",
+        redirects: ["www.drahsanahmad.com"],
+      },
+      link: [email, api],
+    });
+  },
+});
