@@ -9,21 +9,51 @@ export default $config({
       home: "aws",
       providers: {
         aws: {
-          profile: input.stage === "production" ? "default" : "doctor-dev"
+          profile: input.stage === "production" ? "default" : "doctor-dev",
+          region: "af-south-1"
         }
       }
     };
   },
   async run() {
-    const api = await import("./infra/api");
-    const email = await import("./infra/email");
+    const domain = $app.stage === "production"
+      ? "drahsanahmad.com"
+      : "dev.drahsanahmad.com";
+    const router = new sst.aws.Router("router", {
+      domain: {
+        name: domain,
+        aliases: [`*.${domain}`]
+      }
+    });
+    await import("./infra/api");
+
+    // new sst.aws.Function("contact", {
+    //   handler: "packages/functions/src/contact_handler.handler",
+    //   url: {
+    //     router: {
+    //       instance: router,
+    //       path: "/api/contact"
+    //     }
+    //   },
+    //   runtime: "nodejs20.x",
+    // });
+
+    // new sst.aws.Function("send-email", {
+    //   handler: "packages/functions/src/send_email.handler",
+    //   url: {
+    //     router: {
+    //       instance: router,
+    //       path: "/api/send-email"
+    //     }
+    //   },
+    //   runtime: "nodejs20.x",
+    // });
+  
 
     new sst.aws.SvelteKit("site", {
-      domain: {
-        name: "drahsanahmad.com",
-        redirects: ["www.drahsanahmad.com"],
+      router: {
+        instance: router,
       },
-      link: [email, api],
     });
   },
 });

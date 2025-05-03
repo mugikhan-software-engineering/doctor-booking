@@ -5,6 +5,14 @@
 
 declare module "sst" {
   export interface Resource {
+    "api": {
+      "type": "sst.aws.ApiGatewayV2"
+      "url": string
+    }
+    "router": {
+      "type": "sst.aws.Router"
+      "url": string
+    }
     "site": {
       "type": "sst.aws.SvelteKit"
       "url": string

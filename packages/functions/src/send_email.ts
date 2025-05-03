@@ -1,9 +1,6 @@
-import type {
-	APIGatewayProxyHandlerV2,
-	APIGatewayProxyEventV2,
-	APIGatewayProxyStructuredResultV2
-} from 'aws-lambda';
+import type { APIGatewayProxyHandlerV2 } from 'aws-lambda';
 import { SESClient, SendTemplatedEmailCommand } from '@aws-sdk/client-ses';
+import { Resource } from "sst";
 
 export const handler: APIGatewayProxyHandlerV2 = async (event) => {
 	const client = new SESClient({ region: 'af-south-1' });
@@ -18,9 +15,18 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
 	const data = JSON.parse(event.body);
 	const { name, contact, email, issue, message } = data;
 
+	if(process.env.SST_DEV) {
+		console.log('App Stage', Resource.App.stage);
+		console.log('Data', JSON.stringify(data));
+		return {
+			statusCode: 200,
+			body: 'Email sent!'
+		};
+	}
+
 	const params = new SendTemplatedEmailCommand({
 		Destination: {
-			ToAddresses: ['receptiondrahmad66@gmail.com']
+			ToAddresses: [Resource.App.stage === "production" ? 'receptiondrahmad66@gmail.com' : 'mugikhan@gmail.com']
 		},
 		Source: 'help@drahsanahmad.com',
 		Template: 'ContactUsTemplate',

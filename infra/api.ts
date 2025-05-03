@@ -1,5 +1,11 @@
 export const api = new sst.aws.ApiGatewayV2("api", {
-    domain: "api.drahsanahmad.com",
+    domain: {
+        name: $app.stage === "production" ? "drahsanahmad.com" : "dev.drahsanahmad.com",
+        path: "api",
+        dns: sst.aws.dns({
+            override: $app.stage === "production" ? false : true
+        })
+    }
 });
 
 api.route("POST /send-email", {
