@@ -1,33 +1,31 @@
 <script lang="ts">
 	import { Modal } from '@skeletonlabs/skeleton-svelte';
 	import newLogo from '$lib/assets/png/new_logo.png';
+	import CloseIcon from '~icons/material-symbols-light/close-rounded'
+	import HomeIcon from '~icons/material-symbols/home-rounded'
+	import BookOpenIcon from '~icons/material-symbols/book-5-rounded'
+	import SyringeIcon from '~icons/material-symbols/syringe'
 
-	let drawerState = $state(false);
-
-	function closeDrawer() {
-		drawerState = false;
-	}
+	let { drawerState, drawerClose, onOpenChange } = $props();
 </script>
 
 <Modal
 	open={drawerState}
-	onOpenChange={(e) => (drawerState = e.open)}
+	onOpenChange={onOpenChange}
 	triggerBase="btn preset-tonal"
-	contentBase="bg-surface-100-900 p-4 space-y-4 shadow-xl w-[480px] h-screen"
-	backdropBackground="variant-soft"
+	contentBase="bg-surface-100-900 py-4 px-2 space-y-4 w-4/5 shadow-xl h-screen"
+	backdropClasses="preset-glass-primary"
 	positionerJustify="justify-start"
-	positionerAlign=""
-	positionerPadding=""
+	positionerPadding="pr-0"
 	transitionsPositionerIn={{ x: -480, duration: 200 }}
 	transitionsPositionerOut={{ x: -480, duration: 200 }}
 >
-{#snippet trigger()}Open Drawer{/snippet}
 {#snippet content()}
-	<div class="flex flex-row justify-between items-center p-5 gap-3">
+	<div class="flex flex-row justify-between items-center gap-x-3">
 		<div class="flex-1">
 			<img
 				alt="The project logo"
-				class="h-auto xs:h-[30px] max-w-[280px] xxs:max-w-[140px]"
+				class="h-auto w-auto"
 				src={newLogo}
 			/>
 		</div>
@@ -36,45 +34,44 @@
 				type="button"
 				data-drawer-hide="drawer-navigation"
 				aria-controls="drawer-navigation"
-				onclick={closeDrawer}
-				class="btn-icon preset-outlined-primary-500 text-black"
+				onclick={drawerClose}
+				class="btn preset-outlined-tertiary-500 rounded-full p-2 text-black"
 			>
-				<!-- <XIcon
-					size="32"
+				<CloseIcon
 					class="dark:hover:bg-gray-600 dark:hover:text-white hover:bg-black-200 hover:text-slate-500"
-				/> -->
+				/>
 				<span class="sr-only">Close menu</span>
 			</button>
 		</div>
 	</div>
 	<div class="block absolute bottom-8 w-[calc(100%-50px)]">
 		<div class="flex flex-col justify-end grow py-4 overflow-y-auto self-end">
-			<ul class="font-medium flex flex-col space-y-12 pl-1 w-full">
+			<ul class="font-medium flex flex-col space-y-12 px-4 w-full">
 				<li>
 					<a
-						onclick={closeDrawer}
-						class="flex flex-row items-center px-4 text-2xl text-gray-900 rounded hover:text-slate-500 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+						onclick={drawerClose}
+						class="flex flex-row items-center text-xl text-gray-900 rounded hover:text-slate-500 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
 						href="/">
-						<!-- <HomeIcon size="32" class="text-black mr-4 hover:text-slate-500" />Home</a
-					> -->
+						<HomeIcon class="text-black mr-4 hover:text-slate-500" />Home</a
+					>
 				</li>
 				<li>
 					<a
-						onclick={closeDrawer}
-						class="flex flex-row items-center px-4 text-2xl text-gray-900 rounded hover:text-slate-500 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+						onclick={drawerClose}
+						class="flex flex-row items-center text-xl text-gray-900 rounded hover:text-slate-500 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
 						href="/about"
 						>
-						<!-- <BookOpenIcon size="32" class="text-black mr-4 hover:text-slate-500" />About</a
-					> -->
+						<BookOpenIcon class="text-black mr-4 hover:text-slate-500" />About</a
+					>
 				</li>
 				<li>
 					<a
-						onclick={closeDrawer}
-						class="flex flex-row items-center px-4 text-2xl text-gray-900 rounded hover:text-slate-500 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+						onclick={drawerClose}
+						class="flex flex-row items-center text-xl text-gray-900 rounded hover:text-slate-500 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
 						href="/treatments"
 						>
-						<!-- <UserIcon size="32" class="text-black mr-4 hover:text-slate-500" />Treatments</a
-					> -->
+						<SyringeIcon class="text-black mr-4 hover:text-slate-500" />Treatments</a
+					>
 				</li>
 			</ul>
 		</div>

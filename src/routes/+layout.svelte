@@ -28,7 +28,7 @@
 	</footer>
 
 	<div
-		class="fixed xxs:bottom-[52px] xs:bottom-[52px] sm:bottom-[27px] md:bottom-[27px] right-[12px] z-100"
+		class="fixed bottom-[52px] xxs:bottom-[52px] xs:bottom-[52px] sm:bottom-[27px] md:bottom-[27px] right-[12px] z-100"
 	>
 		<a aria-label="Chat on WhatsApp" href="https://wa.me/+27737881600">
 			<img alt="Chat on WhatsApp" src={whatsapp} />
