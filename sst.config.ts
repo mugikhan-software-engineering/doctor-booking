@@ -19,7 +19,7 @@ export default $config({
     const domain = $app.stage === "production"
       ? "drahsanahmad.com"
       : "dev.drahsanahmad.com";
-    const router = new sst.aws.Router("router", {
+    const router = new sst.aws.Router("DoctorBooking", {
       domain: {
         name: domain,
         aliases: [`*.${domain}`]
@@ -27,33 +27,17 @@ export default $config({
     });
     await import("./infra/api");
 
-    // new sst.aws.Function("contact", {
-    //   handler: "packages/functions/src/contact_handler.handler",
-    //   url: {
-    //     router: {
-    //       instance: router,
-    //       path: "/api/contact"
-    //     }
-    //   },
-    //   runtime: "nodejs20.x",
-    // });
-
-    // new sst.aws.Function("send-email", {
-    //   handler: "packages/functions/src/send_email.handler",
-    //   url: {
-    //     router: {
-    //       instance: router,
-    //       path: "/api/send-email"
-    //     }
-    //   },
-    //   runtime: "nodejs20.x",
-    // });
+    const secrets = {
+      PlacesApiKey: new sst.Secret("PlacesApiKey"),
+    };
+    const allSecrets = Object.values(secrets);
   
 
     new sst.aws.SvelteKit("site", {
       router: {
         instance: router,
       },
+      link: [...allSecrets]
     });
   },
 });

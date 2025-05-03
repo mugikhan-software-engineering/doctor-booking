@@ -5,6 +5,10 @@
 
 declare module "sst" {
   export interface Resource {
+    "PlacesApiKey": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
     "api": {
       "type": "sst.aws.ApiGatewayV2"
       "url": string

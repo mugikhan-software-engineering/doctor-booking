@@ -4,17 +4,18 @@
 	import paralax from '$lib/assets/paralax.jpg';
 	import appointmentBanner from '$lib/assets/appointment-banner.jpg';
 
-	import ChevronLeftIcon from '~icons/mdi/chevron-left'
-	import ChevronRightIcon from '~icons/mdi/chevron-right'
+	import ChevronLeftIcon from '~icons/mdi/chevron-left';
+	import ChevronRightIcon from '~icons/mdi/chevron-right';
 
 	import floatingTitle from '$lib/components/float_in_title.svelte';
-	import reviewCard from '$lib/components/review_card.svelte';
 	import ReviewCardPlaceholder from '$lib/components/review_card_placeholder.svelte';
 
 	import { inview } from 'svelte-inview';
 
 	import QuickNav from '$lib/components/quick_nav.svelte';
 	import ContactForm from '$lib/components/contact_form.svelte';
+	import ReviewCard from '$lib/components/review_card.svelte';
+	import { onMount } from 'svelte';
 
 	let isInViewAboutTitle: boolean;
 	let isInViewContactTitle: boolean = true;
@@ -30,27 +31,41 @@
 
 	let reviewsPromise = loadReviews();
 
-	let elemCarousel: HTMLDivElement;
-
-	const carouselLeft = (): void => {
-		const x =
-			elemCarousel.scrollLeft === 0
-				? elemCarousel.clientWidth * elemCarousel.childElementCount // loop
-				: elemCarousel.scrollLeft - elemCarousel.clientWidth; // step left
-		elemCarousel.scroll(x, 0);
-	};
-
-	const carouselRight = (): void => {
-		const x =
-			elemCarousel.scrollLeft === elemCarousel.scrollWidth - elemCarousel.clientWidth
-				? 0 // loop
-				: elemCarousel.scrollLeft + elemCarousel.clientWidth; // step right
-		elemCarousel.scroll(x, 0);
-	};
-
 	let email: String = '';
 
 	let loading: Boolean = false;
+
+	let elemCarousel: HTMLDivElement | null = null;
+	let elemCarouselLeft: HTMLButtonElement | null = null;
+	let elemCarouselRight: HTMLButtonElement | null = null;
+
+	onMount(() => {
+		elemCarousel = document.querySelector('[data-carousel]');
+		elemCarouselLeft = document.querySelector('[data-carousel-left]');
+		elemCarouselRight = document.querySelector('[data-carousel-right]');
+
+		elemCarouselLeft?.addEventListener('click', () => carouselLeft());
+		elemCarouselRight?.addEventListener('click', () => carouselRight());
+
+		function carouselLeft() {
+			if (!elemCarousel) return;
+			const x =
+				elemCarousel.scrollLeft === 0
+					? elemCarousel.clientWidth * elemCarousel.childElementCount // loop
+					: elemCarousel.scrollLeft - elemCarousel.clientWidth; // step left
+			elemCarousel.scroll(x, 0);
+		}
+
+		/** On navigation right, scroll the container */
+		function carouselRight() {
+			if (!elemCarousel) return;
+			const x =
+				elemCarousel.scrollLeft === elemCarousel.scrollWidth - elemCarousel.clientWidth
+					? 0 // loop
+					: elemCarousel.scrollLeft + elemCarousel.clientWidth; // step right
+			elemCarousel.scroll(x, 0);
+		}
+	});
 </script>
 
 <svelte:head>
@@ -215,34 +230,31 @@
 		<!-- Button: Left -->
 		<button
 			type="button"
-			class="btn-icon preset-surface-500 rounded-full border-0"
-			onclick={carouselLeft}
+			class="btn hover:preset-tonal-primary"
 			aria-label="chevron-left"
+			data-carousel-left
 		>
-			<ChevronLeftIcon style="width: 36px; height: 36px;" class="text-slate-600" />
+			<ChevronLeftIcon style="font-size: 1.5em;" class="text-gray-600" />
 		</button>
 		<!-- Full Images -->
-		<div
-			bind:this={elemCarousel}
-			class="snap-x scroll-px-4 snap-mandatory scroll-smooth flex md:gap-10 overflow-x-auto md:px-5 md:py-10 overflow-y-auto"
-		>
+		<div data-carousel class="snap-x scroll-px-4 snap-mandatory scroll-smooth flex md:gap-10 overflow-x-auto md:px-5 md:py-10 overflow-y-auto">
 			{#await reviewsPromise}
 				<ReviewCardPlaceholder />
 				<ReviewCardPlaceholder />
 			{:then reviewData}
 				{#each reviewData.reviews as review}
-					<svelte:component this={reviewCard} {review} />
+					<ReviewCard {review} />
 				{/each}
 			{/await}
 		</div>
 		<!-- Button: Right -->
 		<button
 			type="button"
-			class="btn-icon preset-surface-500 rounded-full border-0"
-			onclick={carouselRight}
+			class="btn hover:preset-tonal-primary"
 			aria-label="chevron-right"
+			data-carousel-right
 		>
-			<ChevronRightIcon style="width: 36px; height: 36px;" class="text-slate-600" />
+			<ChevronRightIcon style="font-size: 1.5em;" class="text-gray-600" />
 		</button>
 	</div>
 
