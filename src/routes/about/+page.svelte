@@ -42,7 +42,7 @@
 			</h1>
 		</div>
 		<div class="flex">
-			<img class="w-full mr-2" src={profile} alt="Dr. Ahsan Ahmad" loading="lazy" />
+			<img class="h-auto w-full mr-2" src={profile} alt="Dr. Ahsan Ahmad" loading="lazy" />
 		</div>
 	</div>
 </section>

@@ -72,9 +72,9 @@
 	<title>Dr. Ahsan Ahmad - Expert Urologist</title>
 </svelte:head>
 
-<section class="pb-32 relative w-screen h-screen flex flex-col justify-between items-center">
+<section class="pb-32 relative w-screen h-dvh flex flex-col justify-between items-center">
 	<div
-		class="absolute w-screen h-screen top-0 left-0 bg-cover bg-center bg-no-repeat bg-fixed bg-blend-color opacity-60 blur-[1px]"
+		class="absolute w-screen h-dvh top-0 left-0 bg-cover bg-center bg-no-repeat bg-fixed bg-blend-color opacity-60 blur-[1px]"
 		style="background-image:url({paralax})"
 	></div>
 	<div
