@@ -12,11 +12,9 @@
 <Modal
 	open={drawerState}
 	onOpenChange={onOpenChange}
-	triggerBase="btn preset-tonal"
-	contentBase="bg-surface-100-900 py-4 px-2 space-y-4 w-4/5 shadow-xl h-screen"
+	contentBase="bg-surface-100-900 py-4 px-2 space-y-4 w-4/5 shadow-xl h-dvh"
 	backdropClasses="preset-glass-primary"
 	positionerJustify="justify-start"
-	positionerPadding="pr-0"
 	transitionsPositionerIn={{ x: -480, duration: 200 }}
 	transitionsPositionerOut={{ x: -480, duration: 200 }}
 >
