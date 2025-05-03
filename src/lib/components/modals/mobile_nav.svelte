@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { Modal } from '@skeletonlabs/skeleton-svelte';
-	import { XIcon, HomeIcon, BookOpenIcon, UserIcon } from 'svelte-feather-icons';
 	import newLogo from '$lib/assets/png/new_logo.png';
 
 	let drawerState = $state(false);
@@ -40,10 +39,10 @@
 				onclick={closeDrawer}
 				class="btn-icon preset-outlined-primary-500 text-black"
 			>
-				<XIcon
+				<!-- <XIcon
 					size="32"
 					class="dark:hover:bg-gray-600 dark:hover:text-white hover:bg-black-200 hover:text-slate-500"
-				/>
+				/> -->
 				<span class="sr-only">Close menu</span>
 			</button>
 		</div>
@@ -55,24 +54,27 @@
 					<a
 						onclick={closeDrawer}
 						class="flex flex-row items-center px-4 text-2xl text-gray-900 rounded hover:text-slate-500 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-						href="/"><HomeIcon size="32" class="text-black mr-4 hover:text-slate-500" />Home</a
-					>
+						href="/">
+						<!-- <HomeIcon size="32" class="text-black mr-4 hover:text-slate-500" />Home</a
+					> -->
 				</li>
 				<li>
 					<a
 						onclick={closeDrawer}
 						class="flex flex-row items-center px-4 text-2xl text-gray-900 rounded hover:text-slate-500 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
 						href="/about"
-						><BookOpenIcon size="32" class="text-black mr-4 hover:text-slate-500" />About</a
-					>
+						>
+						<!-- <BookOpenIcon size="32" class="text-black mr-4 hover:text-slate-500" />About</a
+					> -->
 				</li>
 				<li>
 					<a
 						onclick={closeDrawer}
 						class="flex flex-row items-center px-4 text-2xl text-gray-900 rounded hover:text-slate-500 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
 						href="/treatments"
-						><UserIcon size="32" class="text-black mr-4 hover:text-slate-500" />Treatments</a
-					>
+						>
+						<!-- <UserIcon size="32" class="text-black mr-4 hover:text-slate-500" />Treatments</a
+					> -->
 				</li>
 			</ul>
 		</div>

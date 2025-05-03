@@ -1,11 +1,10 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
 	import { SyncLoader } from 'svelte-loading-spinners';
-	import { toaster } from '$lib/components/toasts/toaster-svelte';
+	import { showSuccessToast, showErrorToast, showHoneypotErrorToast } from '$lib/components/toasts/toaster-svelte';
 	import { enhance, applyAction } from '$app/forms';
 
 	import PhoneNumber from '$lib/components/phone_number.svelte';
-	import { PhoneCallIcon, MapIcon } from 'svelte-feather-icons';
 	import LogosWhatsappIcon from '~icons/logos/whatsapp-icon';
 	import PhoneInTalkRoundedIcon from '~icons/material-symbols/phone-in-talk-rounded';
 	import MapPinIcon from '~icons/tabler/map-2'
@@ -14,22 +13,6 @@
 	let email: string = $state('');
 	const onChangeCheck = (event: any) => {
 		isHoneypotChecked = event.target.checked;
-	};
-
-	const showSuccessToast = (message: any) => {
-		toaster.success({
-			title: message as string,
-			duration: 2000,
-			closable: false,
-		});
-	};
-
-	const showErrorToast = (message: any) => {
-		toaster.error({
-			title: message as string,
-			duration: 2000,
-			closable: false,
-		});
 	};
 
 	const mapsLink =
@@ -50,17 +33,21 @@
 			method="POST"
 			action="?/sendEmail"
 			use:enhance={({ formElement, formData }) => {
+				if(isHoneypotChecked) {
+					showHoneypotErrorToast();
+					return;
+				}
 				loading = true;
 				return async ({ result, update }) => {
 					loading = false;
 					if (result.type === 'success') {
 						formElement.reset();
 						if (result.data) {
-							showSuccessToast(result.data['description']);
+							showSuccessToast(result.data['description'] as string);
 						}
 					} else if (result.type === 'failure') {
 						if (result.data) {
-							showErrorToast(result.data['description']);
+							showErrorToast(result.data['description'] as string);
 						}
 					}
 					await applyAction(result);

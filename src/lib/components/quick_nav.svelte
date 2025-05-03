@@ -1,6 +1,6 @@
 
 <script lang="ts">
-	import { ChevronsDownIcon } from 'svelte-feather-icons';
+	import ChevronsDownIcon from '~icons/mdi/chevron-double-down'
 
 	const scrollIntoView = ({ currentTarget }: any) => {
 		const scrollToElement = document.querySelector(currentTarget.getAttribute('href'));
@@ -23,7 +23,7 @@
 				href="#about"
 				on:click|preventDefault={scrollIntoView}>About</a
 			>
-			<ChevronsDownIcon size="24" class="text-slate-200" />
+			<ChevronsDownIcon style="width: 24px; height: 24px;" class="text-slate-200" />
 		</div>
 		<div class="flex flex-row items-center">
 			<a
@@ -31,7 +31,7 @@
 				href="#contact"
 				on:click|preventDefault={scrollIntoView}>Contact</a
 			>
-			<ChevronsDownIcon size="24" class="text-slate-200" />
+			<ChevronsDownIcon style="width: 24px; height: 24px;" class="text-slate-200" />
 		</div>
 		<div class="flex flex-row items-center">
 			<a
@@ -39,7 +39,7 @@
 				href="#google_map"
 				on:click|preventDefault={scrollIntoView}>Location</a
 			>
-			<ChevronsDownIcon size="24" class="text-slate-200" />
+			<ChevronsDownIcon style="width: 24px; height: 24px;" class="text-slate-200" />
 		</div>
 		<div class="flex flex-row items-center">
 			<a
@@ -47,6 +47,6 @@
 				href="#reviews"
 				on:click|preventDefault={scrollIntoView}>Reviews</a
 			>
-			<ChevronsDownIcon size="24" class="text-slate-200" />
+			<ChevronsDownIcon style="width: 24px; height: 24px;" class="text-slate-200" />
 		</div>
 	</div>

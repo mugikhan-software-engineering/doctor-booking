@@ -40,7 +40,6 @@
     "sst": "^3.14.11",
     "svelte": "^5.28.2",
     "svelte-check": "^4.1.7",
-    "svelte-feather-icons": "^4.2.0",
     "svelte-kit-sst": "2.43.5",
     "svelte-loading-spinners": "^0.3.6",
     "tailwindcss": "^4.1.5",
@@ -56,6 +55,7 @@
     "@fontsource-variable/montserrat": "^5.2.5",
     "@tailwindcss/vite": "^4.1.5",
     "sst": "3.14.11",
+    "svelte-french-toast": "^2.0.0-alpha.0",
     "svelte-inview": "^4.0.4",
     "svelte-kit-sst": "2.43.5",
     "twilio": "^5.5.2"

@@ -17,7 +17,7 @@ export const actions: Actions = {
 			name: data.get('name')?.toString() ?? '',
 			contact: data.get('contact')?.toString() ?? '',
 			email: data.get('email')?.toString() ?? '',
-			issue: data.get('issue')?.toString()?.toLowerCase() ?? '',
+			issue: data.get('issue')?.toString() ?? '',
 			message: data.get('message')?.toString() ?? ''
 		};
 

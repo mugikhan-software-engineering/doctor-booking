@@ -13,7 +13,7 @@
 	import { testiculars } from '$lib/constants/testicular';
 	import { infertilities } from '$lib/constants/infertility';
 
-	import { ChevronsDownIcon } from 'svelte-feather-icons';
+	import ChevronsDownIcon from '~icons/mdi/chevron-double-down'
 
 	const scrollIntoView = ({ currentTarget }: any) => {
 		const scrollToElement = document.querySelector(currentTarget.getAttribute('href'));
@@ -55,9 +55,9 @@
 					on:click|preventDefault={scrollIntoView}
 				>
 					<span
-						class="text-black sm:underline xs:underline md:no-underline underline-offset-2 link link-underline link-underline-black"
+						class="flex flex-row items-center text-black sm:underline xs:underline md:no-underline underline-offset-2 link link-underline link-underline-black"
 					>
-						Learn more
+						Learn more <ChevronsDownIcon style="width: 24px; height: 24px;" class="text-black" />
 					</span>
 				</a>
 			</div>

@@ -4,13 +4,15 @@
 	import Footer from '$lib/components/footer/footer.svelte';
 	import whatsapp from '$lib/assets/svg/whatsapp.svg';
 
-	import { Toaster } from '@skeletonlabs/skeleton-svelte';
-  	import { toaster } from '$lib/components/toasts/toaster-svelte';
+	// import { Toaster } from '@skeletonlabs/skeleton-svelte';
+  	// import { toaster } from '$lib/components/toasts/toaster-svelte';
+	
+	import {Toaster} from 'svelte-french-toast'
 
 	let { children } = $props();
 </script>
 
-<Toaster {toaster}></Toaster>
+<Toaster></Toaster>
 
 <div class="min-h-screen grid grid-rows-[auto_1fr_auto]">
 	<header class="sticky top-0 z-4">

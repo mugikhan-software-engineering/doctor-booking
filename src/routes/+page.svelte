@@ -4,10 +4,8 @@
 	import paralax from '$lib/assets/paralax.jpg';
 	import appointmentBanner from '$lib/assets/appointment-banner.jpg';
 
-	import {
-		ChevronLeftIcon,
-		ChevronRightIcon
-	} from 'svelte-feather-icons';
+	import ChevronLeftIcon from '~icons/mdi/chevron-left'
+	import ChevronRightIcon from '~icons/mdi/chevron-right'
 
 	import floatingTitle from '$lib/components/float_in_title.svelte';
 	import reviewCard from '$lib/components/review_card.svelte';
@@ -15,7 +13,6 @@
 
 	import { inview } from 'svelte-inview';
 
-	import { toaster } from '$lib/components/toasts/toaster-svelte';
 	import QuickNav from '$lib/components/quick_nav.svelte';
 	import ContactForm from '$lib/components/contact_form.svelte';
 
@@ -89,7 +86,7 @@
 		<div
 			class="flex flex-row flex-wrap w-full place-content-start items-start"
 			use:inview
-			on:inview_change={(event) => {
+			oninview_change={(event) => {
 				const { inView } = event.detail;
 				isInViewAboutTitle = inView;
 			}}
@@ -140,7 +137,7 @@
 			<div
 				class="flex flex-row flex-wrap w-full place-content-start items-start z-2"
 				use:inview
-				on:inview_change={(event) => {
+				oninview_change={(event) => {
 					const { inView } = event.detail;
 					isInViewContactTitle = inView;
 				}}
@@ -159,7 +156,7 @@
 			class="sticky w-screen h-fit bg-cover bg-center bg-no-repeat bg-fixed bg-blend-color z-0"
 			style="background-image:url({appointmentBanner})"
 			use:inview
-			on:inview_change={(event) => {
+			oninview_change={(event) => {
 				const { inView } = event.detail;
 				isVisibleContactForm = inView;
 			}}
@@ -172,7 +169,7 @@
 		<div
 			class="flex flex-row flex-wrap w-full place-content-start items-start z-2 mb-3"
 			use:inview
-			on:inview_change={(event) => {
+			oninview_change={(event) => {
 				const { inView } = event.detail;
 				isInViewMapTitle = inView;
 				isInViewMap = inView;
@@ -201,7 +198,7 @@
 	<div
 		class="mt-5"
 		use:inview
-		on:inview_change={(event) => {
+		oninview_change={(event) => {
 			const { inView } = event.detail;
 			isInViewReviewTitle = inView;
 		}}
@@ -219,10 +216,10 @@
 		<button
 			type="button"
 			class="btn-icon preset-surface-500 rounded-full border-0"
-			on:click={carouselLeft}
+			onclick={carouselLeft}
 			aria-label="chevron-left"
 		>
-			<ChevronLeftIcon size="36" class="text-slate-600" />
+			<ChevronLeftIcon style="width: 36px; height: 36px;" class="text-slate-600" />
 		</button>
 		<!-- Full Images -->
 		<div
@@ -242,10 +239,10 @@
 		<button
 			type="button"
 			class="btn-icon preset-surface-500 rounded-full border-0"
-			on:click={carouselRight}
+			onclick={carouselRight}
 			aria-label="chevron-right"
 		>
-			<ChevronRightIcon size="36" class="text-slate-600" />
+			<ChevronRightIcon style="width: 36px; height: 36px;" class="text-slate-600" />
 		</button>
 	</div>
 
