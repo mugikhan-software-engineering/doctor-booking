@@ -21,7 +21,7 @@
 		</div>
 		<div class="flex flex-col gap-2">
 			<p class="text-base p-2 capitalize">{review.author_name}</p>
-			<Rating value={review.rating} classes="!place-content-start items-center" allowHalf>
+			<Rating value={review.rating} classes="!place-content-start items-center" allowHalf readOnly>
 				{#snippet iconEmpty()}
 					{@html icons.starEmpty}
 				{/snippet}

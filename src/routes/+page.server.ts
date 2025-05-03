@@ -1,7 +1,6 @@
 import type { PageServerLoad, Actions } from './$types';
 import { fail } from '@sveltejs/kit';
 import { Resource } from 'sst';
-
 export const load = (async () => { }) satisfies PageServerLoad;
 
 export const actions: Actions = {
@@ -39,7 +38,7 @@ export const actions: Actions = {
 		}
 
 		try {
-			const apiUrl = Resource.App.stage === "production" ? 'https://drahsanahmad.com/api/send-email' : 'https://dev.drahsanahmad.com/api/send-email';
+			const apiUrl = `${Resource.api.url}/send-email`;
 
 			const response = await fetch(apiUrl, {
 				method: 'POST',

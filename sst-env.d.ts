@@ -5,6 +5,11 @@
 
 declare module "sst" {
   export interface Resource {
+    "HelpEmail": {
+      "configSet": string
+      "sender": string
+      "type": "sst.aws.Email"
+    }
     "PlacesApiKey": {
       "type": "sst.sst.Secret"
       "value": string

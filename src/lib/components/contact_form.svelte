@@ -67,7 +67,7 @@
 						type="text"
 						placeholder="Your name"
 						required
-						pattern="^[a-zA-Z]+$"
+						pattern="^[a-zA-Z ]+$"
 						minlength="3"
 					/>
 					<span
