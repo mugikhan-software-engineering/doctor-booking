@@ -30,7 +30,7 @@ export default $config({
       domain: {
           name: $app.stage === "production" ? "api.drahsanahmad.com" : "dev-api.drahsanahmad.com",
           dns: sst.aws.dns({
-              override: $app.stage === "production" ? false : true
+              override: true
           })
       },
       transform: {
