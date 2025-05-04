@@ -1,6 +1,6 @@
 import type { PageServerLoad, Actions } from './$types';
 import { fail } from '@sveltejs/kit';
-
+import { Resource } from 'sst';
 export const load = (async () => { }) satisfies PageServerLoad;
 
 export const actions: Actions = {
@@ -16,7 +16,7 @@ export const actions: Actions = {
 			name: data.get('name')?.toString() ?? '',
 			contact: data.get('contact')?.toString() ?? '',
 			email: data.get('email')?.toString() ?? '',
-			issue: data.get('issue')?.toString()?.toLowerCase() ?? '',
+			issue: data.get('issue')?.toString() ?? '',
 			message: data.get('message')?.toString() ?? ''
 		};
 
@@ -38,7 +38,7 @@ export const actions: Actions = {
 		}
 
 		try {
-			const apiUrl = 'https://api.drahsanahmad.com/contact';
+			const apiUrl = `${Resource.api.url}/send-email`;
 
 			const response = await fetch(apiUrl, {
 				method: 'POST',

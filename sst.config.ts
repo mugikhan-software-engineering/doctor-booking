@@ -1,49 +1,95 @@
-import type { SSTConfig } from 'sst';
-import { SvelteKitSite, Api, StackContext } from 'sst/constructs';
+/// <reference path="./.sst/platform/config.d.ts" />
 
-export default {
-	config(_input) {
-		return {
-			name: 'doctor-booking',
-			region: 'af-south-1',
-			profile: _input.stage === 'prod' ? 'admin' : 'admin'
-		};
-	},
-	stacks(app) {
-		app.stack(function Site({ stack }: StackContext) {
-			const api = new Api(stack, 'api', {
-				routes: {
-					'POST /send-email': 'packages/functions/src/send_email.handler',
-					'POST /contact': 'packages/functions/src/contact_handler.handler'
-				},
-				customDomain: {
-					domainName: 'api.drahsanahmad.com'
-				},
-				defaults: {
-					function: {
-						runtime: 'nodejs20.x',
-						environment: {
-							TWILIO_ACCOUNT_SID: process.env.TWILIO_ACCOUNT_SID || '',
-							TWILIO_AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN || '',
-							TWILIO_MESSAGING_SERVICE_SID: process.env.TWILIO_MESSAGING_SERVICE_SID || ''
-						}
-					}
-				}
-			});
-			// Add permissions for SES and allow outbound HTTP requests for WhatsApp API
-			api.attachPermissions(['ses:SendTemplatedEmail', 'execute-api:Invoke']);
-			const site = new SvelteKitSite(stack, 'site', {
-				customDomain: {
-					domainName: 'drahsanahmad.com',
-					domainAlias: 'www.drahsanahmad.com'
-				},
-				bind: [api]
-			});
-			stack.addOutputs({
-				ApiUrl: api.customDomainUrl || api.url,
-				SiteUrl: site.customDomainUrl || site.url
-			});
-		});
-		app.setDefaultRemovalPolicy("retain");
-	}
-} satisfies SSTConfig;
+export default $config({
+  app(input) {
+    return {
+      name: "doctor-booking",
+      removal: input?.stage === "production" ? "retain" : "remove",
+      protect: ["production"].includes(input?.stage),
+      home: "aws",
+      providers: {
+        aws: {
+          profile: input.stage === "production" ? "default" : "doctor-dev",
+          region: "af-south-1"
+        }
+      }
+    };
+  },
+  async run() {
+    const email = new sst.aws.Email("HelpEmail", {
+      sender: "help@drahsanahmad.com",
+      transform: {
+          identity: (args, opts) => {
+              args.configurationSetName = undefined;
+              // opts.import = "help@drahsanahmad.com";
+          }
+      }
+    });
+
+    const api = new sst.aws.ApiGatewayV2("api", {
+      domain: {
+          name: $app.stage === "production" ? "api.drahsanahmad.com" : "dev-api.drahsanahmad.com",
+          dns: sst.aws.dns({
+              override: true
+          })
+      },
+      transform: {
+        route: {
+          handler: {
+            link: [email],
+          },
+        }
+      },      
+    });
+  
+    api.route("POST /send-email", {
+        handler: "packages/functions/src/send_email.handler",
+        runtime: "nodejs20.x",
+        permissions: [
+          {
+            actions: ["ses:SendEmail", "ses:SendRawEmail", "ses:SendTemplatedEmail"],
+            resources: ["*"]
+          }
+        ]
+    });
+    api.route("POST /contact", {
+        handler: "packages/functions/src/contact_handler.handler",
+        runtime: "nodejs20.x",
+        permissions: [
+          {
+            actions: ["ses:SendEmail", "ses:SendRawEmail", "ses:SendTemplatedEmail"],
+            resources: ["*"]
+          }
+        ]
+    });
+
+    const domain = $app.stage === "production"
+      ? "drahsanahmad.com"
+      : "dev.drahsanahmad.com";
+    const routerName = $app.stage === "production" ? "DoctorBooking" : "router";
+    const router = new sst.aws.Router(routerName, {
+      domain: {
+        name: domain,
+        dns: sst.aws.dns({
+          override: $app.stage === "production" ? false : true
+        })
+      }
+    });
+   
+    const secrets = {
+      PlacesApiKey: new sst.Secret("PlacesApiKey"),
+    };
+    const allSecrets = Object.values(secrets);
+  
+    new sst.aws.SvelteKit("site", {
+      router: {
+        instance: router,
+      },
+      link: [...allSecrets, email, api]
+    });
+
+    return {
+      api: api.url,
+    }
+  },
+});

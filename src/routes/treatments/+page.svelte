@@ -13,7 +13,7 @@
 	import { testiculars } from '$lib/constants/testicular';
 	import { infertilities } from '$lib/constants/infertility';
 
-	import { ChevronsDownIcon } from 'svelte-feather-icons';
+	import ChevronsDownIcon from '~icons/mdi/chevron-double-down'
 
 	const scrollIntoView = ({ currentTarget }: any) => {
 		const scrollToElement = document.querySelector(currentTarget.getAttribute('href'));
@@ -32,12 +32,12 @@
 </svelte:head>
 
 <section
-	class="pb-32 relative w-screen h-screen flex flex-col md:flex-row justify-center items-center"
+	class="pb-32 relative w-screen h-dvh flex flex-col md:flex-row justify-center items-center"
 >
 	<div
-		class="absolute w-screen h-screen top-0 left-0 bg-cover bg-center bg-no-repeat bg-fixed bg-blend-color opacity-60 blur-[1px]"
+		class="absolute w-screen h-dvh top-0 left-0 bg-cover bg-center bg-no-repeat bg-fixed bg-blend-color opacity-60 blur-[1px]"
 		style="background-image:url({kidneyHome})"
-	/>
+	></div>
 	<div
 		class="sticky flex bg-transparent p-5 md:p-2 lg:flex-row flex-col items-center lg:justify-between z-0 gap-y-8"
 	>
@@ -55,9 +55,9 @@
 					on:click|preventDefault={scrollIntoView}
 				>
 					<span
-						class="text-black sm:underline xs:underline md:no-underline underline-offset-2 link link-underline link-underline-black"
+						class="flex flex-row items-center text-black sm:underline xs:underline md:no-underline underline-offset-2 link link-underline link-underline-black"
 					>
-						Learn more
+						Learn more <ChevronsDownIcon style="width: 24px; height: 24px;" class="text-black" />
 					</span>
 				</a>
 			</div>
@@ -69,14 +69,14 @@
 	<section id="kidney" class="flex flex-col h-fit w-screen bg-[#f4f5f7] py-8">
 		<div class="flex flex-col md:flex-row mt-5">
 			<div class="flex justify-center items-center basis-2/5">
-				<span class="bg-[#CBE9FA] w-44 h-44 rounded-full flex justify-center items-center">
+				<span class="bg-primary-500 w-44 h-44 rounded-full flex justify-center items-center">
 					<img src={kidneysIcon} class="w-36 h-36 rounded-full" alt="Kidneys" loading="lazy" />
 				</span>
 			</div>
 
 			<div class="flex flex-col shrink-0 basis-3/5 pl-5 md:pl-0">
 				<div class="flex flex-row items-center">
-					<span class="badge-icon p-7 variant-soft-primary mr-5 text-xl text-black">{1}</span>
+					<span class="badge-icon p-7 preset-tonal-primary mr-5 text-xl text-black">{1}</span>
 					<h3 class="h2">Kidneys</h3>
 				</div>
 				<div>
@@ -102,7 +102,7 @@
 
 			<div class="flex flex-col shrink-0 basis-3/5 pl-5 md:pl-0">
 				<div class="flex flex-row items-center">
-					<span class="badge-icon p-7 variant-soft-primary mr-5 text-xl text-black">{2}</span>
+					<span class="badge-icon p-7 preset-tonal-primary mr-5 text-xl text-black">{2}</span>
 					<h3 class="h2">Bladders</h3>
 				</div>
 				<div>
@@ -128,7 +128,7 @@
 
 			<div class="flex flex-col shrink-0 basis-3/5 pl-5 md:pl-0">
 				<div class="flex flex-row items-center">
-					<span class="badge-icon p-7 variant-soft-primary mr-5 text-xl text-black">{3}</span>
+					<span class="badge-icon p-7 preset-tonal-primary mr-5 text-xl text-black">{3}</span>
 					<h3 class="h2">Prostate</h3>
 				</div>
 				<div>
@@ -159,7 +159,7 @@
 
 			<div class="flex flex-col shrink-0 basis-3/5 pl-5 md:pl-0">
 				<div class="flex flex-row items-center">
-					<span class="badge-icon p-7 variant-soft-primary mr-5 text-xl text-black">{4}</span>
+					<span class="badge-icon p-7 preset-tonal-primary mr-5 text-xl text-black">{4}</span>
 					<h3 class="h2">Testicular</h3>
 				</div>
 				<div>
@@ -190,7 +190,7 @@
 
 			<div class="flex flex-col shrink-0 basis-3/5 pl-5 md:pl-0">
 				<div class="flex flex-row items-center">
-					<span class="badge-icon p-7 variant-soft-primary mr-5 text-xl text-black">{5}</span>
+					<span class="badge-icon p-7 preset-tonal-primary mr-5 text-xl text-black">{5}</span>
 					<h3 class="h2">Male infertility</h3>
 				</div>
 				<div>
@@ -221,7 +221,7 @@
 
 			<div class="flex flex-col shrink-0 basis-3/5 pl-5 md:pl-0">
 				<div class="flex flex-row items-center">
-					<span class="badge-icon p-7 variant-soft-primary mr-5 text-xl text-black">{6}</span>
+					<span class="badge-icon p-7 preset-tonal-primary mr-5 text-xl text-black">{6}</span>
 					<h3 class="h2">Male sexual health</h3>
 				</div>
 				<div>
