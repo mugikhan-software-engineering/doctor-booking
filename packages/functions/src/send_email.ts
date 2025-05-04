@@ -15,7 +15,6 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
 
 		const data = JSON.parse(event.body);
 		const { name, contact, email, issue, message } = data;
-		console.log('Data', JSON.stringify(data));
 
 		if(process.env.SST_DEV) {
 			console.log('App Stage', Resource.App.stage);
@@ -23,10 +22,11 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
 			return 'Email sent!';
 		}
 
-		console.log('Sending email to', Resource.App.stage === "production" ? 'receptiondrahmad66@gmail.com' : 'mugikhan@gmail.com');
+		const toAddresses = [Resource.App.stage === "production" ? 'receptiondrahmad66@gmail.com' : 'mugikhan@gmail.com'];
+
 		const params = new SendEmailCommand({
 			Destination: {
-				ToAddresses: [Resource.App.stage === "production" ? 'receptiondrahmad66@gmail.com' : 'mugikhan@gmail.com']
+				ToAddresses: toAddresses
 			},
 			FromEmailAddress: Resource.HelpEmail.sender,
 			Content: {
