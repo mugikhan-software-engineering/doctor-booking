@@ -5,6 +5,10 @@
 
 declare module "sst" {
   export interface Resource {
+    "DoctorBooking": {
+      "type": "sst.aws.Router"
+      "url": string
+    }
     "HelpEmail": {
       "configSet": string
       "sender": string
@@ -16,10 +20,6 @@ declare module "sst" {
     }
     "api": {
       "type": "sst.aws.ApiGatewayV2"
-      "url": string
-    }
-    "router": {
-      "type": "sst.aws.Router"
       "url": string
     }
     "site": {

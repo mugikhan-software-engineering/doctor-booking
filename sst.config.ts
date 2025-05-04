@@ -9,7 +9,7 @@ export default $config({
       home: "aws",
       providers: {
         aws: {
-          profile: input.stage === "production" ? "default" : "doctor-dev",
+          profile: input.stage === "dev" ? "doctor-dev" : undefined, // Only use doctor-dev profile for dev stage
           region: "af-south-1"
         }
       }
@@ -21,7 +21,7 @@ export default $config({
       transform: {
           identity: (args, opts) => {
               args.configurationSetName = undefined;
-              // opts.import = "help@drahsanahmad.com";
+              opts.import = "help@drahsanahmad.com";
           }
       }
     });
@@ -29,9 +29,6 @@ export default $config({
     const api = new sst.aws.ApiGatewayV2("api", {
       domain: {
           name: $app.stage === "production" ? "api.drahsanahmad.com" : "dev-api.drahsanahmad.com",
-          dns: sst.aws.dns({
-              override: true
-          })
       },
       transform: {
         route: {
@@ -70,9 +67,7 @@ export default $config({
     const router = new sst.aws.Router(routerName, {
       domain: {
         name: domain,
-        dns: sst.aws.dns({
-          override: $app.stage === "production" ? false : true
-        })
+        redirects: [`www.${domain}`],
       }
     });
    
