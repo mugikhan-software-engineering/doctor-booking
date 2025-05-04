@@ -200,7 +200,7 @@
 			allow="fullscreen"
 			loading="lazy"
 			referrerpolicy="no-referrer-when-downgrade"
-		/>
+		></iframe>
 	</section>
 
 	<div
