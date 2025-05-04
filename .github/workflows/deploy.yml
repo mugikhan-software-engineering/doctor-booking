@@ -33,7 +33,7 @@ jobs:
 
       - name: Set SST secrets
         run: |
-          npx sst secret set PlacesApiKey ${{ secrets.PLACES_API_KEY }}
+          npx sst secret set PlacesApiKey ${{ secrets.PLACES_API_KEY }} --stage production
 
       - name: Deploy app
         run: |
