@@ -1,7 +1,28 @@
+import type { PlaceDetailsResponse } from '$lib/types/review_types';
 import type { PageServerLoad, Actions } from './$types';
-import { fail } from '@sveltejs/kit';
+import { fail, json } from '@sveltejs/kit';
 import { Resource } from 'sst';
-export const load = (async () => { }) satisfies PageServerLoad;
+
+export const load: PageServerLoad = (async () => { 
+	const response = await fetch(
+		`https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJB3c16pyolR4RA3gLQl3Z5nI&key=${Resource.PlacesApiKey.value}`
+	);
+	const res: PlaceDetailsResponse = await response.json();
+	return {
+		reviews: res.result.reviews ?? []
+	};
+	// return json(
+	// 	{
+	// 		reviews: res.result.reviews ?? []
+	// 	},
+	// 	{
+	// 		status: 200,
+	// 		headers: {
+	// 			'Cache-Control': 'max-age=86400, s-maxage=86400, stale-if-error=86400, must-revalidate'
+	// 		}
+	// 	}
+	// );
+}) satisfies PageServerLoad;
 
 export const actions: Actions = {
 	sendEmail: async ({ request }) => {
