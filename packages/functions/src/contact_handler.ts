@@ -1,6 +1,7 @@
 import type { APIGatewayProxyHandlerV2, APIGatewayProxyStructuredResultV2 } from 'aws-lambda';
-import { SESClient, SendTemplatedEmailCommand } from '@aws-sdk/client-ses';
+import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
 import twilio from 'twilio';
+import { Resource } from "sst";
 
 export const handler: APIGatewayProxyHandlerV2 = async (event): Promise<APIGatewayProxyStructuredResultV2> => {
 	if (event.body == null || event.body == undefined) {
@@ -21,20 +22,24 @@ export const handler: APIGatewayProxyHandlerV2 = async (event): Promise<APIGatew
 
 	// Send email
 	try {
-		const client = new SESClient({ region: 'af-south-1' });
-		const emailParams = new SendTemplatedEmailCommand({
+		const client = new SESv2Client({ region: 'af-south-1' });
+		const emailParams = new SendEmailCommand({
 			Destination: {
-				ToAddresses: ['receptiondrahmad66@gmail.com']
+				ToAddresses: [Resource.App.stage === "production" ? 'receptiondrahmad66@gmail.com' : 'mugikhan@gmail.com']
 			},
-			Source: 'help@drahsanahmad.com',
-			Template: 'ContactUsTemplate',
-			TemplateData: JSON.stringify({
-				name: name,
-				contact: contact,
-				email: email,
-				issue: issue,
-				message: message
-			})
+			FromEmailAddress: 'help@drahsanahmad.com',
+			Content: {
+				Template: {
+					TemplateName: 'ContactUsTemplate',
+					TemplateData: JSON.stringify({
+						name: name,
+						contact: contact,
+						email: email,
+						issue: issue,
+						message: message
+					})
+				}
+			}
 		});
 
 		await client.send(emailParams);
