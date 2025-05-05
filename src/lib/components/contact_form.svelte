@@ -1,14 +1,17 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
 	import { SyncLoader } from 'svelte-loading-spinners';
-	import { showSuccessToast, showErrorToast, showHoneypotErrorToast } from '$lib/components/toasts/toaster-svelte';
+	import {
+		showSuccessToast,
+		showErrorToast,
+		showHoneypotErrorToast
+	} from '$lib/components/toasts/toaster-svelte';
 	import { enhance, applyAction } from '$app/forms';
 
 	import PhoneNumber from '$lib/components/phone_number.svelte';
 	import LogosWhatsappIcon from '~icons/logos/whatsapp-icon';
 	import PhoneInTalkRoundedIcon from '~icons/material-symbols/phone-in-talk-rounded';
-	import MapPinIcon from '~icons/tabler/map-2'
-;
+	import MapPinIcon from '~icons/tabler/map-2';
 	let isHoneypotChecked: boolean = $state(false);
 	let email: string = $state('');
 	const onChangeCheck = (event: any) => {
@@ -24,16 +27,14 @@
 </script>
 
 <div class="flex flex-col md:flex-row w-full gap-y-5">
-	<div
-		class="static flex flex-1 grow flex-col justify-center bg-transparent mt-5 md:px-4 z-2"
-	>
+	<div class="static flex flex-1 grow flex-col justify-center bg-transparent mt-5 md:px-4 z-2">
 		<form
 			novalidate
 			class="group"
 			method="POST"
 			action="?/sendEmail"
 			use:enhance={({ formElement, formData }) => {
-				if(isHoneypotChecked) {
+				if (isHoneypotChecked) {
 					showHoneypotErrorToast();
 					return;
 				}
@@ -109,7 +110,6 @@
 						type="email"
 						placeholder="Your email"
 						required
-						pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]&#123;2,&#125;$"
 						bind:value={email}
 					/>
 					<span
@@ -124,7 +124,7 @@
 				<span class="text-white text-md">Select your issue</span>
 				<select
 					name="issue"
-					class="select  text-md
+					class="select text-md
 					bg-white border-2 border-slate-300 rounded-md shadow-sm placeholder-slate-400
 					focus:valid:border-success-500
 					focus:invalid:border-error-500"
@@ -154,10 +154,10 @@
 					name="message"
 				></textarea>
 				<span
-						class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block"
-					>
-						Please enter a message
-					</span>
+					class="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block"
+				>
+					Please enter a message
+				</span>
 			</label>
 
 			<label class="flex items-center justify-center space-x-2 opacity-0">
@@ -184,11 +184,7 @@
 								xmlns:xlink="http://www.w3.org/1999/xlink"
 							>
 								<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-									<g
-										id="Icon-Set"
-										transform="translate(-568.000000, -254.000000)"
-										fill="#000000"
-									>
+									<g id="Icon-Set" transform="translate(-568.000000, -254.000000)" fill="#000000">
 										<path
 											d="M584,283 C584,283 580.872,276.976 580,275 L596.075,259.779 L584,283 L584,283 Z M572,270 L595,259 L579,274 C578.996,273.996 572,270 572,270 L572,270 Z M599,255 C597.844,255.563 568,270 568,270 C568,270 578.052,276.059 578,276 C577.983,275.981 584,287 584,287 C584,287 599.75,256.5 600,256 C600.219,255.375 599.75,254.688 599,255 L599,255 Z"
 											id="send-email"
@@ -209,8 +205,7 @@
 			transition:fly={{ duration: 600, x: 500, opacity: 0 }}
 		>
 			<p class="text-base md:text-lg text-white">
-				Prefer to book by phone? Call us directly, and our assistant will arrange your
-				appointment.
+				Prefer to book by phone? Call us directly, and our assistant will arrange your appointment.
 			</p>
 
 			<div class="flex flex-row items-start justify-start gap-x-2">
@@ -222,8 +217,8 @@
 					href={mapsLink}
 					target="_blank"
 				>
-					Room D4, D-block, 2nd floor, Ahmed Kathrada Private Hospital, 71 Marlin Avenue,
-					Lenasia, Johannesburg, Gauteng, South Africa
+					Room D4, D-block, 2nd floor, Ahmed Kathrada Private Hospital, 71 Marlin Avenue, Lenasia,
+					Johannesburg, Gauteng, South Africa
 				</a>
 			</div>
 

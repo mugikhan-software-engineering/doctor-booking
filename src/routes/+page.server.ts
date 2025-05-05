@@ -45,6 +45,8 @@ export const actions: Actions = {
 
 		if (contactObj.contact && contactObj.contact.startsWith('0')) {
 			contactObj.contact = '+27' + contactObj.contact.substring(1);
+		} else if (contactObj.contact && contactObj.contact.startsWith('27')) {
+			contactObj.contact = '+27' + contactObj.contact.substring(2);
 		}
 
 		try {
