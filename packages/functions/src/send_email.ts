@@ -11,16 +11,19 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context) => 
 	}
 
 	try {
-		const client = new SESv2Client({ region: 'af-south-1' });
-
 		const data = JSON.parse(event.body);
 		const { name, contact, email, issue, message } = data;
 
 		if(process.env.SST_DEV) {
 			console.log('App Stage', Resource.App.stage);
 			console.log('Data', JSON.stringify(data));
-			return 'Email sent!';
+			return {
+				statusCode: 200,
+				body:'Email sent!'
+			}
 		}
+
+		const client = new SESv2Client({ region: 'af-south-1' });
 
 		const toAddresses = [Resource.App.stage === "production" ? 'receptiondrahmad66@gmail.com' : 'mugikhan@gmail.com'];
 
