@@ -11,17 +11,6 @@ export const load: PageServerLoad = (async () => {
 	return {
 		reviews: res.result.reviews ?? []
 	};
-	// return json(
-	// 	{
-	// 		reviews: res.result.reviews ?? []
-	// 	},
-	// 	{
-	// 		status: 200,
-	// 		headers: {
-	// 			'Cache-Control': 'max-age=86400, s-maxage=86400, stale-if-error=86400, must-revalidate'
-	// 		}
-	// 	}
-	// );
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
