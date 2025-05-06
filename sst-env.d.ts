@@ -5,12 +5,24 @@
 
 declare module "sst" {
   export interface Resource {
+    "Database": {
+      "database": string
+      "host": string
+      "password": string
+      "port": number
+      "type": "supabase.index/project.Project"
+      "user": string
+    }
     "HelpEmail": {
       "configSet": string
       "sender": string
       "type": "sst.aws.Email"
     }
     "PlacesApiKey": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "SupabaseDatabasePassword": {
       "type": "sst.sst.Secret"
       "value": string
     }
