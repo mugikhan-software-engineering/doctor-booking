@@ -11,7 +11,9 @@
 	let selectedDate = $state(new Date().toISOString().split('T')[0]);
 	let selectedTime = $state('');
 
-	let { apiUrl, modalClose } = $props();
+	let { modalClose } = $props();
+
+	const apiUrl = import.meta.env.VITE_API_URL;
 
 	// Format time to remove seconds
 	function formatTime(time: string): string {

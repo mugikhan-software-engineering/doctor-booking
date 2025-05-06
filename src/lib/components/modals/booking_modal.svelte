@@ -2,7 +2,7 @@
 	import { Modal } from '@skeletonlabs/skeleton-svelte';
 	import BookingForm from '$lib/components/booking_form.svelte';
 
-	let { bookingModalState, bookingModalClose, onOpenChange, apiUrl } = $props();
+	let { bookingModalState, bookingModalClose, onOpenChange } = $props();
 </script>
 
 <Modal
@@ -15,7 +15,7 @@
 		<header class="flex justify-between">
 			<h2 class="h2">Book an Appointment</h2>
 		</header>
-		<BookingForm modalClose={bookingModalClose} {apiUrl} />
+		<BookingForm modalClose={bookingModalClose} />
 		<!-- <footer class="flex justify-end gap-4">
 			<button type="button" class="btn preset-tonal" onclick={modalClose}>Cancel</button>
 			<button type="button" class="btn preset-filled" onclick={modalClose}>Confirm</button>

@@ -188,7 +188,7 @@
 					>Book Appointment</button
 				>
 			</div>
-			<BookingModal {bookingModalState} {bookingModalClose} {onOpenChange} apiUrl={data.apiUrl} />
+			<BookingModal {bookingModalState} {bookingModalClose} {onOpenChange} />
 			<div class="flex flex-row justify-center">
 				<p class="text-lg text-white">OR</p>
 			</div>
