@@ -1,6 +1,6 @@
 {
-  "id": "1e0e6365-2617-4b0c-9d29-6ff4267629d5",
-  "prevId": "816b42b7-7fdb-4b04-8f81-644d11ce5a06",
+  "id": "a7acb073-cc2e-4a64-924b-9a7fdc00b636",
+  "prevId": "16da1fa8-e947-427a-bedb-3987dd4c91f2",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -37,8 +37,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "contactNumber": {
-          "name": "contactNumber",
+        "contact_number": {
+          "name": "contact_number",
           "type": "varchar(20)",
           "primaryKey": false,
           "notNull": true
@@ -62,15 +62,15 @@
           "notNull": true,
           "default": "'scheduled'"
         },
-        "createdAt": {
-          "name": "createdAt",
+        "created_at": {
+          "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
         },
-        "updatedAt": {
-          "name": "updatedAt",
+        "updated_at": {
+          "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
@@ -128,8 +128,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "isAvailable": {
-          "name": "isAvailable",
+        "is_available": {
+          "name": "is_available",
           "type": "boolean",
           "primaryKey": false,
           "notNull": true,
@@ -141,27 +141,27 @@
           "primaryKey": false,
           "notNull": false
         },
-        "startTime": {
-          "name": "startTime",
+        "start_time": {
+          "name": "start_time",
           "type": "time",
           "primaryKey": false,
           "notNull": false
         },
-        "endTime": {
-          "name": "endTime",
+        "end_time": {
+          "name": "end_time",
           "type": "time",
           "primaryKey": false,
           "notNull": false
         },
-        "createdAt": {
-          "name": "createdAt",
+        "created_at": {
+          "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
         },
-        "updatedAt": {
-          "name": "updatedAt",
+        "updated_at": {
+          "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,

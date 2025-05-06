@@ -55,12 +55,16 @@ export default $config({
         instance: router,
       },
       link: links,
+      environment: {
+        VITE_API_URL: api.url,
+        VITE_SUPABASE_URL: allSecrets[1].value,
+        VITE_SUPABASE_ANON_KEY: allSecrets[2].value,
+      }
     });
     return {
       api: api.url,
       project: project.id,
       project_name: project.name,
-      project_db_password: project.databasePassword,
     };
   },
 });

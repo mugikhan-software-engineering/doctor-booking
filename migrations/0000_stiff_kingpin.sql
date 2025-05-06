@@ -28,3 +28,6 @@ CREATE TABLE "users" (
 	"email" varchar(255) NOT NULL,
 	CONSTRAINT "users_email_unique" UNIQUE("email")
 );
+--> statement-breakpoint
+CREATE INDEX "appointment_date_idx" ON "appointments" USING btree ("date");--> statement-breakpoint
+CREATE INDEX "availability_date_idx" ON "availability" USING btree ("date");

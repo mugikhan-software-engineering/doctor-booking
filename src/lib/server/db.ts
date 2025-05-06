@@ -1,6 +1,7 @@
 import { drizzle } from "drizzle-orm/postgres-js";
 import { Resource } from "sst";
 import postgres from "postgres";
+import { appointmentsTable, availabilityTable, usersTable } from "./schema";
 
 const client = postgres({
   password: Resource.Database.password,
@@ -11,5 +12,10 @@ const client = postgres({
 });
 
 export const db = drizzle(client, {
-  casing: "snake_case",
+    schema: {
+        appointments: appointmentsTable,
+        availability: availabilityTable,
+        users: usersTable
+    },
+    casing: "snake_case",
 });

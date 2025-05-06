@@ -12,4 +12,5 @@ export default defineConfig({
     user: Resource.Database.user,
     password: Resource.Database.password,
   },
+  casing: "snake_case",
 });

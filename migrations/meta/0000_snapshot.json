@@ -1,5 +1,5 @@
 {
-  "id": "816b42b7-7fdb-4b04-8f81-644d11ce5a06",
+  "id": "16da1fa8-e947-427a-bedb-3987dd4c91f2",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -77,7 +77,23 @@
           "default": "now()"
         }
       },
-      "indexes": {},
+      "indexes": {
+        "appointment_date_idx": {
+          "name": "appointment_date_idx",
+          "columns": [
+            {
+              "expression": "date",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
@@ -152,7 +168,23 @@
           "default": "now()"
         }
       },
-      "indexes": {},
+      "indexes": {
+        "availability_date_idx": {
+          "name": "availability_date_idx",
+          "columns": [
+            {
+              "expression": "date",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},

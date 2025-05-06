@@ -2,8 +2,14 @@ import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
 import { db } from "$lib/server/db";
 import { appointmentsTable, availabilityTable } from "$lib/server/schema";
 import { eq, and, gte, lte, asc } from "drizzle-orm";
+import type { 
+    ApiResponse, 
+    AppointmentData, 
+    AvailableSlotsResponse 
+} from "$lib/types/api";
+import { createApiResponse } from "$lib/types/api";
 
-export const getAllAppointments: APIGatewayProxyHandlerV2 = async (event) => {
+export const getAllAppointments: APIGatewayProxyHandlerV2 = async (event): Promise<ApiResponse<AppointmentData[]>> => {
     try {
         const { status, startDate, endDate } = event.queryStringParameters || {};
         
@@ -26,30 +32,21 @@ export const getAllAppointments: APIGatewayProxyHandlerV2 = async (event) => {
             .where(conditions.length > 0 ? and(...conditions) : undefined)
             .orderBy(appointmentsTable.date, appointmentsTable.time);
 
-        return {
-            statusCode: 200,
-            body: JSON.stringify({ appointments })
-        };
+        return createApiResponse(200, "Appointments retrieved successfully", appointments);
     } catch (error) {
         console.error("Error getting appointments:", error);
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ message: "Internal server error" })
-        };
+        return createApiResponse(500, "Internal server error");
     }
 };
 
-export const updateAppointmentStatus: APIGatewayProxyHandlerV2 = async (event) => {
+export const updateAppointmentStatus: APIGatewayProxyHandlerV2 = async (event): Promise<ApiResponse<AppointmentData>> => {
     try {
         const { appointmentId } = event.pathParameters || {};
         const body = JSON.parse(event.body || "{}");
         const { status } = body;
 
         if (!appointmentId || !status) {
-            return {
-                statusCode: 400,
-                body: JSON.stringify({ message: "Appointment ID and status are required" })
-            };
+            return createApiResponse(400, "Appointment ID and status are required");
         }
 
         const [appointment] = await db
@@ -61,29 +58,20 @@ export const updateAppointmentStatus: APIGatewayProxyHandlerV2 = async (event) =
             .where(eq(appointmentsTable.id, parseInt(appointmentId)))
             .returning();
 
-        return {
-            statusCode: 200,
-            body: JSON.stringify({ message: "Appointment status updated successfully", appointment })
-        };
+        return createApiResponse(200, "Appointment status updated successfully", appointment);
     } catch (error) {
         console.error("Error updating appointment status:", error);
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ message: "Internal server error" })
-        };
+        return createApiResponse(500, "Internal server error");
     }
 };
 
-export const setAvailability: APIGatewayProxyHandlerV2 = async (event) => {
+export const setAvailability: APIGatewayProxyHandlerV2 = async (event): Promise<ApiResponse> => {
     try {
         const body = JSON.parse(event.body || "{}");
         const { date: dateStr, isAvailable, reason, startTime, endTime } = body;
 
         if (!dateStr || typeof isAvailable !== 'boolean') {
-            return {
-                statusCode: 400,
-                body: JSON.stringify({ message: "Date and isAvailable are required" })
-            };
+            return createApiResponse(400, "Date and isAvailable are required");
         }
 
         // Check if availability record already exists
@@ -120,20 +108,14 @@ export const setAvailability: APIGatewayProxyHandlerV2 = async (event) => {
                 .returning();
         }
 
-        return {
-            statusCode: 200,
-            body: JSON.stringify({ message: "Availability updated successfully", availability: result })
-        };
+        return createApiResponse(200, "Availability updated successfully", result);
     } catch (error) {
         console.error("Error setting availability:", error);
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ message: "Internal server error" })
-        };
+        return createApiResponse(500, "Internal server error");
     }
 };
 
-export const getAvailability: APIGatewayProxyHandlerV2 = async (event) => {
+export const getAvailability: APIGatewayProxyHandlerV2 = async (event): Promise<ApiResponse> => {
     try {
         const { startDate, endDate } = event.queryStringParameters || {};
         
@@ -153,15 +135,9 @@ export const getAvailability: APIGatewayProxyHandlerV2 = async (event) => {
             .where(conditions.length > 0 ? and(...conditions) : undefined)
             .orderBy(asc(availabilityTable.date));
 
-        return {
-            statusCode: 200,
-            body: JSON.stringify({ availability })
-        };
+        return createApiResponse(200, "Availability retrieved successfully", availability);
     } catch (error) {
         console.error("Error getting availability:", error);
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ message: "Internal server error" })
-        };
+        return createApiResponse(500, "Internal server error");
     }
 }; 

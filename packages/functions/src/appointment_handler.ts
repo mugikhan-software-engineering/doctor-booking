@@ -3,39 +3,19 @@ import { db } from "$lib/server/db";
 import { appointmentsTable, availabilityTable } from "$lib/server/schema";
 import { eq, and, gte, lte } from "drizzle-orm";
 import { sql } from "drizzle-orm";
+import type { 
+    ApiResponse, 
+    AppointmentData, 
+    AvailableSlotsResponse
+} from "$lib/types/api";
+import { createApiResponse } from "$lib/types/api";
 
-interface Appointment {
-    id: number;
-    email: string;
-    name: string;
-    contactNumber: string;
-    date: string;
-    time: string;
-    status: "scheduled" | "completed" | "cancelled";
-    createdAt: string;
-    updatedAt: string;
-}
-
-interface Availability {
-    id: number;
-    date: string;
-    isAvailable: boolean;
-    reason?: string;
-    startTime?: string;
-    endTime?: string;
-    createdAt: string;
-    updatedAt: string;
-}
-
-export const getAvailableSlots: APIGatewayProxyHandlerV2 = async (event) => {
+export const getAvailableSlots: APIGatewayProxyHandlerV2 = async (event): Promise<ApiResponse<AvailableSlotsResponse>> => {
     try {
         const { date } = event.queryStringParameters || {};
         
         if (!date) {
-            return {
-                statusCode: 400,
-                body: JSON.stringify({ message: "Date is required" })
-            };
+            return createApiResponse(400, "Date is required");
         }
 
         // Get available slots using a more efficient query
@@ -54,7 +34,7 @@ export const getAvailableSlots: APIGatewayProxyHandlerV2 = async (event) => {
                 AND status = 'scheduled'
             ),
             availability_settings AS (
-                SELECT "isAvailable", "startTime", "endTime"
+                SELECT is_available, start_time, end_time
                 FROM availability
                 WHERE date = ${date}
             )
@@ -64,44 +44,54 @@ export const getAvailableSlots: APIGatewayProxyHandlerV2 = async (event) => {
             LEFT JOIN availability_settings av ON true
             WHERE bs."time" IS NULL
             AND (
-                av."isAvailable" IS NULL  -- No availability record exists
-                OR av."isAvailable" = true  -- Date is available
+                av.is_available IS NULL  -- No availability record exists
+                OR av.is_available = true  -- Date is available
                 OR (
-                    av."isAvailable" = false  -- Date is blocked
+                    av.is_available = false  -- Date is blocked
                     AND (
-                        av."startTime" IS NULL
-                        OR ts.slot < av."startTime"
-                        OR av."endTime" IS NULL
-                        OR ts.slot > av."endTime"
+                        av.start_time IS NULL
+                        OR ts.slot < av.start_time
+                        OR av.end_time IS NULL
+                        OR ts.slot > av.end_time
                     )
                 )
             )
             ORDER BY ts.slot;
         `);
 
-        return {
-            statusCode: 200,
-            body: JSON.stringify({ availableSlots: result.map(row => row.slot) })
-        };
+        return createApiResponse(200, "Available slots retrieved successfully", {
+            availableSlots: result.map(row => row.slot)
+        });
     } catch (error) {
         console.error("Error getting available slots:", error);
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ message: "Internal server error" })
-        };
+        return createApiResponse(500, "Internal server error");
     }
 };
 
-export const bookAppointment: APIGatewayProxyHandlerV2 = async (event) => {
+export const bookAppointment: APIGatewayProxyHandlerV2 = async (event): Promise<ApiResponse<AppointmentData>> => {
     try {
         const body = JSON.parse(event.body || "{}");
         const { email, name, contactNumber, date, time } = body;
 
         if (!email || !name || !contactNumber || !date || !time) {
-            return {
-                statusCode: 400,
-                body: JSON.stringify({ message: "Missing required fields" })
-            };
+            return createApiResponse(400, "Missing required fields");
+        }
+
+        // Check if user already has an appointment
+        const [existingUserAppointment] = await db
+            .select()
+            .from(appointmentsTable)
+            .where(
+                and(
+                    eq(appointmentsTable.email, email),
+                    eq(appointmentsTable.status, 'scheduled')
+                )
+            );
+
+        if (existingUserAppointment) {
+            return createApiResponse(409, 
+                "You already have a scheduled appointment. Please cancel or reschedule your existing appointment before booking a new one."
+            );
         }
 
         // Check if slot is still available
@@ -117,10 +107,7 @@ export const bookAppointment: APIGatewayProxyHandlerV2 = async (event) => {
             );
 
         if (existingAppointment) {
-            return {
-                statusCode: 409,
-                body: JSON.stringify({ message: "Time slot is already booked" })
-            };
+            return createApiResponse(409, "Time slot is already booked");
         }
 
         // Check availability settings
@@ -133,10 +120,7 @@ export const bookAppointment: APIGatewayProxyHandlerV2 = async (event) => {
             const isBlocked = (!availability.startTime || time >= availability.startTime) &&
                             (!availability.endTime || time <= availability.endTime);
             if (isBlocked) {
-                return {
-                    statusCode: 409,
-                    body: JSON.stringify({ message: "Time slot is not available" })
-                };
+                return createApiResponse(409, "Time slot is not available");
             }
         }
 
@@ -153,16 +137,10 @@ export const bookAppointment: APIGatewayProxyHandlerV2 = async (event) => {
             })
             .returning();
 
-        return {
-            statusCode: 201,
-            body: JSON.stringify({ message: "Appointment booked successfully", appointment })
-        };
+        return createApiResponse(200, "Appointment booked successfully", appointment);
     } catch (error) {
         console.error("Error booking appointment:", error);
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ message: "Internal server error" })
-        };
+        return createApiResponse(500, "Internal server error");
     }
 };
 

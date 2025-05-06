@@ -2,6 +2,7 @@ import type { PlaceDetailsResponse } from '$lib/types/review_types';
 import type { PageServerLoad, Actions } from './$types';
 import { fail, json } from '@sveltejs/kit';
 import { Resource } from 'sst';
+import type { ApiResponseBody, AppointmentData } from '$lib/types/api';
 
 export const load: PageServerLoad = (async () => { 
 	const response = await fetch(
@@ -9,7 +10,8 @@ export const load: PageServerLoad = (async () => {
 	);
 	const res: PlaceDetailsResponse = await response.json();
 	return {
-		reviews: res.result?.reviews ?? []
+		reviews: res.result?.reviews ?? [],
+		apiUrl: Resource.api.url
 	};
 }) satisfies PageServerLoad;
 
@@ -76,6 +78,55 @@ export const actions: Actions = {
 		} catch (err) {
 			return fail(400, {
 				description: 'Failed to send your message. Please try again later.',
+				error: err instanceof Error ? err.message : 'Unknown error'
+			});
+		}
+	},
+
+	bookAppointment: async ({ request }) => {
+		const data = await request.formData();
+		const appointmentObj = {
+			name: data.get('name')?.toString() ?? '',
+			contactNumber: data.get('contactNumber')?.toString() ?? '',
+			email: data.get('email')?.toString() ?? '',
+			date: data.get('date')?.toString() ?? '',
+			time: data.get('time')?.toString() ?? ''
+		};
+
+		if (!appointmentObj.name || !appointmentObj.contactNumber || !appointmentObj.email || !appointmentObj.date || !appointmentObj.time) {
+			return fail(400, {
+				description: 'Please fill in all fields',
+				error: 'Missing required fields'
+			});
+		}
+
+		try {
+			const apiUrl = `${Resource.api.url}/book-appointment`;
+			const response = await fetch(apiUrl, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(appointmentObj)
+			});
+
+			const responseData: ApiResponseBody<AppointmentData> = await response.json();
+
+			if (!response.ok) {
+				return fail(response.status, {
+					description: responseData.message || 'Failed to book appointment. Please try again.',
+					error: responseData.message
+				});
+			}
+
+			return {
+				success: true,
+				description: responseData.message,
+				data: responseData.data
+			};
+		} catch (err) {
+			return fail(400, {
+				description: 'Failed to book appointment. Please try again later.',
 				error: err instanceof Error ? err.message : 'Unknown error'
 			});
 		}
