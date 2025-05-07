@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import type { AppointmentData } from '$lib/types/api';
 	import { SyncLoader } from 'svelte-loading-spinners';
 	import { showErrorToast } from '$lib/components/toasts/toaster-svelte';
+	import Calendar from '$lib/components/calendar/calendar.svelte';
+	import type { PageProps } from './$types';
 
 	let loading = $state(false);
-	// let appointments = $state<AppointmentData[]>([]);
-	let { data } = $props();
+	let { data }: PageProps = $props();
 
 	let appointments = data.appointments;
 
@@ -98,4 +98,5 @@
 			</table>
 		</div>
 	{/if}
+	<Calendar appointments={data.appointments || []} currentMonth={data.currentMonth} />
 </div>

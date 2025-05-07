@@ -47,6 +47,11 @@ api.route("POST /book-appointment", {
     runtime: "nodejs20.x",
 });
 
+api.route("PUT /admin/appointments/{appointmentId}/status", {
+    handler: "packages/functions/src/admin_handler.updateAppointmentStatus",
+    runtime: "nodejs20.x",
+});
+
 // Appointment routes
 // api.route("GET /appointments/slots", {
 //     handler: "packages/functions/src/appointment_handler.getAvailableSlots",
