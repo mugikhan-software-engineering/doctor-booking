@@ -17,7 +17,7 @@ export default $config({
           region: "af-south-1",
         },
         supabase: {
-          accessToken: "sbp_25f7a8674f3e8723739d737da0097ebcdc7eb57d",
+          accessToken: process.env.SUPABASE_ACCESS_TOKEN,
           endpoint: "https://api.supabase.com/"
         },
         random: "4.18.2",
@@ -46,7 +46,7 @@ export default $config({
       : new sst.aws.Router(routerName);
     let links: any[] = [];
     if (isPermanentStage) {
-      links = [...allSecrets, api, email];
+      links = [...allSecrets, api, email, project];
     } else {
       links = [...allSecrets, api, project];
     }
