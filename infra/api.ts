@@ -32,11 +32,6 @@ api.route("POST /contact", {
     }]
 });
 
-api.route("GET /admin/appointments", {
-    handler: "packages/functions/src/admin_handler.getAllAppointments",
-    runtime: "nodejs20.x",
-});
-
 api.route("GET /appointments/slots", {
     handler: "packages/functions/src/appointment_handler.getAvailableSlots",
     runtime: "nodejs20.x",
@@ -47,72 +42,22 @@ api.route("POST /book-appointment", {
     runtime: "nodejs20.x",
 });
 
+api.route("GET /admin/appointments", {
+    handler: "packages/functions/src/admin_handler.getAllAppointments",
+    runtime: "nodejs20.x",
+});
+
 api.route("PUT /admin/appointments/{appointmentId}/status", {
     handler: "packages/functions/src/admin_handler.updateAppointmentStatus",
     runtime: "nodejs20.x",
 });
 
-// Appointment routes
-// api.route("GET /appointments/slots", {
-//     handler: "packages/functions/src/appointment_handler.getAvailableSlots",
-//     runtime: "nodejs20.x",
-//     permissions: [{
-//         actions: ["dynamodb:Scan"],
-//         resources: ["*"]
-//     }]
-// });
-
-// api.route("POST /appointments", {
-//     handler: "packages/functions/src/appointment_handler.bookAppointment",
-//     runtime: "nodejs20.x",
-//     permissions: [{
-//         actions: ["dynamodb:PutItem"],
-//         resources: ["*"]
-//     }]
-// });
-
-// api.route("PUT /appointments/{appointmentId}", {
-//     handler: "packages/functions/src/appointment_handler.updateAppointment",
-//     runtime: "nodejs20.x",
-//     permissions: [{
-//         actions: ["dynamodb:UpdateItem"],
-//         resources: ["*"]
-//     }]
-// });
-
-// // Admin routes
-// api.route("GET /admin/appointments", {
-//     handler: "packages/functions/src/admin_handler.getAllAppointments",
-//     runtime: "nodejs20.x",
-//     permissions: [{
-//         actions: ["dynamodb:Scan"],
-//         resources: ["*"]
-//     }]
-// });
-
-// api.route("PUT /admin/appointments/{appointmentId}/status", {
-//     handler: "packages/functions/src/admin_handler.updateAppointmentStatus",
-//     runtime: "nodejs20.x",
-//     permissions: [{
-//         actions: ["dynamodb:UpdateItem"],
-//         resources: ["*"]
-//     }]
-// });
-
 api.route("POST /admin/availability", {
     handler: "packages/functions/src/admin_handler.setAvailability",
     runtime: "nodejs20.x",
-    permissions: [{
-        actions: ["dynamodb:PutItem"],
-        resources: ["*"]
-    }]
 });
 
 api.route("GET /admin/availability", {
     handler: "packages/functions/src/admin_handler.getAvailability",
     runtime: "nodejs20.x",
-    permissions: [{
-        actions: ["dynamodb:Scan"],
-        resources: ["*"]
-    }]
 });
