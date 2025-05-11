@@ -6,8 +6,9 @@ import type {
     ApiResponse, 
     AppointmentData, 
     AvailableSlotsResponse 
-} from "$lib/types/api";
-import { createApiResponse } from "$lib/types/api";
+} from "$lib/types/api_types";
+import { createApiResponse } from "$lib/types/api_types";
+import { disableSundays } from "$lib/server/availability";
 
 export const getAllAppointments: APIGatewayProxyHandlerV2 = async (event): Promise<ApiResponse<AppointmentData[]>> => {
     try {
@@ -138,6 +139,24 @@ export const getAvailability: APIGatewayProxyHandlerV2 = async (event): Promise<
         return createApiResponse(200, "Availability retrieved successfully", availability);
     } catch (error) {
         console.error("Error getting availability:", error);
+        return createApiResponse(500, "Internal server error");
+    }
+};
+
+export const disableSundaysInRange: APIGatewayProxyHandlerV2 = async (event): Promise<ApiResponse> => {
+    try {
+        const body = JSON.parse(event.body || "{}");
+        const { startDate, endDate } = body;
+
+        if (!startDate || !endDate) {
+            return createApiResponse(400, "Start date and end date are required");
+        }
+
+        await disableSundays(new Date(startDate), new Date(endDate));
+
+        return createApiResponse(200, "Sundays disabled successfully");
+    } catch (error) {
+        console.error("Error disabling Sundays:", error);
         return createApiResponse(500, "Internal server error");
     }
 }; 

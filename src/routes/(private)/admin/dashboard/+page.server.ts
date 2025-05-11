@@ -1,12 +1,13 @@
-import { error, fail, type Actions } from '@sveltejs/kit';
+import { error, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { Resource } from 'sst';
 import type { User } from '@supabase/supabase-js';
-import type { AppointmentData } from '$lib/types/api';
-import type { ApiResponseBody } from '$lib/types/api';
+import type { AppointmentData } from '$lib/types/api_types';
+import type { ApiResponseBody } from '$lib/types/api_types';
 
 interface Locals {
     user: User | null;
+    session: any;
 }
 
 function getMonthStartEndDates(): { startDate: string; endDate: string } {
@@ -24,15 +25,19 @@ export const load: PageServerLoad = async ({ locals }: { locals: Locals }) => {
     try {
         const { startDate, endDate } = getMonthStartEndDates();
         const response = await fetch(
-            `${Resource.api.url}/admin/appointments?startDate=${startDate}&endDate=${endDate}`
+            `${Resource.api.url}/admin/appointments?startDate=${startDate}&endDate=${endDate}`,
+            {
+                headers: {
+                    'Authorization': `Bearer ${locals.session?.access_token}`
+                }
+            }
         );
 
         const responseData: ApiResponseBody<AppointmentData[]> = await response.json();
 
         if (!response.ok) {
-            return fail(response.status, {
-                description: responseData.message || 'Failed to fetch appointments. Please try again.',
-                error: responseData.message
+            error(response.status, {
+                message: responseData.message || 'Failed to fetch appointments. Please try again.',
             });
         }
         if (responseData.data) {
@@ -41,42 +46,44 @@ export const load: PageServerLoad = async ({ locals }: { locals: Locals }) => {
                 currentMonth: {
                     startDate,
                     endDate
-                }
+                },
+                token: locals.session?.access_token
             };
         }
-    } catch (error) {
-        console.error('Error fetching appointments:', error);
-        return fail(500, {
-            description: 'Failed to fetch appointments. Please try again later.',
-            error: 'Failed to fetch appointments'
+    } catch (err: any) {
+        console.error('Error fetching appointments:', err);
+        error(500, {
+            message: 'Failed to fetch appointments. Please try again later.',
         });
     }
 };
 
 export const actions: Actions = {
-    updateAppointmentStatus: async ({ request }) => {
+    updateAppointmentStatus: async ({ request, locals }) => {
         const formData = await request.formData();
         const appointmentId = formData.get('appointmentId');
         const status = formData.get('status');
 
         if (!appointmentId || !status) {
-            return fail(400, {
-                description: 'Appointment ID and status are required',
-                error: 'Invalid form data'
+            error(400, {
+                message: 'Appointment ID and status are required',
             });
         }
 
         const response = await fetch(`${Resource.api.url}/admin/appointments/${appointmentId}/status`, {
             method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${locals.session?.access_token}`,
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({ status })
         });
 
         const responseData: ApiResponseBody<AppointmentData> = await response.json();
 
         if (!response.ok) {
-            return fail(response.status, {
-                description: 'Failed to update appointment status',
-                error: 'Failed to update appointment status'
+            error(response.status, {
+                message: 'Failed to update appointment status',
             });
         }
 

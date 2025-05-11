@@ -1,6 +1,6 @@
 import { email } from "./email";
 import { project } from "./storage";
-
+import { allSecrets } from "./secrets";
 export const api = new sst.aws.ApiGatewayV2("api", {
     domain: $app.stage === "mugi" ? undefined : {
         name: $app.stage === "production" ? "api.drahsanahmad.com" : "dev-api.drahsanahmad.com",
@@ -13,6 +13,17 @@ export const api = new sst.aws.ApiGatewayV2("api", {
         }
     },
     link: [project],
+});
+
+const authorizer = api.addAuthorizer({
+    name: "SupabaseAuthorizer",
+    lambda: {
+        function: {
+            handler: "packages/functions/src/authorize.handler",
+            runtime: "nodejs20.x",
+            link: [allSecrets[3]]
+        }
+    },
 });
 
 api.route("POST /send-email", {
@@ -42,22 +53,32 @@ api.route("POST /book-appointment", {
     runtime: "nodejs20.x",
 });
 
-api.route("GET /admin/appointments", {
-    handler: "packages/functions/src/admin_handler.getAllAppointments",
-    runtime: "nodejs20.x",
+api.route("GET /admin/appointments", "packages/functions/src/admin_handler.getAllAppointments", {
+    auth: {
+        lambda: authorizer.id
+    }
 });
 
-api.route("PUT /admin/appointments/{appointmentId}/status", {
-    handler: "packages/functions/src/admin_handler.updateAppointmentStatus",
-    runtime: "nodejs20.x",
+api.route("PUT /admin/appointments/{appointmentId}/status", "packages/functions/src/admin_handler.updateAppointmentStatus", {
+    auth: {
+        lambda: authorizer.id
+    },
 });
 
-api.route("POST /admin/availability", {
-    handler: "packages/functions/src/admin_handler.setAvailability",
-    runtime: "nodejs20.x",
+api.route("POST /admin/availability", "packages/functions/src/admin_handler.setAvailability", {
+    auth: {
+        lambda: authorizer.id
+    }
 });
 
-api.route("GET /admin/availability", {
-    handler: "packages/functions/src/admin_handler.getAvailability",
-    runtime: "nodejs20.x",
+api.route("POST /admin/availability/disable-sundays", "packages/functions/src/admin_handler.disableSundaysInRange", {
+    auth: {
+        lambda: authorizer.id
+    }
+});
+
+api.route("GET /admin/availability", "packages/functions/src/admin_handler.getAvailability", {
+    auth: {
+        lambda: authorizer.id
+    }
 });

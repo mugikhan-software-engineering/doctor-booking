@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Modal } from '@skeletonlabs/skeleton-svelte';
-	import type { AppointmentData } from '$lib/types/api';
+	import type { AppointmentData } from '$lib/types/api_types';
 	import CloseIcon from '~icons/material-symbols/close-rounded';
 	import { enhance } from '$app/forms';
 
@@ -36,7 +36,9 @@
 
 <Modal
 	open={appointmentModalState}
-	{onOpenChange}
+	onOpenChange={(e) => {
+		onOpenChange(e.open);
+	}}
 	contentBase="bg-surface-100-900 p-6 space-y-2 w-4/5 shadow-xl rounded-lg"
 	backdropClasses="preset-glass-primary"
 >

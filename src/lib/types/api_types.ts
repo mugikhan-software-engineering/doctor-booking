@@ -28,6 +28,11 @@ export type ErrorResponse = {
     message: string;
 };
 
+export type CurrentMonth = {
+    startDate: string;
+    endDate: string;
+};
+
 // Helper function to create API response
 export function createApiResponse<T>(
     statusCode: number,

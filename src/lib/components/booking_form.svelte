@@ -4,7 +4,7 @@
 	import { showSuccessToast, showErrorToast } from '$lib/components/toasts/toaster-svelte';
 	import { enhance, applyAction } from '$app/forms';
 	import { onMount } from 'svelte';
-	import type { ApiResponseBody, AvailableSlotsResponse } from '$lib/types/api';
+	import type { ApiResponseBody, AvailableSlotsResponse } from '$lib/types/api_types';
 
 	let loading = $state(false);
 	let availableSlots = $state<string[]>([]);

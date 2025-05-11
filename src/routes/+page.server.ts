@@ -2,7 +2,7 @@ import type { PlaceDetailsResponse } from '$lib/types/review_types';
 import type { PageServerLoad, Actions } from './$types';
 import { fail, json } from '@sveltejs/kit';
 import { Resource } from 'sst';
-import type { ApiResponseBody, AppointmentData } from '$lib/types/api';
+import type { ApiResponseBody, AppointmentData } from '$lib/types/api_types';
 
 export const load: PageServerLoad = (async () => { 
 	const response = await fetch(

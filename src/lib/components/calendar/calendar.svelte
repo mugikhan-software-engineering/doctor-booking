@@ -4,15 +4,15 @@
 	import dayGridPlugin from '@fullcalendar/daygrid';
 	import timeGridPlugin from '@fullcalendar/timegrid';
 	import interactionPlugin from '@fullcalendar/interaction';
-	import type { ApiResponseBody, AppointmentData } from '$lib/types/api';
+	import type { ApiResponseBody, AppointmentData, CurrentMonth } from '$lib/types/api_types';
 	import AppointmentDetailsModal from '$lib/components/modals/appointment_details_modal.svelte';
 	import { appointmentsStore } from '$lib/stores/appointments';
 
 	let {
 		appointments,
-		currentMonth
-	}: { appointments: AppointmentData[]; currentMonth: { startDate: string; endDate: string } } =
-		$props();
+		currentMonth,
+		token
+	}: { appointments: AppointmentData[]; currentMonth: CurrentMonth; token: string } = $props();
 
 	const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -65,7 +65,12 @@
 			const startDate = start.toISOString().split('T')[0];
 			const endDate = end.toISOString().split('T')[0];
 			const response = await fetch(
-				`${apiUrl}/admin/appointments?startDate=${startDate}&endDate=${endDate}`
+				`${apiUrl}/admin/appointments?startDate=${startDate}&endDate=${endDate}`,
+				{
+					headers: {
+						Authorization: `Bearer ${token}`
+					}
+				}
 			);
 			const data: ApiResponseBody<AppointmentData[]> = await response.json();
 			if (response.ok && data.data) {
@@ -92,6 +97,11 @@
 				hour: '2-digit',
 				minute: '2-digit',
 				hour12: true
+			},
+			businessHours: {
+				daysOfWeek: [1, 2, 3, 4, 5],
+				startTime: '09:00',
+				endTime: '17:00'
 			},
 			eventClick: handleAppointmentClick,
 			eventDisplay: 'block',

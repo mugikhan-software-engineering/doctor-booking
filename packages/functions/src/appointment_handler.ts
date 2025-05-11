@@ -7,8 +7,8 @@ import type {
     ApiResponse, 
     AppointmentData, 
     AvailableSlotsResponse
-} from "$lib/types/api";
-import { createApiResponse } from "$lib/types/api";
+} from "$lib/types/api_types";
+import { createApiResponse } from "$lib/types/api_types";
 
 export const getAvailableSlots: APIGatewayProxyHandlerV2 = async (event): Promise<ApiResponse<AvailableSlotsResponse>> => {
     try {

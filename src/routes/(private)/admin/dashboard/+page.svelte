@@ -4,11 +4,14 @@
 	import { showErrorToast } from '$lib/components/toasts/toaster-svelte';
 	import Calendar from '$lib/components/calendar/calendar.svelte';
 	import type { PageProps } from './$types';
+	import type { CurrentMonth } from '$lib/types/api_types';
 
 	let loading = $state(false);
 	let { data }: PageProps = $props();
 
 	let appointments = data.appointments;
+	let currentMonth: CurrentMonth = data.currentMonth || { startDate: '', endDate: '' };
+	let token = data.token;
 
 	const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -17,7 +20,8 @@
 			const response = await fetch(`${apiUrl}/admin/appointments/${appointmentId}/status`, {
 				method: 'PUT',
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${token}`
 				},
 				body: JSON.stringify({ status })
 			});
@@ -47,56 +51,6 @@
 			<SyncLoader size="30" color="#000" />
 		</div>
 	{:else}
-		<div class="overflow-x-auto">
-			<table class="min-w-full bg-white border border-gray-300">
-				<thead>
-					<tr class="bg-gray-100">
-						<th class="px-6 py-3 border-b text-left">Name</th>
-						<th class="px-6 py-3 border-b text-left">Email</th>
-						<th class="px-6 py-3 border-b text-left">Contact</th>
-						<th class="px-6 py-3 border-b text-left">Date</th>
-						<th class="px-6 py-3 border-b text-left">Time</th>
-						<th class="px-6 py-3 border-b text-left">Status</th>
-						<th class="px-6 py-3 border-b text-left">Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					{#each appointments || [] as appointment}
-						<tr class="hover:bg-gray-50">
-							<td class="px-6 py-4 border-b">{appointment.name}</td>
-							<td class="px-6 py-4 border-b">{appointment.email}</td>
-							<td class="px-6 py-4 border-b">{appointment.contactNumber}</td>
-							<td class="px-6 py-4 border-b">{appointment.date}</td>
-							<td class="px-6 py-4 border-b">{appointment.time}</td>
-							<td class="px-6 py-4 border-b">
-								<span
-									class="px-2 py-1 rounded-full text-sm
-                                    {appointment.status === 'scheduled'
-										? 'bg-blue-100 text-blue-800'
-										: appointment.status === 'completed'
-											? 'bg-green-100 text-green-800'
-											: 'bg-red-100 text-red-800'}"
-								>
-									{appointment.status}
-								</span>
-							</td>
-							<td class="px-2 py-4 border-b">
-								<select
-									class="border rounded py-1"
-									value={appointment.status}
-									onchange={(e) =>
-										updateAppointmentStatus(appointment.id, (e.target as HTMLSelectElement).value)}
-								>
-									<option value="scheduled">Scheduled</option>
-									<option value="completed">Completed</option>
-									<option value="cancelled">Cancelled</option>
-								</select>
-							</td>
-						</tr>
-					{/each}
-				</tbody>
-			</table>
-		</div>
+		<Calendar appointments={appointments || []} {currentMonth} {token} />
 	{/if}
-	<Calendar appointments={data.appointments || []} currentMonth={data.currentMonth} />
 </div>

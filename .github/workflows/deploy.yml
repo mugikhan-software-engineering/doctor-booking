@@ -36,6 +36,7 @@ jobs:
           npx sst secret set PlacesApiKey ${{ secrets.PLACES_API_KEY }} --stage production
           npx sst secret set SupabaseUrl ${{ secrets.SUPABASE_URL }} --stage production
           npx sst secret set SupabaseAnonKey ${{ secrets.SUPABASE_ANON_KEY }} --stage production
+          npx sst secret set SupabaseJwtSecret ${{ secrets.SUPABASE_JWT_SECRET }} --stage production
 
       - name: Deploy app
         run: |

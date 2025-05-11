@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import type { AppointmentData } from '$lib/types/api';
+import type { AppointmentData } from '$lib/types/api_types';
 
 interface AppointmentsState {
     appointments: AppointmentData[];
