@@ -4,20 +4,16 @@
 	import paralax from '$lib/assets/paralax.jpg';
 	import appointmentBanner from '$lib/assets/appointment-banner.jpg';
 
-	import ChevronLeftIcon from '~icons/mdi/chevron-left';
-	import ChevronRightIcon from '~icons/mdi/chevron-right';
-
 	import FloatingTitle from '$lib/components/float_in_title.svelte';
-	import ReviewCardPlaceholder from '$lib/components/review_card_placeholder.svelte';
 
 	import { inview } from 'svelte-inview';
 
 	import QuickNav from '$lib/components/quick_nav.svelte';
 	import ContactForm from '$lib/components/contact_form.svelte';
-	import ReviewCard from '$lib/components/review_card.svelte';
 	import { onMount } from 'svelte';
 	import type { PageProps } from './$types';
 	import BookingModal from '$lib/components/modals/booking_modal.svelte';
+	import ReviewMarquee from '$lib/components/reviews/review_marquee.svelte';
 
 	let isInViewAboutTitle: boolean = $state(false);
 	let isInViewContactTitle: boolean = $state(false);
@@ -240,40 +236,7 @@
 			isVisible={isInViewReviewTitle}
 		/>
 	</div>
-	<div class="md:p-4 grid grid-cols-[auto_1fr_auto] md:gap-4 items-center md:my-4 mt-5 mb-20">
-		<!-- Button: Left -->
-		<button
-			type="button"
-			class="btn hover:preset-tonal-primary"
-			aria-label="chevron-left"
-			data-carousel-left
-		>
-			<ChevronLeftIcon style="font-size: 1.5em;" class="text-gray-600" />
-		</button>
-		<!-- Full Images -->
-		<div
-			data-carousel
-			class="snap-x scroll-px-4 snap-mandatory scroll-smooth flex md:gap-10 overflow-x-auto md:px-5 md:py-10 overflow-y-auto"
-		>
-			{#await data.reviews}
-				<ReviewCardPlaceholder />
-				<ReviewCardPlaceholder />
-			{:then reviewData}
-				{#each reviewData as review}
-					<ReviewCard {review} />
-				{/each}
-			{/await}
-		</div>
-		<!-- Button: Right -->
-		<button
-			type="button"
-			class="btn hover:preset-tonal-primary"
-			aria-label="chevron-right"
-			data-carousel-right
-		>
-			<ChevronRightIcon style="font-size: 1.5em;" class="text-gray-600" />
-		</button>
-	</div>
+	<ReviewMarquee reviews={data.reviews} />
 
 	<div id="reviews" class="invisible mt:10 md:mt-20">Scroll to</div>
 </div>
