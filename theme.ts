@@ -1,6 +1,6 @@
-import type { CustomThemeConfig } from '@skeletonlabs/tw-plugin';
+// import type { CustomThemeConfig } from '@skeletonlabs/tw-plugin';
 
-export const doctorTheme: CustomThemeConfig = {
+export const doctorTheme = {
 	name: 'doctor-theme',
 	properties: {
 		/* =~= Theme Properties =~= */

@@ -4,12 +4,23 @@
 	import Footer from '$lib/components/footer/footer.svelte';
 	import whatsapp from '$lib/assets/svg/whatsapp.svg';
 
-	// import { Toaster } from '@skeletonlabs/skeleton-svelte';
-  	// import { toaster } from '$lib/components/toasts/toaster-svelte';
-	
-	import {Toaster} from 'svelte-french-toast'
+	import { Toaster } from 'svelte-french-toast';
+	import { onMount } from 'svelte';
+	import { invalidate } from '$app/navigation';
 
-	let { children } = $props();
+	let { data, children } = $props();
+	let { session, supabase } = $derived(data);
+
+	onMount(() => {
+		const { data } = supabase.auth.onAuthStateChange((_, newSession) => {
+			console.log('onAuthStateChange', newSession);
+			if (newSession?.expires_at !== session?.expires_at) {
+				invalidate('supabase:auth');
+			}
+		});
+
+		return () => data.subscription.unsubscribe();
+	});
 </script>
 
 <Toaster></Toaster>
