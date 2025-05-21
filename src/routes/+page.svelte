@@ -179,15 +179,18 @@
 				isVisibleContactForm = inView;
 			}}
 		>
-			<div class="flex flex-row justify-center mt-2">
-				<button class="btn preset-filled text-white text-lg" onclick={bookingModalOpen}
-					>Book Appointment</button
-				>
-			</div>
-			<BookingModal {bookingModalState} {bookingModalClose} {onOpenChange} />
-			<div class="flex flex-row justify-center">
-				<p class="text-lg text-white">OR</p>
-			</div>
+			{#if data.isDev}
+				<div class="flex flex-row justify-center mt-2">
+					<button
+						class="btn preset-filled-primary-500 text-black text-lg"
+						onclick={bookingModalOpen}>Book an appointment</button
+					>
+				</div>
+				<BookingModal {bookingModalState} {bookingModalClose} {onOpenChange} />
+				<div class="flex flex-row justify-center mt-2">
+					<p class="text-lg text-white">OR</p>
+				</div>
+			{/if}
 			<ContactForm {loading} {isVisibleContactForm} />
 		</div>
 	</section>

@@ -4,6 +4,8 @@
 	import { showErrorToast, showSuccessToast } from '$lib/components/toasts/toaster-svelte';
 	import { SyncLoader } from 'svelte-loading-spinners';
 
+	let { data } = $props();
+
 	let loading = $state(false);
 	let active_class = $derived(loading ? 'opacity-50 pointer-events-none' : '');
 </script>
@@ -25,7 +27,11 @@
 					}
 					if (result.type === 'success') {
 						showSuccessToast('Login successful');
-						goto('/admin/dashboard');
+						if (data.isDev) {
+							goto('/');
+						} else {
+							goto('/admin/dashboard');
+						}
 					}
 				};
 			}}

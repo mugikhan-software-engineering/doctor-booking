@@ -1,6 +1,7 @@
 import { createServerClient } from '@supabase/ssr'
 import { type Handle, redirect } from '@sveltejs/kit'
 import { sequence } from '@sveltejs/kit/hooks'
+import { Resource } from 'sst'
 
 const supabase: Handle = async ({ event, resolve }) => {
   /**
@@ -65,12 +66,21 @@ const authGuard: Handle = async ({ event, resolve }) => {
   event.locals.session = session
   event.locals.user = user
 
-  if (!event.locals.session && event.url.pathname.startsWith('/(private)')) {
-    redirect(303, '/login')
+  const isDev = Resource.App.stage == 'dev' || Resource.App.stage == 'mugi'
+
+  const loginRoute = '/login'
+
+  if (isDev && !event.locals.session && !event.url.pathname.startsWith(loginRoute)) {
+    redirect(303, loginRoute)
   }
 
-  if (event.locals.session && event.url.pathname === '/auth') {
-    redirect(303, '/admin/dashboard')
+  // In production, only require login for admin pages
+  if (!isDev && !event.locals.session && event.url.pathname.startsWith('/(private)')) {
+    redirect(303, loginRoute)
+  }
+
+  if (event.locals.session && event.url.pathname === '/login') {
+    redirect(303, isDev ? '/' : '/admin/dashboard')
   }
 
   return resolve(event)

@@ -1,6 +1,12 @@
 import { fail, redirect } from '@sveltejs/kit';
-import type { Actions } from './$types';
+import type { Actions, PageServerLoad } from './$types';
+import { Resource } from 'sst';
 
+export const load: PageServerLoad = (async () => { 
+	return {
+		isDev: Resource.App.stage == 'dev' || Resource.App.stage == 'mugi'
+	};
+}) satisfies PageServerLoad;
 
 export const actions: Actions = {
     default: async ({ request, locals: { supabase } }) => {
