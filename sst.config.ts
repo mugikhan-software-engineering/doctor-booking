@@ -61,10 +61,17 @@ export default $config({
         VITE_SUPABASE_ANON_KEY: allSecrets[2].value,
       }
     });
+    new sst.x.DevCommand("Studio", {
+      link: [project],
+      dev: {
+        command: "npx drizzle-kit studio",
+      },
+    });
     return {
       api: api.url,
-      project: project.id,
+      project_id: project.id,
       project_name: project.name,
+      db_password: project.databasePassword,
     };
   },
 });

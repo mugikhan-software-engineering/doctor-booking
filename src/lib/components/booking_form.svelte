@@ -7,6 +7,7 @@
 	import type { ApiResponseBody, AvailableSlotsResponse } from '$lib/types/api_types';
 
 	let loading = $state(false);
+	let loadingSlots = $state(false);
 	let availableSlots = $state<string[]>([]);
 	let selectedDate = $state(new Date().toISOString().split('T')[0]);
 	let selectedTime = $state('');
@@ -23,7 +24,7 @@
 	// Fetch available slots when date changes
 	async function fetchAvailableSlots(date: string) {
 		try {
-			loading = true;
+			loadingSlots = true;
 			const response = await fetch(`${apiUrl}/appointments/slots?date=${date}`);
 			const data: ApiResponseBody<AvailableSlotsResponse> = await response.json();
 			if (data.data) {
@@ -34,7 +35,7 @@
 			console.error('Error fetching slots:', error);
 			showErrorToast('Failed to fetch available slots, Try selecting a different date');
 		} finally {
-			loading = false;
+			loadingSlots = false;
 		}
 	}
 
@@ -162,14 +163,14 @@
 					focus:valid:border-success-500
 					focus:invalid:border-error-500"
 					required
-					disabled={availableSlots.length === 0}
+					disabled={availableSlots.length === 0 || loadingSlots}
 				>
 					<option value="">Select a time slot</option>
 					{#each availableSlots as slot}
 						<option value={slot}>{slot}</option>
 					{/each}
 				</select>
-				{#if availableSlots.length === 0}
+				{#if availableSlots.length === 0 && !loadingSlots}
 					<span class="mt-2 text-sm text-red-500">No available slots for this date</span>
 				{/if}
 			</label>

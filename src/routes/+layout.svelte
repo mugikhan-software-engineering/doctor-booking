@@ -3,19 +3,29 @@
 	import AppBar from '$lib/components/navbar/app_bar.svelte';
 	import Footer from '$lib/components/footer/footer.svelte';
 	import whatsapp from '$lib/assets/svg/whatsapp.svg';
+	import { userStore } from '$lib/stores/user';
 
 	import { Toaster } from 'svelte-french-toast';
 	import { onMount } from 'svelte';
-	import { invalidate } from '$app/navigation';
+	import { goto, invalidate } from '$app/navigation';
 
 	let { data, children } = $props();
-	let { session, supabase } = $derived(data);
+	let { session, supabase, user } = $derived(data);
 
 	onMount(() => {
 		const { data } = supabase.auth.onAuthStateChange((_, newSession) => {
 			console.log('onAuthStateChange', newSession);
+			if (!newSession) {
+				userStore.set({ user: null });
+				goto('/', { replaceState: true });
+				invalidate('/'); // Explicitly invalidate the current page
+			}
 			if (newSession?.expires_at !== session?.expires_at) {
 				invalidate('supabase:auth');
+			}
+
+			if (user) {
+				userStore.set({ user: user });
 			}
 		});
 
