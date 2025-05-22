@@ -5,9 +5,8 @@
 	import HomeIcon from '~icons/material-symbols/home-rounded';
 	import BookOpenIcon from '~icons/material-symbols/book-5-rounded';
 	import SyringeIcon from '~icons/material-symbols/syringe';
-	import { userStore } from '$lib/stores/user';
 
-	let { drawerState, drawerClose, onOpenChange } = $props();
+	let { drawerState, drawerClose, onOpenChange, user } = $props();
 </script>
 
 <Modal
@@ -70,7 +69,7 @@
 							<SyringeIcon class="text-black mr-4 hover:text-slate-500" />Treatments</a
 						>
 					</li>
-					{#if $userStore.user}
+					{#if user}
 						<li>
 							<a href="/admin/dashboard" onclick={drawerClose}>Admin</a>
 						</li>

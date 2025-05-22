@@ -3,7 +3,9 @@
 	import newLogo from '$lib/assets/png/new_logo.png';
 	import MenuIcon from '~icons/material-symbols-light/menu';
 	import MobileNav from '../modals/mobile_nav.svelte';
-	import { userStore } from '$lib/stores/user';
+	import NavigationMenu from './navigation_menu.svelte';
+
+	let { user } = $props();
 
 	let drawerState = $state(false);
 
@@ -20,7 +22,7 @@
 	}
 </script>
 
-<MobileNav {drawerState} {drawerClose} {onOpenChange} />
+<MobileNav {drawerState} {drawerClose} {onOpenChange} {user} />
 
 <AppBar background="bg-primary-500">
 	{#snippet lead()}
@@ -38,8 +40,8 @@
 			<a href="/">Home</a>
 			<a href="/about">About</a>
 			<a href="/treatments">Treatments</a>
-			{#if $userStore.user}
-				<a href="/admin/dashboard">Admin</a>
+			{#if user}
+				<NavigationMenu />
 			{/if}
 		</div>
 		<div class="md:hidden">

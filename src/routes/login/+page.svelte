@@ -28,7 +28,7 @@
 					if (result.type === 'success') {
 						showSuccessToast('Login successful');
 						if (data.isDev) {
-							goto('/');
+							goto('/', { replaceState: true, invalidateAll: true });
 						} else {
 							goto('/admin/dashboard');
 						}
