@@ -103,6 +103,8 @@
 				startTime: '09:00',
 				endTime: '17:00'
 			},
+			hiddenDays: [0],
+			firstDay: 1,
 			eventClick: handleAppointmentClick,
 			eventDisplay: 'block',
 			datesSet: (info) => {
