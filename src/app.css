@@ -10,7 +10,7 @@
 @tailwind utilities;
 @plugin "tailwindcss-animate";
 
-@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant dark (&:where([data-mode="dark"], [data-mode="dark"] *));
 
 @theme {
 	--breakpoint-xxs: 290px;

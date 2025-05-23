@@ -8,14 +8,14 @@
 	}
 </script>
 
-<Menubar.Root class="flex items-start">
+<Menubar.Root class="flex items-center">
 	<Menubar.Menu>
 		<Menubar.Trigger
-			class="data-highlighted:bg-muted data-[state=open]:bg-red flex h-10 cursor-pointer items-start justify-center focus-visible:outline-none"
+			class="data-highlighted:bg-muted data-[state=open]:bg-red flex h-10 cursor-pointer items-center justify-center focus-visible:outline-none dark:text-black"
 		>
 			More
 			<CaretDown
-				class="ml-1 size-3 transition-transform duration-200 data-[state=open]:rotate-180 mt-1.5"
+				class="ml-1 size-3 transition-transform duration-200 data-[state=open]:rotate-180"
 				aria-hidden="true"
 			/>
 		</Menubar.Trigger>

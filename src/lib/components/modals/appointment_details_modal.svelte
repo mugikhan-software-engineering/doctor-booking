@@ -30,7 +30,15 @@
 			month: 'long',
 			day: 'numeric'
 		});
-		return `${formattedDate} at ${time.slice(0, 5)}`;
+
+		// Convert 24-hour time to 12-hour format
+		const [hours, minutes] = time.split(':');
+		const hour = parseInt(hours);
+		const ampm = hour >= 12 ? 'PM' : 'AM';
+		const hour12 = hour % 12 || 12;
+		const formattedTime = `${hour12}:${minutes} ${ampm}`;
+
+		return `${formattedDate} at ${formattedTime}`;
 	}
 </script>
 

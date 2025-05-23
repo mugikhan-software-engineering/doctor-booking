@@ -10,7 +10,7 @@
 <div
 	class="flex flex-col md:flex-row md:my-5 w-[280px] md:w-[500px] max-h-[280px]
 	shrink-0 text-ellipsis overflow-hidden preset-outlined-primary-500 p-4 rounded-2xl
-	relative shadow-lg {ariaHidden ? 'aria-hidden' : ''}"
+	relative shadow-lg dark:shadow-primary-500/20 {ariaHidden ? 'aria-hidden' : ''}"
 >
 	<div class="absolute bottom-2 right-2 object-cover opacity-65 text-primary-500 fill-current z-10">
 		<svg

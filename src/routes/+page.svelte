@@ -131,7 +131,7 @@
 				/>
 			</div>
 			<div class="flex md:basis-9/12 justify-center items-start md:pl-5">
-				<p class="text-lg base-font-color">
+				<p class="text-lg">
 					Dr. Ahmad is a dedicated Urologist, specializing in the health of the urinary system and
 					male reproductive organs. If you have concerns related to your kidneys, bladder, prostate,
 					or other related organs, he's here to help!

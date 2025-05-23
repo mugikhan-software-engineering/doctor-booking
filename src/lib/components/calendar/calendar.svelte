@@ -6,7 +6,7 @@
 	import interactionPlugin from '@fullcalendar/interaction';
 	import type { ApiResponseBody, AppointmentData, CurrentMonth } from '$lib/types/api_types';
 	import AppointmentDetailsModal from '$lib/components/modals/appointment_details_modal.svelte';
-	import { appointmentsStore } from '$lib/stores/appointments';
+	import { appointmentsRune } from '$lib/state/appointment.svelte';
 
 	let {
 		appointments,
@@ -39,7 +39,7 @@
 			event.setProp('backgroundColor', color);
 			event.setProp('borderColor', color);
 		}
-		appointmentsStore.updateAppointment(appointment);
+		appointmentsRune.updateAppointment(appointment);
 	}
 
 	function handleAppointmentClick(info: any) {
@@ -60,7 +60,8 @@
 	}
 
 	async function fetchAppointments(start: Date, end: Date) {
-		appointmentsStore.setLoading(true);
+		// appointmentsStore.setLoading(true);
+		appointmentsRune.setLoading(true);
 		try {
 			const startDate = start.toISOString().split('T')[0];
 			const endDate = end.toISOString().split('T')[0];
@@ -74,20 +75,20 @@
 			);
 			const data: ApiResponseBody<AppointmentData[]> = await response.json();
 			if (response.ok && data.data) {
-				appointmentsStore.setAppointments(data.data);
+				appointmentsRune.setAppointments(data.data);
 			} else {
-				appointmentsStore.setError(data.message);
+				appointmentsRune.setError(data.message);
 			}
 		} catch (error) {
-			appointmentsStore.setError('Failed to fetch appointments');
+			appointmentsRune.setError('Failed to fetch appointments');
 		} finally {
-			appointmentsStore.setLoading(false);
+			appointmentsRune.setLoading(false);
 		}
 	}
 
 	onMount(() => {
 		// Initialize store with current month's appointments
-		appointmentsStore.setAppointments(appointments);
+		appointmentsRune.setAppointments(appointments);
 
 		calendar = new Calendar(document.getElementById('calendar') as HTMLElement, {
 			plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
@@ -119,25 +120,23 @@
 		calendar.render();
 
 		// Subscribe to appointments store changes
-		const unsubscribe = appointmentsStore.subscribe((state) => {
-			if (calendar) {
-				calendar.removeAllEvents();
-				calendar.addEventSource(
-					state.appointments.map((appointment) => ({
-						id: appointment.id.toString(),
-						title: appointment.name,
-						start: createDateTime(appointment.date, appointment.time),
-						extendedProps: appointment,
-						backgroundColor: getEventColor(appointment.status),
-						borderColor: getEventColor(appointment.status)
-					}))
-				);
-			}
-		});
+		if (calendar) {
+			calendar.removeAllEvents();
+			calendar.addEventSource(
+				appointmentsRune.appointments.map((appointment) => ({
+					id: appointment.id.toString(),
+					title: appointment.name,
+					start: createDateTime(appointment.date, appointment.time),
+					extendedProps: appointment,
+					backgroundColor: getEventColor(appointment.status),
+					borderColor: getEventColor(appointment.status)
+				}))
+			);
+		}
 
-		return () => {
-			unsubscribe();
-		};
+		// return () => {
+		// 	unsubscribe();
+		// };
 	});
 </script>
 

@@ -24,7 +24,7 @@
 
 <MobileNav {drawerState} {drawerClose} {onOpenChange} {user} />
 
-<AppBar background="bg-primary-500">
+<AppBar background="bg-primary-500 dark:bg-primary-500">
 	{#snippet lead()}
 		<a href="/">
 			<img
@@ -36,7 +36,7 @@
 		</a>
 	{/snippet}
 	{#snippet trail()}
-		<div class="hidden md:flex gap-5">
+		<div class="hidden md:flex items-center gap-5 dark:text-black">
 			<a href="/">Home</a>
 			<a href="/about">About</a>
 			<a href="/treatments">Treatments</a>
