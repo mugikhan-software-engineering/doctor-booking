@@ -1,5 +1,4 @@
 <script lang="ts">
-	// import { Accordion } from '@skeletonlabs/skeleton-svelte';
 	import { Accordion } from 'bits-ui';
 	import CaretDown from 'phosphor-svelte/lib/CaretDown';
 	import { specialiaties } from '$lib/constants/specialities';
