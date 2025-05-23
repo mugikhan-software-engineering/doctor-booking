@@ -5,7 +5,7 @@
 	import MobileNav from '../modals/mobile_nav.svelte';
 	import NavigationMenu from './navigation_menu.svelte';
 
-	let { user } = $props();
+	let { user, pathname } = $props();
 
 	let drawerState = $state(false);
 
@@ -22,7 +22,7 @@
 	}
 </script>
 
-<MobileNav {drawerState} {drawerClose} {onOpenChange} {user} />
+<MobileNav {drawerState} {drawerClose} {onOpenChange} {user} {pathname} />
 
 <AppBar background="bg-primary-500 dark:bg-primary-500">
 	{#snippet lead()}
@@ -48,7 +48,7 @@
 			<button
 				type="button"
 				data-collapse-toggle="#navbar-default"
-				class="btn hover:preset-tonal-primary inline-flex items-center justify-center text-sm px-2 py-1.5"
+				class="btn hover:preset-tonal-primary inline-flex items-center justify-center text-sm px-2 py-1.5 dark:text-black"
 				aria-controls="navbar-default"
 				aria-expanded="false"
 				onclick={drawerOpen}
