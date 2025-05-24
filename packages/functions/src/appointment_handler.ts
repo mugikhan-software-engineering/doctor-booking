@@ -161,10 +161,9 @@ export const bookAppointment: APIGatewayProxyHandlerV2 = async (event): Promise<
         const hour12 = hour % 12 || 12;
         const formattedTime = `${hour12}:${minutes} ${ampm}`;
 
-        const adminEmail = Resource.App.stage === "production" ? 'receptiondrahmad66@gmail.com' : 'mugikhan@gmail.com';
-        const adminEmailParams = new SendEmailCommand({
+        const EmailParams = new SendEmailCommand({
             Destination: {
-                ToAddresses: [adminEmail]
+                ToAddresses: [email]
             },
             FromEmailAddress: Resource.HelpEmail.sender,
             Content: {
@@ -179,7 +178,7 @@ export const bookAppointment: APIGatewayProxyHandlerV2 = async (event): Promise<
             }
         });
         const adminClient = new SESv2Client({ region: 'af-south-1' });
-        await adminClient.send(adminEmailParams);
+        await adminClient.send(EmailParams);
 
         return createApiResponse(200, "Appointment booked successfully", appointment);
     } catch (error) {
