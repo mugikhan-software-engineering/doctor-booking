@@ -5,7 +5,6 @@
 	import aboutUsHeader from '$lib/assets/about-us-header.jpg';
 	import medicalDoctor from '$lib/assets/png/medical.png';
 
-	
 	import { otherServices } from '$lib/constants/other_services';
 
 	import Accordion from '$lib/components/accordion.svelte';

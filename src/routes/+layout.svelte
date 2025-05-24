@@ -4,19 +4,37 @@
 	import Footer from '$lib/components/footer/footer.svelte';
 	import whatsapp from '$lib/assets/svg/whatsapp.svg';
 
-	// import { Toaster } from '@skeletonlabs/skeleton-svelte';
-  	// import { toaster } from '$lib/components/toasts/toaster-svelte';
-	
-	import {Toaster} from 'svelte-french-toast'
+	import { Toaster } from 'svelte-french-toast';
+	import { onMount } from 'svelte';
+	import { goto, invalidate } from '$app/navigation';
+	import { page } from '$app/state';
 
-	let { children } = $props();
+	let { data, children } = $props();
+	let { session, supabase, user, isDev } = $derived(data);
+
+	let pathname = $derived(page.url.pathname);
+
+	onMount(() => {
+		const { data } = supabase.auth.onAuthStateChange((_, newSession) => {
+			console.log('onAuthStateChange', newSession);
+			if (!newSession) {
+				goto('/', { replaceState: true });
+				invalidate('/'); // Explicitly invalidate the current page
+			}
+			if (newSession?.expires_at !== session?.expires_at) {
+				invalidate('supabase:auth');
+			}
+		});
+
+		return () => data.subscription.unsubscribe();
+	});
 </script>
 
 <Toaster></Toaster>
 
 <div class="min-h-screen grid grid-rows-[auto_1fr_auto]">
 	<header class="sticky top-0 z-4">
-		<AppBar />
+		<AppBar {user} {pathname} />
 	</header>
 
 	<main>
@@ -24,7 +42,7 @@
 	</main>
 
 	<footer>
-		<Footer />
+		<Footer {isDev} />
 	</footer>
 
 	<div

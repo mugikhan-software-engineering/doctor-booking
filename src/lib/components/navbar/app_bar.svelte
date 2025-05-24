@@ -1,54 +1,60 @@
-
 <script lang="ts">
-    import { AppBar } from '@skeletonlabs/skeleton-svelte';
-    import newLogo from '$lib/assets/png/new_logo.png';
-    import MenuIcon from '~icons/material-symbols-light/menu'
+	import { AppBar } from '@skeletonlabs/skeleton-svelte';
+	import newLogo from '$lib/assets/png/new_logo.png';
+	import MenuIcon from '~icons/material-symbols-light/menu';
 	import MobileNav from '../modals/mobile_nav.svelte';
-    let drawerState = $state(false);
+	import NavigationMenu from './navigation_menu.svelte';
 
-    function drawerClose() {
-        drawerState = false;
-    }
+	let { user, pathname } = $props();
 
-    function drawerOpen() {
-        drawerState = true;
-    }
+	let drawerState = $state(false);
 
-    function onOpenChange(e: any) {
-        drawerState = e.open;
-    }
+	function drawerClose() {
+		drawerState = false;
+	}
+
+	function drawerOpen() {
+		drawerState = true;
+	}
+
+	function onOpenChange(e: any) {
+		drawerState = e.open;
+	}
 </script>
 
-<MobileNav {drawerState} {drawerClose} {onOpenChange} />
+<MobileNav {drawerState} {drawerClose} {onOpenChange} {user} {pathname} />
 
-<AppBar background="bg-primary-500">
-    {#snippet lead()}
-        <a href="/">
-            <img
-            alt="The project logo"
-            class="h-auto xs:h-[30px] w-[200px]"
-            src={newLogo}
-            loading="lazy"/>
-        </a>
-    {/snippet}
-    {#snippet trail()}
-        <div class="hidden md:flex gap-5">
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/treatments">Treatments</a>
-        </div>
-        <div class="md:hidden">
-            <button
-                type="button"
-                data-collapse-toggle="#navbar-default"
-                class="btn hover:preset-tonal-primary inline-flex items-center justify-center text-sm px-2 py-1.5"
-                aria-controls="navbar-default"
-                aria-expanded="false"
-                onclick={drawerOpen}
-                ><span class="sr-only">Open main menu</span>
-                <MenuIcon></MenuIcon>
-            </button
-            >
-        </div>
-    {/snippet}
-    </AppBar>
+<AppBar background="bg-primary-500 dark:bg-primary-500">
+	{#snippet lead()}
+		<a href="/">
+			<img
+				alt="The project logo"
+				class="h-auto xs:h-[30px] w-[200px]"
+				src={newLogo}
+				loading="lazy"
+			/>
+		</a>
+	{/snippet}
+	{#snippet trail()}
+		<div class="hidden md:flex items-center gap-5 dark:text-black">
+			<a href="/">Home</a>
+			<a href="/about">About</a>
+			<a href="/treatments">Treatments</a>
+			{#if user}
+				<NavigationMenu />
+			{/if}
+		</div>
+		<div class="md:hidden">
+			<button
+				type="button"
+				data-collapse-toggle="#navbar-default"
+				class="btn hover:preset-tonal-primary inline-flex items-center justify-center text-sm px-2 py-1.5 dark:text-black"
+				aria-controls="navbar-default"
+				aria-expanded="false"
+				onclick={drawerOpen}
+				><span class="sr-only">Open main menu</span>
+				<MenuIcon></MenuIcon>
+			</button>
+		</div>
+	{/snippet}
+</AppBar>

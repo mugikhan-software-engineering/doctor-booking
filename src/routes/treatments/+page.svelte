@@ -13,7 +13,8 @@
 	import { testiculars } from '$lib/constants/testicular';
 	import { infertilities } from '$lib/constants/infertility';
 
-	import ChevronsDownIcon from '~icons/mdi/chevron-double-down'
+	import ChevronsDownIcon from '~icons/mdi/chevron-double-down';
+	import { Separator } from 'bits-ui';
 
 	const scrollIntoView = ({ currentTarget }: any) => {
 		const scrollToElement = document.querySelector(currentTarget.getAttribute('href'));
@@ -55,9 +56,12 @@
 					on:click|preventDefault={scrollIntoView}
 				>
 					<span
-						class="flex flex-row items-center text-black sm:underline xs:underline md:no-underline underline-offset-2 link link-underline link-underline-black"
+						class="flex flex-row items-center sm:underline xs:underline md:no-underline underline-offset-2 link link-underline link-underline-black dark:link-underline-white"
 					>
-						Learn more <ChevronsDownIcon style="width: 24px; height: 24px;" class="text-black" />
+						Learn more <ChevronsDownIcon
+							style="width: 24px; height: 24px;"
+							class="text-black dark:text-white"
+						/>
 					</span>
 				</a>
 			</div>
@@ -66,7 +70,7 @@
 </section>
 
 <div class="diseases flex flex-col">
-	<section id="kidney" class="flex flex-col h-fit w-screen bg-[#f4f5f7] py-8">
+	<section id="kidney" class="flex flex-col h-fit w-screen py-8">
 		<div class="flex flex-col md:flex-row mt-5">
 			<div class="flex justify-center items-center basis-2/5">
 				<span class="bg-primary-500 w-44 h-44 rounded-full flex justify-center items-center">
@@ -76,13 +80,13 @@
 
 			<div class="flex flex-col shrink-0 basis-3/5 pl-5 md:pl-0">
 				<div class="flex flex-row items-center">
-					<span class="badge-icon p-7 preset-tonal-primary mr-5 text-xl text-black">{1}</span>
+					<span class="badge-icon p-7 preset-tonal-primary mr-5 text-xl">{1}</span>
 					<h3 class="h2">Kidneys</h3>
 				</div>
 				<div>
 					<ul class="p-6 flex flex-col list-disc gap-y-1">
 						{#each kidneys as kidney}
-							<li class="text-black">
+							<li class="text-base">
 								<span class="flex-auto">{kidney.title}</span>
 							</li>
 						{/each}
@@ -90,9 +94,13 @@
 				</div>
 			</div>
 		</div>
+		<Separator.Root
+			orientation="horizontal"
+			class="bg-primary-800 dark:bg-primary-500 my-2 shrink-0 w-full h-[1px]"
+		/>
 	</section>
 
-	<section id="bladder" class="flex flex-col h-fit w-screen bg-[#FFF] py-8">
+	<section id="bladder" class="flex flex-col h-fit w-screen py-8">
 		<div class="flex flex-col md:flex-row mt-5">
 			<div class="flex justify-center items-center basis-2/5">
 				<span class="bg-[#CBE9FA] w-44 h-44 rounded-full flex justify-center items-center">
@@ -102,13 +110,13 @@
 
 			<div class="flex flex-col shrink-0 basis-3/5 pl-5 md:pl-0">
 				<div class="flex flex-row items-center">
-					<span class="badge-icon p-7 preset-tonal-primary mr-5 text-xl text-black">{2}</span>
+					<span class="badge-icon p-7 preset-tonal-primary mr-5 text-xl">{2}</span>
 					<h3 class="h2">Bladders</h3>
 				</div>
 				<div>
 					<ul class="p-6 flex flex-col list-disc gap-y-1">
 						{#each bladders as bladder}
-							<li class="text-black">
+							<li class="text-base">
 								<span class="flex-auto">{bladder.title}</span>
 							</li>
 						{/each}
@@ -116,9 +124,10 @@
 				</div>
 			</div>
 		</div>
+		<Separator.Root orientation="horizontal" class="bg-primary-400 my-2 shrink-0 w-full h-[1px]" />
 	</section>
 
-	<section id="prostate" class="flex flex-col h-fit w-screen bg-[#f4f5f7] py-8">
+	<section id="prostate" class="flex flex-col h-fit w-screen py-8">
 		<div class="flex flex-col md:flex-row mt-5">
 			<div class="flex justify-center items-center basis-2/5">
 				<span class="bg-[#CBE9FA] w-44 h-44 rounded-full flex justify-center items-center">
@@ -128,13 +137,13 @@
 
 			<div class="flex flex-col shrink-0 basis-3/5 pl-5 md:pl-0">
 				<div class="flex flex-row items-center">
-					<span class="badge-icon p-7 preset-tonal-primary mr-5 text-xl text-black">{3}</span>
+					<span class="badge-icon p-7 preset-tonal-primary mr-5 text-xl">{3}</span>
 					<h3 class="h2">Prostate</h3>
 				</div>
 				<div>
 					<ul class="p-6 flex flex-col list-disc gap-y-1">
 						{#each prostates as prostate}
-							<li class="text-black">
+							<li class="text-base">
 								<span class="flex-auto">{prostate.title}</span>
 							</li>
 						{/each}
@@ -142,9 +151,13 @@
 				</div>
 			</div>
 		</div>
+		<Separator.Root
+			orientation="horizontal"
+			class="bg-primary-800 dark:bg-primary-500 my-2 shrink-0 w-full h-[1px]"
+		/>
 	</section>
 
-	<section id="testicular" class="flex flex-col h-fit w-screen bg-[#FFF] py-8">
+	<section id="testicular" class="flex flex-col h-fit w-screen py-8">
 		<div class="flex flex-col md:flex-row mt-5">
 			<div class="flex justify-center items-center basis-2/5">
 				<span class="bg-[#CBE9FA] w-44 h-44 rounded-full flex justify-center items-center">
@@ -159,13 +172,13 @@
 
 			<div class="flex flex-col shrink-0 basis-3/5 pl-5 md:pl-0">
 				<div class="flex flex-row items-center">
-					<span class="badge-icon p-7 preset-tonal-primary mr-5 text-xl text-black">{4}</span>
+					<span class="badge-icon p-7 preset-tonal-primary mr-5 text-xl">{4}</span>
 					<h3 class="h2">Testicular</h3>
 				</div>
 				<div>
 					<ul class="p-6 flex flex-col list-disc gap-y-1">
 						{#each testiculars as testicular}
-							<li class="text-black">
+							<li class="text-base">
 								<span class="flex-auto">{testicular.title}</span>
 							</li>
 						{/each}
@@ -173,9 +186,13 @@
 				</div>
 			</div>
 		</div>
+		<Separator.Root
+			orientation="horizontal"
+			class="bg-primary-800 dark:bg-primary-500 my-2 shrink-0 w-full h-[1px]"
+		/>
 	</section>
 
-	<section id="infertility" class="flex flex-col h-fit w-screen bg-[#f4f5f7] py-8">
+	<section id="infertility" class="flex flex-col h-fit w-screen py-8">
 		<div class="flex flex-col md:flex-row mt-5">
 			<div class="flex justify-center items-center basis-2/5">
 				<span class="bg-[#CBE9FA] w-44 h-44 rounded-full flex justify-center items-center">
@@ -190,13 +207,13 @@
 
 			<div class="flex flex-col shrink-0 basis-3/5 pl-5 md:pl-0">
 				<div class="flex flex-row items-center">
-					<span class="badge-icon p-7 preset-tonal-primary mr-5 text-xl text-black">{5}</span>
+					<span class="badge-icon p-7 preset-tonal-primary mr-5 text-xl">{5}</span>
 					<h3 class="h2">Male infertility</h3>
 				</div>
 				<div>
 					<ul class="p-6 flex flex-col list-disc gap-y-1">
 						{#each infertilities as infertility}
-							<li class="text-black">
+							<li class="text-base">
 								<span class="flex-auto">{infertility.title}</span>
 							</li>
 						{/each}
@@ -204,9 +221,13 @@
 				</div>
 			</div>
 		</div>
+		<Separator.Root
+			orientation="horizontal"
+			class="bg-primary-800 dark:bg-primary-500 my-2 shrink-0 w-full h-[1px]"
+		/>
 	</section>
 
-	<section id="sexual_health" class="flex flex-col h-fit w-screen bg-[#FFF] py-8">
+	<section id="sexual_health" class="flex flex-col h-fit w-screen py-8">
 		<div class="flex flex-col md:flex-row mt-5">
 			<div class="flex justify-center items-center basis-2/5">
 				<span class="bg-[#CBE9FA] w-44 h-44 rounded-full flex justify-center items-center">
@@ -221,12 +242,12 @@
 
 			<div class="flex flex-col shrink-0 basis-3/5 pl-5 md:pl-0">
 				<div class="flex flex-row items-center">
-					<span class="badge-icon p-7 preset-tonal-primary mr-5 text-xl text-black">{6}</span>
+					<span class="badge-icon p-7 preset-tonal-primary mr-5 text-xl">{6}</span>
 					<h3 class="h2">Male sexual health</h3>
 				</div>
 				<div>
 					<div class="p-6 flex flex-col gap-y-1">
-						<p class="text-black">
+						<p class="text-base">
 							The male sexual dysfunction is the most common problem among males in our society
 							arising from various diseases including high blood pressure, diabetes, smoking, high
 							cholesterol, prostate cancer and enlargements, testosterone deficiency, heart and
