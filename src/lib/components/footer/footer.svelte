@@ -1,12 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import DarkModeButton from '../theme/dark_mode_button.svelte';
-	let currentYear: String = '2023';
+	let { isDev } = $props();
 
-	onMount(() => {
-		const d: Date = new Date();
-		currentYear = `${d.getFullYear()}`;
-	});
+	let currentYear: String = $state(`${new Date().getFullYear()}`);
 </script>
 
 <div class="flex flex-col md:flex-row justify-center items-center p-2 bg-white dark:bg-black">
@@ -16,5 +13,7 @@
 			>Mugi Khan</a
 		>
 	</p>
-	<DarkModeButton />
+	{#if isDev}
+		<DarkModeButton />
+	{/if}
 </div>

@@ -48,7 +48,7 @@
 <div class="flex flex-col w-full">
 	<form
 		novalidate
-		class="group"
+		class="group space-y-6 md:space-y-6 md:space-x-6"
 		method="POST"
 		action="?/bookAppointment"
 		use:enhance={({ formElement, formData }) => {
@@ -71,9 +71,9 @@
 			};
 		}}
 	>
-		<div class="flex flex-col md:flex-row mb-3">
-			<label class="label px-5 flex-1 md:mb-0">
-				<span class="text-white">Name</span>
+		<div class="flex flex-col md:flex-row">
+			<label class="label flex-1">
+				<span class="text-base">Name</span>
 				<input
 					name="name"
 					class="input peer text-md
@@ -94,9 +94,9 @@
 			</label>
 		</div>
 
-		<div class="flex flex-col md:flex-row mb-3">
-			<label class="label px-5 flex-1 mb-3 md:mb-0">
-				<span class="text-white">Contact number</span>
+		<div class="flex flex-col md:flex-row space-x-4 space-y-6 md:space-y-0">
+			<label class="label flex-1">
+				<span class="text-base">Contact number</span>
 				<input
 					name="contactNumber"
 					class="input peer text-md
@@ -114,8 +114,8 @@
 					Please enter a valid contact number
 				</span>
 			</label>
-			<label class="label px-5 flex-1">
-				<span class="text-white">Email</span>
+			<label class="label flex-1">
+				<span class="text-base">Email</span>
 				<input
 					name="email"
 					class="input peer text-md
@@ -134,9 +134,9 @@
 			</label>
 		</div>
 
-		<div class="flex flex-col md:flex-row mb-3">
-			<label class="label px-5 flex-1 mb-3 md:mb-0">
-				<span class="text-white">Date</span>
+		<div class="flex flex-col md:flex-row space-x-4 space-y-6 md:space-y-0">
+			<label class="label flex-1">
+				<span class="text-base">Date</span>
 				<input
 					name="date"
 					type="date"
@@ -153,8 +153,8 @@
 					min={new Date().toISOString().split('T')[0]}
 				/>
 			</label>
-			<label class="label px-5 flex-1">
-				<span class="text-white">Time</span>
+			<label class="label flex-1">
+				<span class="text-base">Time</span>
 				<select
 					name="time"
 					bind:value={selectedTime}
@@ -176,7 +176,7 @@
 			</label>
 		</div>
 
-		<div class="w-full flex flex-row items-center justify-center md:mb-2">
+		<div class="w-full flex flex-row items-center justify-center">
 			<button type="submit" class="btn preset-filled text-lg hover:cursor-pointer">
 				{#if loading}
 					<p>Booking</p>

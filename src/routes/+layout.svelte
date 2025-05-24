@@ -10,7 +10,7 @@
 	import { page } from '$app/state';
 
 	let { data, children } = $props();
-	let { session, supabase, user } = $derived(data);
+	let { session, supabase, user, isDev } = $derived(data);
 
 	let pathname = $derived(page.url.pathname);
 
@@ -42,7 +42,7 @@
 	</main>
 
 	<footer>
-		<Footer />
+		<Footer {isDev} />
 	</footer>
 
 	<div
