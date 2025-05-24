@@ -5,11 +5,27 @@
 	import { enhance, applyAction } from '$app/forms';
 	import { onMount } from 'svelte';
 	import type { ApiResponseBody, AvailableSlotsResponse } from '$lib/types/api_types';
+	import DatePicker from './form_fields/date_picker.svelte';
+	import { getLocalTimeZone, today } from '@internationalized/date';
+	import type { DateValue } from '@internationalized/date';
 
 	let loading = $state(false);
 	let loadingSlots = $state(false);
 	let availableSlots = $state<string[]>([]);
-	let selectedDate = $state(new Date().toISOString().split('T')[0]);
+	const localToday = today(getLocalTimeZone());
+	let selectedDate = $state<DateValue>(localToday);
+
+	function getSelectedDate() {
+		return selectedDate;
+	}
+
+	function setSelectedDate(newValue: DateValue) {
+		selectedDate = newValue;
+		if (selectedDate) {
+			fetchAvailableSlots(selectedDate.toString());
+		}
+	}
+
 	let selectedTime = $state('');
 
 	let { modalClose } = $props();
@@ -41,7 +57,7 @@
 
 	// Fetch slots for today on mount
 	onMount(() => {
-		fetchAvailableSlots(selectedDate);
+		fetchAvailableSlots(localToday.toString());
 	});
 </script>
 
@@ -135,31 +151,14 @@
 		</div>
 
 		<div class="flex flex-col md:flex-row space-x-4 space-y-6 md:space-y-0">
-			<label class="label flex-1">
-				<span class="text-base">Date</span>
-				<input
-					name="date"
-					type="date"
-					bind:value={selectedDate}
-					onchange={(e: Event) => {
-						const target = e.target as HTMLInputElement;
-						fetchAvailableSlots(target.value);
-					}}
-					class="input peer text-md
-					bg-white border-2 border-slate-300 rounded-md shadow-sm placeholder-slate-400
-					focus:valid:border-success-500
-					focus:invalid:border-error-500"
-					required
-					min={new Date().toISOString().split('T')[0]}
-				/>
-			</label>
+			<DatePicker {getSelectedDate} {setSelectedDate} minValue={localToday} />
 			<label class="label flex-1">
 				<span class="text-base">Time</span>
 				<select
 					name="time"
 					bind:value={selectedTime}
-					class="select text-md
-					bg-white border-2 border-slate-300 rounded-md shadow-sm placeholder-slate-400
+					class="select text-md text-black
+					bg-white border-2 border-slate-300 rounded-md shadow-sm
 					focus:valid:border-success-500
 					focus:invalid:border-error-500"
 					required
@@ -177,7 +176,10 @@
 		</div>
 
 		<div class="w-full flex flex-row items-center justify-center">
-			<button type="submit" class="btn preset-filled text-lg hover:cursor-pointer">
+			<button
+				type="submit"
+				class="btn preset-filled text-lg hover:cursor-pointer group-invalid:pointer-events-none group-invalid:opacity-50"
+			>
 				{#if loading}
 					<p>Booking</p>
 					<SyncLoader size="30" color="#000" unit="px" duration="2s" />

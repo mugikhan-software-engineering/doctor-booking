@@ -26,7 +26,7 @@
 				sideOffset={3}
 			>
 				<Menubar.Item
-					class="data-highlighted:bg-muted flex h-10 select-none items-center py-3 pl-3 pr-1.5 text-sm focus-visible:outline-none cursor-pointer"
+					class="data-highlighted:bg-muted flex h-10 select-none items-center py-3 pl-3 pr-1.5 text-md text-black focus-visible:outline-none cursor-pointer"
 					onSelect={goToDashboard}
 				>
 					Dashboard
@@ -35,10 +35,10 @@
 
 				<Menubar.Item
 					closeOnSelect={false}
-					class="data-highlighted:bg-muted flex h-10 select-none items-center py-3 pl-3 pr-1.5 text-sm focus-visible:outline-none cursor-pointer"
+					class="data-highlighted:bg-muted flex h-10 select-none items-center py-3 pl-3 pr-1.5 text-md focus-visible:outline-none cursor-pointer"
 				>
 					{#snippet child({ props })}
-						<form action="/logout" method="POST">
+						<form action="/logout" method="POST" class="text-black">
 							<button {...props} type="submit">Logout</button>
 						</form>
 					{/snippet}

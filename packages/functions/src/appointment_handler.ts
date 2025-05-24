@@ -1,4 +1,5 @@
 import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
+import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
 import { db } from "$lib/server/db";
 import { appointmentsTable, availabilityTable } from "$lib/server/schema";
 import { eq, and, gte, lte } from "drizzle-orm";
@@ -9,6 +10,7 @@ import type {
     AvailableSlotsResponse
 } from "$lib/types/api_types";
 import { createApiResponse } from "$lib/types/api_types";
+import { Resource } from "sst";
 
 export const getAvailableSlots: APIGatewayProxyHandlerV2 = async (event): Promise<ApiResponse<AvailableSlotsResponse>> => {
     try {
@@ -136,6 +138,48 @@ export const bookAppointment: APIGatewayProxyHandlerV2 = async (event): Promise<
                 status: 'scheduled'
             })
             .returning();
+
+        if(process.env.SST_DEV) {
+            console.log('App Stage', Resource.App.stage);
+            console.log('Data', JSON.stringify(appointment));
+            return createApiResponse(200, "Appointment booked successfully", appointment);
+        }
+
+        // Send email to admin
+        const dateObj = new Date(date);
+        const formattedDate = dateObj.toLocaleDateString('en-ZA', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    
+        // Convert 24-hour time to 12-hour format
+        const [hours, minutes] = time.split(':');
+        const hour = parseInt(hours);
+        const ampm = hour >= 12 ? 'PM' : 'AM';
+        const hour12 = hour % 12 || 12;
+        const formattedTime = `${hour12}:${minutes} ${ampm}`;
+
+        const adminEmail = Resource.App.stage === "production" ? 'receptiondrahmad66@gmail.com' : 'mugikhan@gmail.com';
+        const adminEmailParams = new SendEmailCommand({
+            Destination: {
+                ToAddresses: [adminEmail]
+            },
+            FromEmailAddress: Resource.HelpEmail.sender,
+            Content: {
+                Template: {
+                    TemplateName: 'BookingConfirmationTemplate',
+                    TemplateData: JSON.stringify({
+                        name: name,
+                        date: formattedDate,
+                        time: formattedTime
+                    })
+                }
+            }
+        });
+        const adminClient = new SESv2Client({ region: 'af-south-1' });
+        await adminClient.send(adminEmailParams);
 
         return createApiResponse(200, "Appointment booked successfully", appointment);
     } catch (error) {
