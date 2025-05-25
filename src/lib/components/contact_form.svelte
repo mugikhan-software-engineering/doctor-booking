@@ -27,10 +27,10 @@
 </script>
 
 <div class="flex flex-col md:flex-row w-full gap-y-5">
-	<div class="static flex flex-1 grow flex-col justify-center bg-transparent mt-5 md:px-4 z-2">
+	<div class="flex flex-1 grow flex-col place-content-evenly bg-transparent z-2">
 		<form
 			novalidate
-			class="group"
+			class="group flex flex-1 grow flex-col"
 			method="POST"
 			action="?/sendEmail"
 			use:enhance={({ formElement, formData }) => {
@@ -56,6 +56,9 @@
 				};
 			}}
 		>
+			<p class="px-5 text-white text-lg mb-3">
+				Fill in the form and we will get back to you as soon as possible.
+			</p>
 			<div class="flex flex-col md:flex-row mb-3">
 				<label class="label px-5 flex-1 md:mb-0">
 					<span class="text-white">Name</span>

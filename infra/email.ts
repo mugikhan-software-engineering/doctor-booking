@@ -1,9 +1,9 @@
 export const email = new sst.aws.Email("HelpEmail", {
-    sender: "help@drahsanahmad.com",
+    sender: $app.stage === "mugi" ? "mugikhan@gmail.com" : "help@drahsanahmad.com",
     transform: {
         identity: (args, opts) => {
             args.configurationSetName = undefined;
-            opts.import = "help@drahsanahmad.com";
+            opts.import = $app.stage === "mugi" ? "mugikhan@gmail.com" : "help@drahsanahmad.com";
         }
     }
 });
