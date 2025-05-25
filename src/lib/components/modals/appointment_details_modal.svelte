@@ -61,15 +61,15 @@
 			<div class="grid grid-cols-2 gap-4">
 				<div>
 					<h3 class="text-sm font-medium text-surface-600-400">Name</h3>
-					<p class="text-lg">{currentAppointment?.name || ''}</p>
+					<p class="text-lg">{currentAppointment?.user?.name || ''}</p>
 				</div>
 				<div>
 					<h3 class="text-sm font-medium text-surface-600-400">Contact Number</h3>
-					<p class="text-lg">{currentAppointment?.contactNumber || ''}</p>
+					<p class="text-lg">{currentAppointment?.user?.phoneNumber || ''}</p>
 				</div>
 				<div>
 					<h3 class="text-sm font-medium text-surface-600-400">Email</h3>
-					<p class="text-lg">{currentAppointment?.email || ''}</p>
+					<p class="text-lg">{currentAppointment?.user?.email || ''}</p>
 				</div>
 				<div>
 					<h3 class="text-sm font-medium text-surface-600-400">Date & Time</h3>

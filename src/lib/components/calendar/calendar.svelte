@@ -119,13 +119,12 @@
 		});
 		calendar.render();
 
-		// Subscribe to appointments store changes
 		if (calendar) {
 			calendar.removeAllEvents();
 			calendar.addEventSource(
 				appointmentsRune.appointments.map((appointment) => ({
 					id: appointment.id.toString(),
-					title: appointment.name,
+					title: appointment.user.name,
 					start: createDateTime(appointment.date, appointment.time),
 					extendedProps: appointment,
 					backgroundColor: getEventColor(appointment.status),
@@ -133,10 +132,6 @@
 				}))
 			);
 		}
-
-		// return () => {
-		// 	unsubscribe();
-		// };
 	});
 </script>
 

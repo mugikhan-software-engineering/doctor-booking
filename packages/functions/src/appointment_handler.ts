@@ -1,7 +1,7 @@
 import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
 import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
 import { db } from "$lib/server/db";
-import { appointmentsTable, availabilityTable } from "$lib/server/schema";
+import { appointmentsTable, availabilityTable, usersTable } from "$lib/server/schema";
 import { eq, and, gte, lte } from "drizzle-orm";
 import { sql } from "drizzle-orm";
 import type { 
@@ -73,10 +73,28 @@ export const getAvailableSlots: APIGatewayProxyHandlerV2 = async (event): Promis
 export const bookAppointment: APIGatewayProxyHandlerV2 = async (event): Promise<ApiResponse<AppointmentData>> => {
     try {
         const body = JSON.parse(event.body || "{}");
-        const { email, name, contactNumber, date, time } = body;
+        const { email, name, contactNumber, date, time, patientType, hasReferral, referringDoctor, hasMedicalAuth, notes } = body;
 
         if (!email || !name || !contactNumber || !date || !time) {
             return createApiResponse(400, "Missing required fields");
+        }
+
+        // First, find or create the user
+        let [user] = await db
+            .select()
+            .from(usersTable)
+            .where(eq(usersTable.email, email));
+
+        if (!user) {
+            [user] = await db
+                .insert(usersTable)
+                .values({
+                    name,
+                    email,
+                    phoneNumber: contactNumber,
+                    age: 0, // Default age, can be updated later
+                })
+                .returning();
         }
 
         // Check if user already has an appointment
@@ -85,7 +103,7 @@ export const bookAppointment: APIGatewayProxyHandlerV2 = async (event): Promise<
             .from(appointmentsTable)
             .where(
                 and(
-                    eq(appointmentsTable.email, email),
+                    eq(appointmentsTable.userId, user.id),
                     eq(appointmentsTable.status, 'scheduled')
                 )
             );
@@ -130,19 +148,54 @@ export const bookAppointment: APIGatewayProxyHandlerV2 = async (event): Promise<
         const [appointment] = await db
             .insert(appointmentsTable)
             .values({
-                email,
-                name,
-                contactNumber,
+                userId: user.id,
                 date,
                 time,
-                status: 'scheduled'
+                status: 'scheduled',
+                patientType: patientType || 'new',
+                hasReferral: hasReferral || false,
+                referringDoctor: hasReferral ? referringDoctor : null,
+                hasMedicalAuth: hasMedicalAuth || false,
+                notes: notes || null
             })
             .returning();
 
+        // Fetch the complete appointment data with user information
+        const [completeAppointment] = await db
+            .select({
+                id: appointmentsTable.id,
+                userId: appointmentsTable.userId,
+                date: appointmentsTable.date,
+                time: appointmentsTable.time,
+                status: appointmentsTable.status,
+                patientType: appointmentsTable.patientType,
+                hasReferral: appointmentsTable.hasReferral,
+                referringDoctor: appointmentsTable.referringDoctor,
+                hasMedicalAuth: appointmentsTable.hasMedicalAuth,
+                notes: appointmentsTable.notes,
+                createdAt: appointmentsTable.createdAt,
+                updatedAt: appointmentsTable.updatedAt,
+                user: {
+                    id: usersTable.id,
+                    name: usersTable.name,
+                    email: usersTable.email,
+                    age: usersTable.age,
+                    phoneNumber: usersTable.phoneNumber,
+                    address: usersTable.address,
+                    medicalHistory: usersTable.medicalHistory,
+                    emergencyContact: usersTable.emergencyContact,
+                    createdAt: usersTable.createdAt,
+                    updatedAt: usersTable.updatedAt
+                }
+            })
+            .from(appointmentsTable)
+            .leftJoin(usersTable, eq(appointmentsTable.userId, usersTable.id))
+            .where(eq(appointmentsTable.id, appointment.id));
+
         if(process.env.SST_DEV) {
             console.log('App Stage', Resource.App.stage);
-            console.log('Data', JSON.stringify(appointment));
-            return createApiResponse(200, "Appointment booked successfully", appointment);
+            console.log('Data', JSON.stringify(completeAppointment));
+            return createApiResponse(200, "Appointment booked successfully", completeAppointment);
         }
 
         // Send email to admin
@@ -180,7 +233,7 @@ export const bookAppointment: APIGatewayProxyHandlerV2 = async (event): Promise<
         const adminClient = new SESv2Client({ region: 'af-south-1' });
         await adminClient.send(EmailParams);
 
-        return createApiResponse(200, "Appointment booked successfully", appointment);
+        return createApiResponse(200, "Appointment booked successfully", completeAppointment);
     } catch (error) {
         console.error("Error booking appointment:", error);
         return createApiResponse(500, "Internal server error");
@@ -191,7 +244,7 @@ export const updateAppointment: APIGatewayProxyHandlerV2 = async (event) => {
     try {
         const { appointmentId } = event.pathParameters || {};
         const body = JSON.parse(event.body || "{}");
-        const { date, time, status } = body;
+        const { date, time, status, patientType, hasReferral, referringDoctor, hasMedicalAuth, notes } = body;
 
         if (!appointmentId) {
             return {
@@ -200,16 +253,52 @@ export const updateAppointment: APIGatewayProxyHandlerV2 = async (event) => {
             };
         }
 
-        const [appointment] = await db
+        await db
             .update(appointmentsTable)
             .set({
                 date,
                 time,
                 status,
+                patientType,
+                hasReferral,
+                referringDoctor,
+                hasMedicalAuth,
+                notes,
                 updatedAt: new Date()
             })
-            .where(eq(appointmentsTable.id, parseInt(appointmentId)))
-            .returning();
+            .where(eq(appointmentsTable.id, parseInt(appointmentId)));
+
+        // Fetch the complete updated appointment data
+        const [appointment] = await db
+            .select({
+                id: appointmentsTable.id,
+                userId: appointmentsTable.userId,
+                date: appointmentsTable.date,
+                time: appointmentsTable.time,
+                status: appointmentsTable.status,
+                patientType: appointmentsTable.patientType,
+                hasReferral: appointmentsTable.hasReferral,
+                referringDoctor: appointmentsTable.referringDoctor,
+                hasMedicalAuth: appointmentsTable.hasMedicalAuth,
+                notes: appointmentsTable.notes,
+                createdAt: appointmentsTable.createdAt,
+                updatedAt: appointmentsTable.updatedAt,
+                user: {
+                    id: usersTable.id,
+                    name: usersTable.name,
+                    email: usersTable.email,
+                    age: usersTable.age,
+                    phoneNumber: usersTable.phoneNumber,
+                    address: usersTable.address,
+                    medicalHistory: usersTable.medicalHistory,
+                    emergencyContact: usersTable.emergencyContact,
+                    createdAt: usersTable.createdAt,
+                    updatedAt: usersTable.updatedAt
+                }
+            })
+            .from(appointmentsTable)
+            .leftJoin(usersTable, eq(appointmentsTable.userId, usersTable.id))
+            .where(eq(appointmentsTable.id, parseInt(appointmentId)));
 
         return {
             statusCode: 200,

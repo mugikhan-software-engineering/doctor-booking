@@ -8,16 +8,33 @@ export type ApiResponseBody<T = void> = {
     data?: T;
 };
 
+export type UserData = {
+    id: number;
+    name: string;
+    email: string;
+    age: number;
+    phoneNumber?: string;
+    address?: string;
+    medicalHistory?: string;
+    emergencyContact?: string;
+    createdAt: string;
+    updatedAt: string;
+};
+
 export type AppointmentData = {
     id: number;
-    email: string;
-    name: string;
-    contactNumber: string;
+    userId: number;
     date: string;
     time: string;
     status: 'scheduled' | 'completed' | 'cancelled';
+    patientType: 'new' | 'existing';
+    hasReferral: boolean;
+    referringDoctor?: string;
+    hasMedicalAuth: boolean;
+    notes?: string;
     createdAt: string;
     updatedAt: string;
+    user: UserData;
 };
 
 export type AvailableSlotsResponse = {

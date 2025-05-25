@@ -1,6 +1,6 @@
 import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
 import { db } from "$lib/server/db";
-import { appointmentsTable, availabilityTable } from "$lib/server/schema";
+import { appointmentsTable, availabilityTable, usersTable } from "$lib/server/schema";
 import { eq, and, gte, lte, asc } from "drizzle-orm";
 import type { 
     ApiResponse, 
@@ -28,8 +28,33 @@ export const getAllAppointments: APIGatewayProxyHandlerV2 = async (event): Promi
         }
 
         const appointments = await db
-            .select()
+            .select({
+                id: appointmentsTable.id,
+                date: appointmentsTable.date,
+                time: appointmentsTable.time,
+                status: appointmentsTable.status,
+                patientType: appointmentsTable.patientType,
+                hasReferral: appointmentsTable.hasReferral,
+                referringDoctor: appointmentsTable.referringDoctor,
+                hasMedicalAuth: appointmentsTable.hasMedicalAuth,
+                notes: appointmentsTable.notes,
+                createdAt: appointmentsTable.createdAt,
+                updatedAt: appointmentsTable.updatedAt,
+                user: {
+                    id: usersTable.id,
+                    name: usersTable.name,
+                    email: usersTable.email,
+                    age: usersTable.age,
+                    phoneNumber: usersTable.phoneNumber,
+                    address: usersTable.address,
+                    medicalHistory: usersTable.medicalHistory,
+                    emergencyContact: usersTable.emergencyContact,
+                    createdAt: usersTable.createdAt,
+                    updatedAt: usersTable.updatedAt
+                }
+            })
             .from(appointmentsTable)
+            .leftJoin(usersTable, eq(appointmentsTable.userId, usersTable.id))
             .where(conditions.length > 0 ? and(...conditions) : undefined)
             .orderBy(appointmentsTable.date, appointmentsTable.time);
 
