@@ -53,6 +53,16 @@ api.route("POST /book-appointment", {
     runtime: "nodejs20.x",
 });
 
+api.route("POST /search-appointment", {
+    handler: "packages/functions/src/appointment_handler.searchAppointment",
+    runtime: "nodejs20.x",
+});
+
+api.route("PUT /update-appointment", {
+    handler: "packages/functions/src/appointment_handler.updateAppointment",
+    runtime: "nodejs20.x",
+});
+
 api.route("GET /admin/appointments", "packages/functions/src/admin_handler.getAllAppointments", {
     auth: {
         lambda: authorizer.id

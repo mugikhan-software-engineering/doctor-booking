@@ -242,15 +242,11 @@ export const bookAppointment: APIGatewayProxyHandlerV2 = async (event): Promise<
 
 export const updateAppointment: APIGatewayProxyHandlerV2 = async (event) => {
     try {
-        const { appointmentId } = event.pathParameters || {};
         const body = JSON.parse(event.body || "{}");
-        const { date, time, status, patientType, hasReferral, referringDoctor, hasMedicalAuth, notes } = body;
+        const { appointmentId, date, time, status, patientType, hasReferral, referringDoctor, hasMedicalAuth, notes } = body;
 
         if (!appointmentId) {
-            return {
-                statusCode: 400,
-                body: JSON.stringify({ message: "Appointment ID is required" })
-            };
+            return createApiResponse(400, "Search for an appointment first");
         }
 
         await db
@@ -300,15 +296,79 @@ export const updateAppointment: APIGatewayProxyHandlerV2 = async (event) => {
             .leftJoin(usersTable, eq(appointmentsTable.userId, usersTable.id))
             .where(eq(appointmentsTable.id, parseInt(appointmentId)));
 
-        return {
-            statusCode: 200,
-            body: JSON.stringify({ message: "Appointment updated successfully", appointment })
-        };
+        return createApiResponse(200, "Appointment updated successfully", appointment);
     } catch (error) {
         console.error("Error updating appointment:", error);
         return {
             statusCode: 500,
             body: JSON.stringify({ message: "Internal server error" })
         };
+    }
+};
+
+export const searchAppointment: APIGatewayProxyHandlerV2 = async (event): Promise<ApiResponse<AppointmentData>> => {
+    try {
+        const body = JSON.parse(event.body || "{}");
+        const { email } = body;
+        
+        if (!email) {
+            return createApiResponse(400, "Email is required");
+        }
+
+        // First find the user
+        const [user] = await db
+            .select()
+            .from(usersTable)
+            .where(eq(usersTable.email, email));
+
+        if (!user) {
+            return createApiResponse(404, "No user found with this email");
+        }
+
+        // Then find their appointment
+        const [appointment] = await db
+            .select({
+                id: appointmentsTable.id,
+                userId: appointmentsTable.userId,
+                date: appointmentsTable.date,
+                time: appointmentsTable.time,
+                status: appointmentsTable.status,
+                patientType: appointmentsTable.patientType,
+                hasReferral: appointmentsTable.hasReferral,
+                referringDoctor: appointmentsTable.referringDoctor,
+                hasMedicalAuth: appointmentsTable.hasMedicalAuth,
+                notes: appointmentsTable.notes,
+                createdAt: appointmentsTable.createdAt,
+                updatedAt: appointmentsTable.updatedAt,
+                user: {
+                    id: usersTable.id,
+                    name: usersTable.name,
+                    email: usersTable.email,
+                    age: usersTable.age,
+                    phoneNumber: usersTable.phoneNumber,
+                    address: usersTable.address,
+                    medicalHistory: usersTable.medicalHistory,
+                    emergencyContact: usersTable.emergencyContact,
+                    createdAt: usersTable.createdAt,
+                    updatedAt: usersTable.updatedAt
+                }
+            })
+            .from(appointmentsTable)
+            .leftJoin(usersTable, eq(appointmentsTable.userId, usersTable.id))
+            .where(
+                and(
+                    eq(appointmentsTable.userId, user.id),
+                    eq(appointmentsTable.status, 'scheduled')
+                )
+            );
+
+        if (!appointment) {
+            return createApiResponse(404, "No scheduled appointment found");
+        }
+
+        return createApiResponse(200, "Appointment found", appointment);
+    } catch (error) {
+        console.error("Error searching appointment:", error);
+        return createApiResponse(500, "Internal server error");
     }
 }; 

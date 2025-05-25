@@ -1,18 +1,16 @@
 <script lang="ts">
-	import { fly } from 'svelte/transition';
 	import { SyncLoader } from 'svelte-loading-spinners';
 	import { showSuccessToast, showErrorToast } from '$lib/components/toasts/toaster-svelte';
 	import { enhance, applyAction } from '$app/forms';
 	import { onMount } from 'svelte';
 	import type { ApiResponseBody, AvailableSlotsResponse } from '$lib/types/api_types';
 	import DatePicker from './form_fields/date_picker.svelte';
-	import { getLocalTimeZone, today } from '@internationalized/date';
 	import type { DateValue } from '@internationalized/date';
 
+	let { modalClose, localToday } = $props();
 	let loading = $state(false);
 	let loadingSlots = $state(false);
 	let availableSlots = $state<string[]>([]);
-	const localToday = today(getLocalTimeZone());
 	let selectedDate = $state<DateValue>(localToday);
 
 	function getSelectedDate() {
@@ -27,8 +25,6 @@
 	}
 
 	let selectedTime = $state('');
-
-	let { modalClose } = $props();
 
 	const apiUrl = import.meta.env.VITE_API_URL;
 
