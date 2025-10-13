@@ -13,6 +13,7 @@
     "preview": "vite preview",
     "sst:deploy": "sst deploy",
     "sst:dev": "sst dev --stage dev",
+    "sst:devv": "sst dev",
     "sso": "aws sso login --sso-session=doctor"
   },
   "devDependencies": {
