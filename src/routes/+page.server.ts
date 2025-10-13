@@ -3,14 +3,21 @@ import type { PageServerLoad, Actions } from './$types';
 import { fail, json } from '@sveltejs/kit';
 import { Resource } from 'sst';
 
-export const load: PageServerLoad = (async () => { 
-	const response = await fetch(
-		`https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJB3c16pyolR4RA3gLQl3Z5nI&key=${Resource.PlacesApiKey.value}`
-	);
-	const res: PlaceDetailsResponse = await response.json();
-	return {
-		reviews: res.result.reviews ?? []
-	};
+export const load: PageServerLoad = (async () => {
+	try {
+		const response = await fetch(
+			`https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJB3c16pyolR4RA3gLQl3Z5nI&key=${Resource.PlacesApiKey.value}`
+		);
+		const res: PlaceDetailsResponse = await response.json();
+		return {
+			reviews: res.result.reviews ?? []
+		};
+	} catch (error) {
+		console.error('Error fetching place details:', error);
+		return {
+			reviews: []
+		};
+	}
 }) satisfies PageServerLoad;
 
 export const actions: Actions = {
@@ -59,7 +66,7 @@ export const actions: Actions = {
 				},
 				body: JSON.stringify(contactObj)
 			});
-			
+
 			const responseMessage = await response.text();
 
 			if (!response.ok) {

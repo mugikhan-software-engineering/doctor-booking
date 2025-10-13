@@ -25,7 +25,7 @@
 	let isVisibleContactForm: boolean = $state(false);
 	let isInViewReviewTitle: boolean = $state(false);
 
-	let { data }: PageProps = $props()
+	let { data }: PageProps = $props();
 
 	let email: String = '';
 
@@ -73,9 +73,7 @@
 		class="absolute w-screen h-dvh top-0 left-0 bg-cover bg-center bg-no-repeat bg-fixed bg-blend-color opacity-60 blur-[1px]"
 		style="background-image:url({paralax})"
 	></div>
-	<div
-		class="sticky flex bg-transparent p-5 lg:flex-row flex-col items-center z-0 gap-y-8 w-full"
-	>
+	<div class="sticky flex bg-transparent p-5 lg:flex-row flex-col items-center z-0 gap-y-8 w-full">
 		<div
 			class="flex flex-col md:flex-row items-start justify-start md:justify-start md:items-start xs:mt-5 sm:mt-5 md:mt-0 basis-3/5"
 		>
@@ -89,7 +87,7 @@
 			<img class="w-full md:w-[550px] md:h-[550px] mr-2" src={profile} alt="Dr. Ahsan Ahmad" />
 		</div>
 	</div>
-	<QuickNav />
+	<QuickNav hasReviews={data.reviews && data.reviews.length > 0} />
 </section>
 
 <div class="h-fit w-screen">
@@ -203,52 +201,57 @@
 		></iframe>
 	</section>
 
-	<div
-		class="mt-5"
-		use:inview
-		oninview_change={(event) => {
-			const { inView } = event.detail;
-			isInViewReviewTitle = inView;
-		}}
-	>
-		<FloatingTitle
-			title="WHAT OUR PATIENTS ARE SAYING"
-			subtitle="Reviews"
-			yOffset={-50}
-			isVisible={isInViewReviewTitle}
-		/>
-	</div>
-	<div class="md:p-4 grid grid-cols-[auto_1fr_auto] md:gap-4 items-center md:my-4 mt-5 mb-20">
-		<!-- Button: Left -->
-		<button
-			type="button"
-			class="btn hover:preset-tonal-primary"
-			aria-label="chevron-left"
-			data-carousel-left
+	{#if data.reviews && data.reviews.length > 0}
+		<div
+			class="mt-5"
+			use:inview
+			oninview_change={(event) => {
+				const { inView } = event.detail;
+				isInViewReviewTitle = inView;
+			}}
 		>
-			<ChevronLeftIcon style="font-size: 1.5em;" class="text-gray-600" />
-		</button>
-		<!-- Full Images -->
-		<div data-carousel class="snap-x scroll-px-4 snap-mandatory scroll-smooth flex md:gap-10 overflow-x-auto md:px-5 md:py-10 overflow-y-auto">
-			{#await data.reviews}
-				<ReviewCardPlaceholder />
-				<ReviewCardPlaceholder />
-			{:then reviewData}
-				{#each reviewData as review}
-					<ReviewCard {review} />
-				{/each}
-			{/await}
+			<FloatingTitle
+				title="WHAT OUR PATIENTS ARE SAYING"
+				subtitle="Reviews"
+				yOffset={-50}
+				isVisible={isInViewReviewTitle}
+			/>
 		</div>
-		<!-- Button: Right -->
-		<button
-			type="button"
-			class="btn hover:preset-tonal-primary"
-			aria-label="chevron-right"
-			data-carousel-right
-		>
-			<ChevronRightIcon style="font-size: 1.5em;" class="text-gray-600" />
-		</button>
-	</div>
+		<div class="md:p-4 grid grid-cols-[auto_1fr_auto] md:gap-4 items-center md:my-4 mt-5 mb-20">
+			<!-- Button: Left -->
+			<button
+				type="button"
+				class="btn hover:preset-tonal-primary"
+				aria-label="chevron-left"
+				data-carousel-left
+			>
+				<ChevronLeftIcon style="font-size: 1.5em;" class="text-gray-600" />
+			</button>
+			<!-- Full Images -->
+			<div
+				data-carousel
+				class="snap-x scroll-px-4 snap-mandatory scroll-smooth flex md:gap-10 overflow-x-auto md:px-5 md:py-10 overflow-y-auto"
+			>
+				{#await data.reviews}
+					<ReviewCardPlaceholder />
+					<ReviewCardPlaceholder />
+				{:then reviewData}
+					{#each reviewData as review}
+						<ReviewCard {review} />
+					{/each}
+				{/await}
+			</div>
+			<!-- Button: Right -->
+			<button
+				type="button"
+				class="btn hover:preset-tonal-primary"
+				aria-label="chevron-right"
+				data-carousel-right
+			>
+				<ChevronRightIcon style="font-size: 1.5em;" class="text-gray-600" />
+			</button>
+		</div>
+	{/if}
 
 	<div id="reviews" class="invisible mt:10 md:mt-20">Scroll to</div>
 </div>
