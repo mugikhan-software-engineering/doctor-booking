@@ -20,7 +20,7 @@
 	<span class="text-xs sm:text-sm md:text-base font-medium whitespace-nowrap">{text}</span>
 	{#if Icon}
 		<Icon
-			class="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 text-white transition-transform duration-200 group-hover:translate-y-0.5"
+			class="w-5 h-5 text-white transition-transform duration-200 group-hover:translate-y-0.5 text-xl"
 		/>
 	{/if}
 </a>
