@@ -40,6 +40,6 @@
 			</RatingGroup.Control>
 			<RatingGroup.HiddenInput />
 		</RatingGroup>
-		<p class="text-base p-2">{review.text}</p>
+		<p class="text-base p-2 line-clamp-5 overflow-hidden text-ellipsis">{review.text}</p>
 	</div>
 </div>
