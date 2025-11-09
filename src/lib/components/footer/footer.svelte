@@ -1,15 +1,19 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
-    import whatsapp from '$lib/assets/svg/whatsapp.svg';
-    let currentYear: String = '2023';
-
-    onMount(() => {
-		const d: Date = new Date();
-		currentYear = `${d.getFullYear()}`;
-	});
+	const currentYear = new Date().getFullYear().toString();
 </script>
-<div class="flex flex-col md:flex-row justify-center items-center pl-2 md:pl-0 bg-white">
-    <p class="text-md">
-        Copyright © {currentYear} Dr. Ahsan Ahmad. Website by <a href="https://mugikhan.com/" target="_blank" class="hover:underline underline-offset-2">Mugi Khan</a>
-    </p>
-</div>
+
+<footer
+	class="flex flex-col md:flex-row justify-center items-center px-2 py-4 sm:py-3 md:py-4 bg-white min-h-[60px] sm:min-h-[56px] md:min-h-[64px]"
+>
+	<p class="text-sm sm:text-base text-center">
+		Copyright © {currentYear} Dr. Ahsan Ahmad. Website by
+		<a
+			href="https://mugikhan.com/"
+			target="_blank"
+			rel="noopener noreferrer"
+			class="hover:underline underline-offset-2 text-secondary-600 hover:text-secondary-700 transition-colors"
+		>
+			Mugi Khan
+		</a>
+	</p>
+</footer>

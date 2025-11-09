@@ -10,7 +10,7 @@ export const load: PageServerLoad = (async () => {
 		);
 		const res: PlaceDetailsResponse = await response.json();
 		return {
-			reviews: res.result.reviews ?? []
+			reviews: res.result?.reviews ?? []
 		};
 	} catch (error) {
 		console.error('Error fetching place details:', error);

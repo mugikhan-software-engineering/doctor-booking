@@ -24,18 +24,31 @@ export default $config({
 		const domain = $app.stage === 'production' ? 'drahsanahmad.com' : 'dev.drahsanahmad.com';
 		const routerName = $app.stage === 'production' ? 'DoctorBooking' : 'router';
 		const redirects = $app.stage === 'production' ? [`www.${domain}`] : undefined;
-		const router = new sst.aws.Router(routerName, {
-			domain: {
-				name: domain,
-				redirects: redirects
-			}
-		});
+		const isPermanentStage = ['production', 'dev'].includes($app.stage);
+		const router = isPermanentStage
+			? new sst.aws.Router(routerName, {
+					domain: {
+						name: domain,
+						redirects: redirects
+					}
+				})
+			: new sst.aws.Router(routerName);
+
+		let links: any[] = [];
+		if (isPermanentStage) {
+			links = [...allSecrets, api, email];
+		} else {
+			links = [...allSecrets, api];
+		}
 
 		new sst.aws.SvelteKit('site', {
 			router: {
 				instance: router
 			},
-			link: [...allSecrets, email, api]
+			link: links,
+			environment: {
+				VITE_API_URL: api.url
+			}
 		});
 
 		return {

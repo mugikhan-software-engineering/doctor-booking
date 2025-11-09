@@ -1,10 +1,9 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @import '@skeletonlabs/skeleton';
-@import '@skeletonlabs/skeleton/optional/presets';
 @import '@fontsource-variable/montserrat';
 @import '../doctor-theme.css';
-@source '../node_modules/@skeletonlabs/skeleton-svelte/dist';
+@import '@skeletonlabs/skeleton-svelte';
 /* Add your theme import for your theme: "doctor-theme" here */
 
 @tailwind utilities;
