@@ -17,8 +17,8 @@
 		</Avatar>
 	</div>
 	<div class="flex flex-col gap-2">
-		<p class="text-base p-2 capitalize">{review.author_name}</p>
-		<RatingGroup count={5} allowHalf={true} value={review.rating}>
+		<p class="text-lg p-2 capitalize">{review.author_name}</p>
+		<RatingGroup count={5} allowHalf={true} value={review.rating} readOnly>
 			<RatingGroup.Control>
 				<RatingGroup.Context>
 					{#snippet children(ratingGroup)}
@@ -40,6 +40,8 @@
 			</RatingGroup.Control>
 			<RatingGroup.HiddenInput />
 		</RatingGroup>
-		<p class="text-base p-2 line-clamp-5 overflow-hidden text-ellipsis">{review.text}</p>
+		<p class="text-base line-clamp-5 overflow-hidden">
+			{review.text}
+		</p>
 	</div>
 </div>
