@@ -35,6 +35,10 @@ jobs:
         run: |
           npx sst secret set PlacesApiKey ${{ secrets.PLACES_API_KEY }} --stage production
 
+      - name: Temporary refresh SST
+        run: |
+          npx sst refresh --stage production
+
       - name: Deploy app
         run: |
           npx sst deploy --stage production
